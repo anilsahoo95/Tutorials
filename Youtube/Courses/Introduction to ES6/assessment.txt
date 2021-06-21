@@ -1,0 +1,17 @@
+1.function addressmakr(address)
+{
+const newaddress={
+city:address.city,
+state:address.state,
+country: "United States"
+}
+
+addressmakr({city:"texas",state:"arizona"})
+
+use object literals,object destructuring n
+ttemplate literals in the above program
+
+2.Create a node js application that takes in user input from console and 
+saves the input in a text file
+
+Use readline and filesystem modules

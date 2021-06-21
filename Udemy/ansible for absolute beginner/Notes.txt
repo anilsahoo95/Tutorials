@@ -1,0 +1,229 @@
+To enable ssh to a virtual machine from host u need to:-
+change network of the vm from NAT to bridged
+install ssh on the virtual machine
+
+install putty on client which will connect/ssh to the virtual machine
+
+with use of ansible u can configure multiple systems at a time.. it is better than its alternatives as no software needs to be installed on the target machines.
+
+U can connect to target machines using ssh..
+
+data about the various target machines is stored inside an inventory file.. if u dont create an inventory file the default one is /etc/ansible/hosts
+
+in ansible file:-
+servers are listed line by line
+
+ex-
+server1
+server2
+server3
+
+suppose u want to group the various servers into 1 u can use the below syntax:-
+[group1]
+server1
+server2
+
+suppose u want to have an alias for the server name. The syntax is-
+
+name ansible_host=server1
+name2 ansible_host=server2
+
+suppose u want to specify a username n password for the server u want to connect to.. syntax-
+name1 ansible_host=server1 ansible_user=username ansible_ssh_pass=password
+
+by default for all the servers ansible_user=root
+
+dnt store passwords normally, use ssh key authentication
+
+ssh to a different system use command- ssh username@ip
+
+create a txt file n save the servers in the file.. it will be ur inventory file
+
+first ansible command:-
+ansible target1(server name) -m ping(module name) -i name.txt(inventory file name)
+
+if u r mentioning server name for the first time in inventory file n trying to run it, it might not work as it will look for host key fingerprint.
+U can solve this by doing ssh manually for all the servers from the controller server that will add the host key.
+
+
+
+
+
+Ansible playbooks are writeen in a particular format called yaml
+yaml represents data.. in this case configuration data
+Key Value pair in yaml-
+fruit: apple--- space between colon n value
+
+ArrayList-
+Fruits:
+-   apple
+-   orange
+-   banana
+
+Dictionary
+Fruits:
+    apple: 56
+    banana: 48
+In playbook we define what we want ansible to do... 
+ansible playbooks contain a list of instructions
+play contains a set of activities or tasks to be performed
+each task is a single action that needs to be performed on the 
+target like exceuting a command,running a script,install package,
+shutdown/restart
+
+playbook is a collection or list of plays.
+Each play consists of the following-
+name:
+hosts: target hosts on which playbook will run
+tasks:
+
+ansible modules are the various tasks that u want to run. ex apt,yum
+
+use ansible-playbook playbook_name to run the ansible playbook
+
+playbook.yml:-
+-
+  name: 
+  hosts: 
+  tasks: 
+      - name:
+        ping
+
+Ansible Modules:
+Command module is used to execute a command on remote node..
+
+ex-
+-
+  name: test command module
+  hosts: target1
+  tasks:
+     - name: Execute a command date
+       command: date
+     - name: display contents of a file
+       command: cat /etc/resolv.conf
+     - name: display contents of a file after changing directory
+       command: cat resolv.conf chdir=/etc
+     - name: create folder
+       command: mkdir /folder
+
+Service Module is used to start,stop or restart a service
+
+ex-
+- 
+  name: Test service module
+  hosts: target1
+  tasks:
+      - name: start postgres
+        service:
+             name: postgressql
+             state: started
+      - name: started httpd
+        service:
+             name: httpd
+             state: started
+      - name: staeted nginx
+        service:
+             name: nginx
+             state:started
+
+Here we are not asking ansible to start a service, 
+we are just asking to ensure that the service is in started position. 
+if it is started do nothing but if it is not started pls start it
+
+Ansible Variables:-
+variables here are also used to store values
+ansible_host,ansible_ssh_pass used in inventory file were all 
+examples of ansible variables.
+we can also use variables in a ansible playbook file by defining a key 
+value pair under vars.
+ex:
+ vars:
+    x: 10
+
+we can use ansible variables inside playbook by {{x}}
+
+ex
+- 
+  name: add dns server to resolv.conf
+  hosts: target1
+  vars:
+     dns_server: 10.1.2.2
+  tasks:
+     - name: copy ip to file
+       lineinfile:
+              path: /etc/resolv.conf
+              line: 'nameserver {{dns_server}}'
+
+lineinfile is a module that will check that if a given line is not 
+present in the file it will add the given line to the file
+
+apt and yum are two modules that help in installing/managing packages 
+in linux based systems. apt works in debian based systems..
+ex-
+-
+  name: use apt module in debian
+  hosts: all
+  tasks:
+     - name: use apt to install apache
+       apt:
+         name: httpd
+         state: presnt
+
+Conditionals:
+use case - use apt indebian based systems and yum in redhat based 
+systems
+
+-
+  name: use of conditionals
+  hosts: all
+  tasks:
+     - name: install using apt
+       apt:
+          name: httpd
+          state: present
+       when: ansible_os_family=="Debian" and ansible_distribution_version=="16.04"
+
+     - name: install using yum
+       yum:
+         name: httpd
+         state: present 
+       when: ansible_os_family=="Redhat" or ansible_os_family=="SUSE"
+
+loops:
+store list of packages in a variable n run a loop on them n install
+
+---
+- name: install softwares
+  hosts: all
+  vars:
+     packages:
+          - name: nginx
+            required: true
+          - name: httpd
+            required: true
+          - name: mysql
+            required: true
+  tasks:
+    - name: install using apt
+      apt:
+        name: "{{item.name}}"
+        state: present
+      when: item.required == true  
+      loop: "{{packages}}"
+    
+ user is a module used to create users in the traget system
+-
+  name: create users
+  hosts: all
+  tasks: 
+     - name: user creation
+       user:
+          name: "{{item}}"
+          state: present
+       loop:
+         -joe
+         -john
+         -law
+         -hello
+
+

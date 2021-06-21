@@ -1,0 +1,327 @@
+Components are building blocks of react js
+that help in building reusable html code..
+
+Reactjs is very fast because it uses virtual
+dom
+reactjs helps us create reusable components
+maintained by facebook
+ crete a node js project
+install two dependencies react n react-dom
+create index.html,index.css and index.js
+
+in index.js import React n ReactDom
+
+ReactDom has a render method which takes in
+two parameters what do I want to show, where
+do I want to show. 
+
+in html create a body n a div n give an id
+the id in html will be where I want to show
+in js,(document.getElementById("root")
+
+React is the folder that enables to use JSX
+
+JSX is a javascript verison of html
+
+if u create components by writing functions
+then it is called functional components
+
+function MyApp()
+{
+return (
+<h1>anil</h1>
+
+)
+}
+
+ReactDom.render(<MyApp/>,doc.get);
+
+when ur using a component like <MyApp/> u
+r basically creating an instance of that 
+component
+
+in every component u create u have to import
+react otherwise it will show error as jsx
+will nt be enabled
+
+to export a component to be reusable in other
+components use- export default component
+
+when u import something from a file u have
+created it is mandatory to mention a relative
+path to the file or reactjs would just treat
+it as a module n try to search that module
+
+also react understans that u would most
+probably import from a js file so u can omit
+.js extension from file name when importing
+
+File structure is very important.. try to
+include all components in a componets folder
+
+u can give a element a style by using class
+bt class is an invalid keyword in jsx so
+instead of class u need to use className=""
+
+define the css in styles.css
+to link a component to a css file use import
+'./name.css' i.e import followed by path of
+css file
+
+in return of components we may feel that
+we are returning html but actually we are
+returning JSX
+
+inside jsx if we want to use javascript means
+use a variable or function we need to wrap it
+inside paranthesis
+
+inline styles-style="" would work in case of
+html but will not work in case of JSX
+in case of jsx react is expecting style to
+be mapped to a javascript object n nt a string
+so styles={color:"green"} will work
+now as {} is a js object so we are using js
+inside jsx so we need to surround {} with ano
+ther {} so it would be style={{color:"green"}}
+any style like background-color will be change
+to backgroundColor in case of JSX
+u can put all the styles in a variable n
+directly use the variable inside an elemet
+also
+
+props is an object that contains all the 
+properties u pass in
+
+in functional component place props as argume
+nt to get all the properties that are passed
+in for the component
+
+function myApp()
+passing props:-
+<MyApp src="" img="" head=""/>
+or pass <MyApp contact={{src:"",img:"",hrad:""}}
+
+a class based component would start with the
+class keyword and extends React.Component
+which allows it toget some properties from
+React.Component
+
+a class component needs to implement one meth
+od i.e render method ehich would return the
+jsx u want to display
+
+class App extends React.Component()
+{
+render()
+{
+return(
+
+)}
+}
+
+if u want to maintain data within component
+then we use state.
+main difference between state n props is that
+props are mutable that is the value cannot
+be changed by the component receiving it
+whereas state can be changed by the component
+which maintains it
+
+state can only be used with class components.
+to create state inside a class u have to
+create a constructor n inside constructor u
+have to call the super method which gets in
+a lot of properties frm parent
+
+this.state is a object to be defined inside
+contructor which is used to maintain state
+by a component
+
+u can pass a state as a prop to a componet
+then whenver u change state it will reflect in
+the child components as well
+
+event handlers:-
+onClick
+onMouseOvr
+
+onClick={function(){condole.log("hello world"
+
+whenever u want to use setstate inside a class
+function u have to bind the function to the
+class
+this.function=this.function.bind(this);
+setState comes from React.Component
+ setState takes in two arguments.. 
+
+this.setState({count:this.state.count +1}
+
+if u want to modify the current state based
+on the previous state the above might not
+alwys work. instaed u can pass a function as
+an argument that takes in d prevState n return
+the new state
+
+this.setState((prev)=>
+{
+return count:prev.count + 1;
+
+every react component goes through phases in
+its life cycle
+render method is called everytym a prop or 
+state changes
+
+componentDidMount means component is born.it
+is only called once while displaying on scree
+n.. it is nt called when there is change in
+state or prop
+
+componentWillReceiveProps- is called whenever
+parent sends props to the child
+
+2.56 
+static getDerivedStateFromProps()
+{
+
+}
+getSnapShotBeforeUodate()
+{
+create backup before update
+}
+
+Conditional Rendering:-
+componentDidMount is called right after a compone
+nt shows up or mounts on the screen
+suppose u have a api call to show data, now u
+would show a loading icon until data is loaded
+ ternary operator:- condition? executed if true:
+false execution
+
+Using && operator for conditional rendering:-
+condition && statement
+the above is also a kind of condtionl statemment
+where left expression is evaluated to check if
+it is true, if true the right statement is excuted
+n if false nothing gets executed
+
+swapi.co- stars wars api
+
+fetch is a global function use to call http
+requests fetch("api").then(rres=>res.json()).then
+(data)=>this.state.data=data
+
+3.37
+ReactJS forms
+
+in javascript we write a form in html and when
+user clicks on submit we gather all the input
+fields data at the end and then perform
+necessary validations.
+
+But In react we are going to maintains input
+fields data as soon as it is entered
+
+when u assign a value to a key in an object
+u would do key:value
+value can be a variable whose value is evaluat
+ed n set inside value. but key cant be a variab
+le whose value is evaluated.
+suppose u want key to be a variable n its value
+evaluated u have to place key variable inside
+[].
+
+ex- var value="anil";
+    var key="name";
+
+so when creating object u can do: 
+{[key]:value} which will result in {name:'anil}
+
+<form>
+<input type="text" name="firstName" onChange=
+{this.handleChange}> 
+
+<input type="text" name="laststName" onChange=
+{this.handleChange}>
+<h1> {this.state.firstName}{this.state.lastName}
+</h1>
+
+handleChange(e)
+{
+this.setState({[e.target.name]:e.target.value;
+}
+
+In html textarea is not a self closing tag
+like input..the syntax has to be <textarea>
+</textarea>. if u want some default value
+to be present in textarea view u can write in
+between tags. <textarea>hello anil</textarea>
+
+But in React in order to maintain consistancy
+textarea can be written as a self closing tag
+and can be used similarly to an input element
+
+event.target points to the html form element
+that has called the function
+
+in case of checkbox we will not have a value
+property as a checkbox is either checked or
+not checked so it has a checked attribute
+which contains a boolean value that indicates
+whether checkbox is checked or not
+
+<input type="checkbox" checked={this.state.is
+friendly} onChange={this.handleChange}/>
+
+handleChange(e)
+{
+if (e.target.type==="checkboc")
+{
+setstate(checkboc}
+}
+else{
+
+}
+
+Radio button is a combination of both input
+and checkbox
+
+<input type="radio" name="gender" checked=
+{this.state.gender=="male"} value="male" onChange=
+"this.handleChange}
+<input type="radio" name="gender" checked=
+{this.state.gender=="female" value="female"
+onChange="this.handleChange}}
+
+the same name in both radio buttons indicates 
+to DOm that only one of the radio  buttons 
+with same name can be checked
+
+<select 
+name="favColor"
+value={this.state.favColor}
+onChange={this.handleChange}
+>
+<option value="blue">Blue</option> 
+<option value="green">Green</option>
+<option></option>
+<option></option>
+</select>
+
+<form onSubmit={this.handleSubmit}>
+<button>Submit<button>
+
+u shouold always build componets where html is
+separated from functions
+
+ReactJS sample apps that u can create
+freecodecamp- every u build a to do list a pu
+ppy dies
+
+want to build something fun. here is a list
+of sample web app ideas
+
+summer is over here is yet another list of
+exciting ideas to build
+
+ 

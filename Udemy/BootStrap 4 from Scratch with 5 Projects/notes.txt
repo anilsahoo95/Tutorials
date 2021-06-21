@@ -1,0 +1,336 @@
+BootStap is a Ui css framework
+It gives us a lot of HTML/CSS templates to get
+started with web development
+
+Browser Compatible
+Faster development
+responsive
+
+ways to use bootstrap:-
+using cdn
+download and use-if doing offline
+package managers- npm
+
+Live Server- a vs code extension that refresh
+es the UI as soon as we change something in a
+simple html file
+
+Prettier is an extension that lets us format
+code in vscode
+
+Create a folder and open it in vs code. create
+a file hello.html and right click on it inside
+vs code n choose start live server
+
+Use bootstarp by using cdn in link rel
+also need to add scripts- jquery,popper n
+bootstrap js
+
+only if u add bootstrap cdn to ur html file
+bootstrap by defult assigns some classes to
+html elements and styles them. ex if u have
+a <h1> tag in html n u link bootstrap cdn
+then bootstrap would by default add a class
+to h1 tag n do some styling
+
+diffrent heading levels(h1...h5) in html will 
+have diffrent markups.
+
+if u want a h5 to have font size of h1 u can
+simply add class="h1"
+ex <h5 class="h1"> hello </h1>
+
+if u want a heading to have a bigger fontsize
+than h1 then u can use class="display-1"(1-6
+available in bootstrap)
+
+ex <h1 class="display-1"> Hello </h1>
+
+if u want to make a p tag more prominent u
+can add the lead class. It would increase 
+font size n weight of p
+<p class="lead"> something </p>
+
+<p class="text-monospace"> something </p>
+gives p a monospace styling
+
+<p class="font-weight-bold" > make text bold
+without using strong tag
+
+<p class="font-weight-normal"> change text to
+normal if its styling is bold somewhere
+
+<p class="font-italic" >
+for text in italic style
+
+Text transformation use classes text-lowercase
+,text-uppercase and text-capitalize
+<p class="text-lowercase"> make all the letters
+in lowercase
+
+<p class="text-uppercase> make all letters
+in uppercase>
+
+<p class="text-capitalize"> make first letter
+of every word capital
+
+suppose u want to align something to the ryt
+u can use class="text-right"
+
+class="footer" adds some styling to make someth
+look like a footer
+
+if there are multiple lines in a p n u want
+it to display in a single line i.e display as
+much letters as possible n dn ... u can use
+the class "text-trucate"
+
+the li tags inside a ul will by default contain
+a bullet along with some padding, u can rmove
+them by adding class list-unstyled to ul
+<ul class="list-unstyled"
+
+by defaultl tags are in a horizontal position
+u can use class list-inline in ul and use 
+list-inline-item in all the li tags
+
+if u want a p content to be uniform on both
+sides(left n ryt) of a page or justify it.
+u can add a class text-justify to p tag
+
+text align classes are text-right,text-left n
+text-center
+
+in bootstrap we have 4 screen sizes-
+sm,lg,md and xl
+
+for alignment on basis of screen sizes u can
+add class like text-sm-left
+
+sm- means on screens sm n above
+md- on screens medium n above
+lg- on larger screens
+
+vertical alignment
+u can have multiple text in a single line
+by including the texts within a span tag
+
+now to have different alignments for the span
+tags we can use classes align-baseline,align-
+top,align-bottom,align-middle
+
+h1,div are block level elements that take up
+the entire screen width whereas span is inline
+element that takes up the width it requires 
+only
+
+if u want to make a block level element an
+inline element we can use d-inline class
+<h1 class="d-inline">
+
+Normally two block level elements will be one
+line after each other but by using d-inline
+they would come in one line next to each other
+
+d-block would make an inline elemet into a 
+block level element
+
+d-inline-block class is used to make an elemen
+inline-block
+
+d above stands for display
+
+float-left,float-right are used to float 
+elemts to left n ryt respectively
+
+Responsive float by using float-sm-left
+
+text align applies to the text in the contain
+er whereas float applies to the container
+itself
+
+when u use float an elemt left n other elemet
+ryt dn the middle space will be taken up by
+other elemet which could affect styling and 
+alignment a lot so u need to clear it
+
+clearfix class is used for that
+
+<div class="clearfic">
+<button class="float-left">
+<button class="float-right">
+
+class="fixed-top" is going to fix an element
+to the top of the page
+
+class="sticky-top" is going to place the elmt
+as normal bt wn the user scrolls till the elmt
+then it is going to be fixed at the top
+
+fixed-bootom class is also der
+
+text-primary class to make text color blue
+text-success -green
+text-warning-yellow
+text-danger- red
+text-light-light gray
+text-secondary
+text-info
+text-white
+text-dark
+text-black-50- half as dark as black color
+text-white-50-
+
+to change color of a tag <a class="text-primary"
+
+To give background colors the keys would be
+sme as above bt text would be replaced by bg
+ex-bg-primary,bg-success
+
+class="invisible" makes the elemt disappear
+
+bootstrap also provides a lot of margin n
+padding classes that u could use
+
+class="mb-0" would be margin bottom is 0
+mb-1,mb-2... are also present
+
+mt-0,1,2,3,4 is a class which is used for margin top
+ml-0 is for margin left
+mr-0 is for margin ryt
+
+for margin on both left n ryt we can use
+mx-5
+for margin on both top n bottom we can use
+my-5 class
+
+pb-0 for padding bottom
+pr,pl,pt,px n py are also there
+
+m-3 would be margin at all 4 top,bottom,ryt
+,left
+p-3 would be padding at all 4
+
+w-25 class takes 25 % of the width of contain
+er
+
+h-25 class takes 25% of height of container
+
+to put a border to an elemet use class="border"
+class=brder-top,border-bottom,bottom-left,
+botton-ryt r used for border onlt at that
+specific corner
+
+to give a color to a border use border-primary,
+border-secondary,border-success etc classes
+along with border class
+
+to have border rounded at the edges use rounde
+d class.
+rounded-top,rounded-bottom,rounded-ryt,rounde
+-left
+rounded-circle would give the border as a 
+circle
+
+@media(max-width:768px){
+body{
+
+}
+}
+
+<button type="button">Submit </button>
+class="btn" will add a lot of styling and make
+the button look a lot better
+if we want to change the color of button we
+could use classes lyk btn-primary,btn-secondary
+btn-success etc
+
+if u have a button n u want it to look like
+a link u can use btn-link class
+
+u can also use the btn nd btn-color class on
+a tags and on <input type="button,submit,reset"
+. this will make them look like a button
+
+btn-outline-color(pri,sec etc) would give the
+button a good look upon hoverng
+
+if u want icons within a button u could use
+link fontawesome in link rel and
+ use an i tag with a class within a button tag
+
+To make the button look large u can use
+btn-lg class
+btn-sm for small button
+
+btn-block would make the button take up the
+whole width
+
+active class is usd to make a button look a 
+bit dark blue which is used in dynamic web
+dev
+
+disabled class is used on a button to make
+the button non clickable
+
+<div class=dropdown
+<button class="btn dropdown-toggle data-togg
+le="dropdown">
+Dropdowns
+</button>
+<div class="dropdown-menu>
+<a href="" class="dropdown-item ></a>
+<a href="" class="dropdown-item ></a>
+<a href="" class="dropdown-item ></a>
+</div>
+</div>
+
+a container class moves everything within it
+to the center.. adds margin and padding by
+default
+
+<nav class="navbar navbar-expand >
+<div class="container">
+<a class="navbar-brand" href=""> navbar </a>
+<ul class="navbar-nav">
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a class="nav-link">
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+</ul>
+</div></nav>
+
+---to create a basic navbar(above)
+
+<nav class="navbar navbar-expand >
+<div class="container">
+<a class="navbar-brand" href=""> navbar </a>
+<ul class="navbar-nav">
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a class="nav-link">
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+</ul>
+</div></nav>
+
+
+
+
+
+

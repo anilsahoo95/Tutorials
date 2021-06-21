@@ -1,0 +1,35 @@
+OAuth was initially intended to provide 
+authorization between services
+
+To understand oauth we can take the example of
+parking attendant.. where rich people give the
+car keys to parking guy n he parks the car for 
+them.. now the parking guy might be notorious 
+n may take the car for a long ride or may use
+the key to look into whats present inside the
+trunk.. in that case it might not be a good
+idea to give the parking guy the main key.
+A solution would be if the owner has a valet/
+parking guy key which would have limited car
+access like making the car on/off but wont have
+other access like fuel tank,trunk etc
+
+Take an example of a photo printing app which
+take in an image from u n prints it n delivers 
+to ur address. normally u would upload the
+image to the app from ur device.. but nobody
+saves images on their device now..they save it
+on google drive. so now the app wants to allow
+user to import from google drive.. now to get
+access to google drive ur app needs to know
+username n password f the account which the 
+user vl not be happy sharing. so instead
+the app calls the google drive service then
+the google drive service notifies to the user
+that a service is wanting to get some access
+to the account n list the different accesses 
+the service is asking for. the user verifies
+the info n confirms if the user is ok with
+giving the asked access.. upon confirmation
+google sends back the service with an access 
+token which he can use to get access..

@@ -1,0 +1,236 @@
+you can create a number of microservices for implementing somethimg:
+we need to implement some functionalities for the microservices to work smoothly
+
+Service Registration and discovery- register a service on a server so that another service could go to the centralised server n find the service-- eureka is used
+Load Balancing-ribbon
+Fault tolerance- hystrix
+Easy integration- feign
+Cross Cutting concerns- put all the common functionalities across all microservices in one place.. ex- auth,cors --- zuul
+Distributed tracing- we should be able to trace where the request comes and how the response is-- sleuth n zipkin
+
+All the above functionalities are not present in springboot where spring cloud comes in which is a collection of open source componenets
+
+Use Case-
+There are two microservices:-
+one is productservice- which will contain info about a product
+couponservice- willcontain info about a coupon
+
+client will call a product service passing in product n coupon code then product service will call coupon service along with coupon code n the coupon ervice will reply with the discount associated with the coupon code
+
+Product table:-
+id,name,description,price
+
+Coupon table-
+id,code,discount,exp-date
+
+create a coupon project n add web,jpa n mysql dependency
+create model n repository
+
+create controller:-
+create two methods--- one for coupon creation n one forreturning existing coupon when passed a string couponcode
+
+spring.datasource.url= jdbc:mysql://localhost:3306/mydb
+
+create a product project n add jpa,web n mysql
+
+create controller n add methos to create product
+
+Service Registration and Discovery
+Suppose we want to communicate from one service to another so we will have to mention the endpoint n port deatils of the service being consumed.
+suppose we also name the endpoint n port, now to make sure that the consumed service is always up we may create multiple instances of the service so if one instance goes down other is up.. now in case we mention the endpoint n port in that case
+it is always call the service even if it is down
+
+so we make use of eureka server with which we will register our service, n from nw on the service will called the consumed service through eureka server only
+
+To create a eureka server create a new sts project n add eureka server dependency to it.
+in its main class provide an annotation @Enable Eureka server
+
+In the client services in our case coupon service u need to register it with eureka so u add eureka client dependency to it n add enable eureka client annotation in main class
+
+when u start both the application coupon service will register itself with eureka with use of spring.application.name provided in its application.properties
+
+Eureka Server-
+@EnableEurekaServer
+
+in properties-
+server.port=8761
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+in client-
+add eurekaclientdependency
+
+in pom.xml add spring-cloud.version in properties n dependency management from eureka server
+
+@EnableEurekaCient
+
+spring.application.name=coupon-service
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+Spring web offers RestTemplate
+
+Spring cloud offers feignClient
+
+in product coupon
+add spring cloud starter open feign dependency
+
+create a new interface
+@FeignClient("coupon-service")
+class
+@GetMapping("/couponapi/coupons/{code}")
+Coupon getCoupon(@PathVariable String code);
+
+The above in client microservice will call the consumed microservice n will convert it automatically to what we give in returntype
+this converting is also called serializing
+
+
+in main add @EnableFeign Clients
+
+if u add a column in entity with @Transient, springboot will ignore the column n not save it as it means that we will use it only for our business logic
+
+Client side load balancing:
+if u have multiple instances of a service running dn the work of loadbalanmcer is to balance the load between the two instances
+
+ex-
+u can add a load balancer dependency to product api and dn run two instances of couponservice
+the two are run separately but are related vy use of springapplication name property by eureka.
+the loadbalanceer work automatically with feignclient n will call the two instances one by one thus balancing the load
+
+there are multiple functionalities that are common to all the microservices.. instead of implementing these in all microservices differently we can put them in one using spring cloud api gateway
+ex of functionalities:
+security
+tracing
+service aggregation
+rate limits
+
+create a api gateway project with gateway dependency and discovery client
+
+services will interact with each other through gateway only
+
+we have to configure product n coupon service in our gateway service property file
+
+spring.cloud.gateway.routes[0].id=couponModule
+spring.cloud.gateway.routes[0].uri=lb://COUPON-SERVICE  (lb stands for load balancer which registers all the instances)
+spring.cloud.gateway.routes[0].predicates[0]=Path=/couponapi/**
+
+spring.cloud.gateway.routes[1].id=PdoductModule
+spring.cloud.gateway.routes[1].uri=lb://PRODUCT-SERVICE  (lb stands for load balancer which registers all the instances)
+spring.cloud.gateway.routes[1].predicates[0]=Path=/productapi/**
+
+in product api the @Feignclient is currently connecting directly to the coupon service
+Change it to connect to Gateway-service
+
+To implement common functionalities spring gateway allows us to make use of filters which are called before calling the actual service in which u can implement security,tracing etc
+
+Creating a filter is very simple.. create a class that implements a filter n override all the methods of filter
+
+implement globalfilter
+chain.filter(exchange) is used to ask sb to go back to its normal execution
+there is a filter that needs to be overriden
+
+Create myfilter n implement globalfilter
+
+when a microservice goes down we dont want the whole system to go down
+for ex when the coupon service goes down we dont want product service to go down
+
+here fault tolerance comes in which is implemented using Resilence4j
+
+we need to add spring boot actuator n resilience4j dependency
+
+we can add fault tolerance to a method that may fail by adding info such as how many times to try using a method n then a fallback method which is to be invoked when the no of tries also fail
+@Retry(name="any unique name ti identify this")
+
+By default sb will retry the services for 3 tyms if u want to chnage default behaviour u have to mention in app properties
+
+resilience4j.retry.instances.uniquenamegiventoinstance.max-attempts=2
+
+Create a fallback method which willgive a graceful error when the above controller fails
+
+@Retry(name="unique_name",fallbackMethod="method name")
+
+create a method with above method name which will be called when the above controller fails
+
+sleuth and zipkin provide us distributed tracing facilities i.e the no of client requests that came in and if they failed then where they failed n all..
+
+add sleuth dependency
+
+it will create logs in the console with each log having a different trace id
+
+if u want the different traces to be dispalyed into a centralized dashboard this is where zipkin would come in
+
+when a request has to go theough multiple apps or services a single traceid is maintained by sleuth for the entire request path
+
+sleuth will print traces in the following format
+appname,trace id,span id,true/false depending on whether the log will be saved in a central place
+
+download zipkin on ur system
+
+run the jar using java -jar zipkin.jar
+zipkin will run on local on a port
+add zipkin dependency
+to connect zipkin to the microservices add the following:-
+spring.zipkin.base-url=
+
+Each service will have its own set of configurations like db properties,app specific property etc
+these configs will have different values in diff envs like dev,sit,uat and prod
+
+we need to make sure that the correct app with correct properties wrt env is pushed
+This is made easier to us by use of spring cloud configuration server
+so these apps will look into the confuration server to get their properties
+
+we will push the properties to git.. sb will make sure to pull the properties from git n deploy n our services will point to this to get properties
+
+create a new project with dependency config server
+to make the project a config server add @EnableConfigServer in main class
+
+add properties:-
+spring.application.name
+
+Creation of a local git repo
+git init inside a folder will initialize a git repo on ur machine
+
+create a file n commit it
+
+save the file as project-name.properties
+
+spring.cloud.config.server.git.uri=git repo to get properties from
+=file:///absolute path in case of local repo
+
+for specific env need to save properties as
+project-name-env.properties
+
+add config client to client service which will use config server
+
+spring.cloud.config.uri=
+
+activate a profile- spring.profiles.active=dev
+
+when we change a property then we have to build the service reading the property again so that it can take the latest value
+we can overcome this task of building again by making use of spring actuator
+actuator is a dependency which will expose an endpoint server/actuator/refresh which when hit will refresh the service n give it latest properties without having to build it
+
+the issue is that suppose we have multiple instances running then we have to hit the actuator for each instance so that all the instances get the latest properties
+
+This is achieved by using spring cloud bus
+
+management.endpoints.web.exposure.include=*
+(provide properties here that are refreshable when hit by spring actuator refresh)
+
+mark the controller with @RefreshScope
+
+each microservice will have to register to cloud bus then if u refresh using the endpoind actuator/bus-refresh all the instances get refreshed
+cloud bus will achieve this through a message broker which can be rabbitmq or kafka
+
+install rabbitmq messaging server
+
+add spring boot cloud staetrter cloud bus dependency
+
+spring.rabbitmq.host=localhost
+spring.rabbitmq.post=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+
+
+  
+
+

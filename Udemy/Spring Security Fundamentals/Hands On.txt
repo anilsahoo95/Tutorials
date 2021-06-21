@@ -1,0 +1,37 @@
+First Hands on:-
+Custom User 
+@EnableWebSecurity
+public class MySecuriryConfig extends WebSecurityConfigurerAdapter {
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+      http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/admin").hasRole("admin").and().httpBasic();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+     InMemoryUserDetailsManager userDetailsService=new InMemoryUserDetailsManager();
+     UserDetails user=User.withUsername("anil").password("7735291191").roles("admin").build();
+     userDetailsService.createUser(user);
+      auth.userDetailsService(userDetailsService);
+	}
+	
+	@Bean
+	public PasswordEncoder getPasswordEncoder()
+	{
+		return NoOpPasswordEncoder.getInstance();
+	}
+
+
+JDBC Authentication:
+@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+   auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select name,password,isenabled from users where name=?").authoritiesByUsernameQuery("select name,roles from users where name=?");
+	}
+
+create table users (name text,password text,isenabled text,roles text) --schema.sql
+
+insert into users values ('user','user','Y','user');
+insert into users values ('admin','admin','Y','admin');--- data.sql
+
+

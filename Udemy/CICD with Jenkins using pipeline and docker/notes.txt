@@ -1,0 +1,45 @@
+Build node js:-
+npm install
+npm test
+
+package the app in docker to distribute
+distribute the docker image
+
+in jenkins manage logins and add nodejs plugin
+
+create new job
+freestyle project
+scm- git url
+
+add build -- execute shell-
+global tool conf- add node js
+
+use jenkins to build a project in local:-
+under general tab there is an option use
+custom workspace
+specify location there
+
+run whatever commands necessary to run the 
+projects in windows batch commands
+
+manage plugins and add cloudbean docker build
+and publish
+
+jenkins provides u a web UI to create jobs and
+build them
+but we may face a lot of issues due to this
+we wont have any history for all the changes
+that have been made in configuration
+and also no record of who changed them
+suppose we make a change n things go wrong
+we have no way of reverting back
+
+this can be solved by writing build jobs
+in code and save in version control like git
+
+
+
+
+provide node/npm path
+
+npm i is equal to build

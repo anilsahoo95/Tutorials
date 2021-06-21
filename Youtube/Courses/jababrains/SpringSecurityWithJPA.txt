@@ -1,0 +1,58 @@
+get user information from database using jpa.
+get username.password and authority info from db using jpa
+u basically want these details from db thats all
+mysql-
+use springsecurity--- for using db
+create a user table with following properties:
+id
+username
+password
+roles
+active
+
+n insert one record
+
+dependencies-
+jpa
+mysql
+web
+security
+
+Create a controller n 3 api's /,/user,/admin
+
+create a class n extend websecurityconfigureraapter
+
+override authnticationmanager and httpsecurity configure
+
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/admin").hasRole("admin").antMatchers("/admin").hasRole("admin").and().httpBasic();
+//	}
+
+for jpa u have to create a service userDetails that taken 
+in a user and returns user object
+so u are telling sb wn u have a user use my service to 
+get the details
+
+U have to create an implementation of userdetails service 
+and pass it to configure of authenticationmanagerbuilder
+
+Create entity and repo
+
+entity will have id,username,password,roles,active
+
+There is a userdetailsservice which u have to implement 
+meeaning create a class n implement userdetailsService 
+interface
+it has a method loaduserbyusername in which u have to 
+return an implementation of userdeatils.. meaning create a 
+class implementing the above inteface
+
+it will have various methods like getusername,getpassword
+
+all u have to do is pass data into these methods.. u can do 
+it hardcoded or get the fields from db n pass them here.
+
+n speing security will take care of the rest
+
+

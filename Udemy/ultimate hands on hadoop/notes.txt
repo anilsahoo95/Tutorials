@@ -1,0 +1,14 @@
+hortonworkds or hdp comes with hadoop and its associated technologies preinstalled
+
+hadoop is a open software platform for distributed storage and distributed processing of large amount of dataset on clusters of computer
+
+HDFS- hadoop distributed file system
+stores huge sets of data across machines.. also enables redundancy so that if one machine goes down data is saved
+mapreduce is used to process large amount of data across machines
+in mapreduce u have to write program using java/python
+if u dont want to do that and write in scripting languages that is enabled using pig
+pig is somewhat close to sql type lanmguage
+hive is another alternative that allows you to write direct sql queries
+
+apache ambari lets u gets a view of all the different services inside hadoop platform
+

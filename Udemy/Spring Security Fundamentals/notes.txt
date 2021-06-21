@@ -1,0 +1,403 @@
+Authentication is to let the app know who we are
+Authorization is the system knowing what permissions the given user has
+ Types of authentication:-
+Basic
+Form Based
+OAuth
+
+Client---Authentication Filter--- Authentication 
+Manager--- Authentication Provider-]
+1. userdetails Service- fetching user deatils
+2.Password encoder - encode password
+
+You ca create all the above cpmponents manually 
+in springboot
+
+if login is successfull authentication filter 
+saves details in security context 
+and generate a cookie jsession id...
+
+Only adding spring-starter_security will give you 
+a inbuilt userDetails service and password encoder
+
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+By default Basic Authnetication is enabled
+
+When login is successfull a jsession_id cookie is 
+created and saved in the security context. any 
+subsequent requests from the same domain will 
+contain jsession id as cookie in request headers 
+and username/password will not be needed.. 
+We can delete cookie from request headers and 
+username password will be required again
+
+To create our own security config.. 
+create a class and extend websecurityconfigurer
+adapter
+
+It should implement two configure methods from 
+the above class.
+One which contains an instance of 
+AuthenticationManager which will be used to 
+implement userDetailsServive and password encoder
+
+The other contains an instance of http which is 
+used to configure how to handle http requests
+
+@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	}	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	}
+
+http instance can be used to set which type of authorization do we want ex- basic auth,form based;
+http.httpBasic();
+http.formLogin()
+
+http instance is also used to configure 
+authorization for different api's.
+http.authorizeRequests().anyRequest().authenticated();
+it means all requests should be authenticated
+
+http.authorizeRequests().anyRequest().permitAll();
+it means authorization is nt required
+
+http.authorizeRequests().antMatchers("/admin").permitAll().antMatchers("/").authenticated();
+
+auth has a method called userDetailsService where u can pass ur custom userdeatilsservice 
+
+@Configuration
+public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();
+		UserDetails user = User.withUsername("anil").password(encoder.encode("7735291191")).authorities("read").build();
+		userDetailsService.createUser(user);
+		auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+	}	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.httpBasic();
+		http.authorizeRequests().anyRequest().permitAll();
+	}
+in side configure we have created a custom 
+userDeatisl with using cum classes from 
+springboot
+
+we have to create a product service and 
+coupon service app
+
+To use BCryptPasswordEncoder return new BCryptPasswordEncoder
+
+http.httpBasic can also be used in a different line
+
+apply security to a path use mvcMatchers(HttpMethod.GET,/coupons)
+
+we can apply security to multiple endpoints at one antMatcher--
+antMatchers("/api","/end","/start").hasRole...
+By default csrf is enabled.. if it is enabled we will not be able to perform
+post operations from postman
+
+To disable csrf .and().csrf().disable();
+
+/** is a pattern that says anything after / can be represented
+
+mvcmatchers vs antMatchers:-
+mvcMatchers was introduced in a later version of springboot and is more advanced
+in the sense that it treats /admin n /admin/ similarly which would not
+be the case in case of antMatchers
+
+add spring boot staerter thymeleaf dependency
+
+create html page in src/main/resources/templates folder
+
+to return this webpage upon a api being called create a class with @Controller annotation
+(not rest) and mention returntype as String and return filename without.html
+
+Create html pages inside templates
+1.index- to show two links getcoupon n createcoupon'
+2.createcoupon- to display a form where user can enter different fields for coupon
+comes to this page upon clicking createcoupon in index page
+3.create coupon success to display a success message that coupon is created
+comes to this page upon clicking submit in createcoupon page
+
+Create Controllers:
+1.index api- returns back index.html page
+2.createcoupon api which is called upon clicking createcoupon link
+in index and returns createcoupon html
+3.savecoupon api which is called upon clicking submit in createcoupon
+page and returns back success html page
+4.getcoupon api which returns a page containing a form to entercoupon
+code. and getcoupon is called upon clicking getcoupon in index page
+4.getcoupondetails which is called upon clicking submit in get coupon page
+which gets a code and returns a modelnview object so as to display the
+coupon details in a html page
+
+public ModelandView getCoupond(String code)
+{
+ModelandView nav=new ModelandView("couponDetails(new htmlpage where the values will be pased");
+nav.addObject(repo.findByCode(code));
+return nav;
+}
+
+To include thymeleaf functionalities in html page u have to include thymeleaf namespace
+at the starting f d page(xlmns:thymeleaf.org)
+
+couponDetails.html
+<h2> Coupon: <b th:text="${coupon.code}"></b> (th stands for thymeleaf)
+<h2> Discount:
+<h2> Price:
+
+
+
+Implement custom login- section 8 skipped for now.
+create a interface securityservice and create a method that returns bpllean n takes
+in login and password as arguments
+
+create a class securityserviceimpl n implement security service
+
+@UserDetailsService userDetails
+Authnticationmanager authmanager
+
+login(user,passow)
+{
+UserDetails user=userDetails.loadUserByUserName(user);
+UserNamePasswordAuthentication token=new UserNamePasswordAuthentication(
+user,pass,user.getAuthorities());
+authmanager.authenticate(token);
+boolean result=token.isAuthenticated();
+if(result)
+{
+SecurityContextHolder.getContext.setAuthentication(token);
+}
+return result;
+
+in mysecurityconfig psage-
+AuthnticatorManager AuthnticatorManagerBean()
+{
+return super.authenticatorMangerbean();
+}
+
+create a template that taken in login n password n calls login api
+upon submission
+
+create controller
+
+showlgin api which calls the page with login form
+
+login api which calls the login service created above
+boolean result=loginservice(user,pass)
+if(result)
+{
+return("index page")
+}else
+{
+return("login page")
+}
+
+User first comes to login page, then (watch configure n test last 2 mins)
+
+for logout add <a href="logout> in template > and add in securityconfig
+.logout.logoutsuccessurl("/");
+
+oauth is an open authentication and authorization framework which
+allows one app to get accesss to userdeatils in other app
+without creadentials being shared with the first app
+
+in oauth four components are present
+1.resource owner- the user who owns the photos
+2.client app- the one who needs data from other apps
+3.resouce server-the one who contains the actual images
+4.authorization server- authenticates the user and defines authrzation
+
+the username/password is shared with authrization server which authe
+nticates and generates a token, the client app then sends this token
+to the resource server, the resource server verifies this token
+with authorization server and if it is correct then returns the
+requested resource
+
+There are basically 4 workflows depending on the grant type:
+Types of grant type
+1.Authorization code- here the client app will preregistet itself
+with the resource authorization server and get a client id and
+password. when the user comes in to client app it will redirect it
+to authorization server where he will authenticate and mention
+that client app is permitted to get access.then authorization will 
+inform the client app that user is willing to share info with 
+you. pls tell me ur client id n password n dn it will generate a tokn
+for the client app
+
+2.Password-here the user shres his username n password with client
+app n it forwards the details to the authorization server for token
+
+3.Client credentials- it has no user..here app connects with
+another app
+
+4.Refresh token- the token might gt expired.. in that case the auth
+server will send a refresh token back
+
+Security config funtionalities will be divided into two.. one is autho
+rization server which authrizes the reuqrst and generates token n 
+returns back n d odr resource server receives the token n decides if a given path
+can be accessible or not
+
+add spring cloud starter oauth2 dependency
+create a class n extend websecurityconfigureradapter
+
+create a authenticationmanager bean and a password enocder bean
+
+create a class authriserver class extends authoriserverconfigureradapter
+add @configuration n @EnableAuthServer to the class
+
+override configure method that has authoriserverconfigureendpoint
+endpoints.tokenStore(new InMemoryTokenStore.authenticationManager(
+authenmanager).userDetailsService(userdetailsservice);
+
+we are telling auth server the tokenstore we want to use,authenti
+cationmanager we want to use n d userdeatilsservice we want to use
+
+override configure which has clientdetailsconfigurer
+clients.inmemory.withClient("couponclientapp").secter(paasword.en
+code("9999").
+authorizeGrantTypes("password","refresh_token").scopes("read","write")
+.resourceIds("couponservice")
+
+create class resouceservice extends resource serverconfigureradapter
+override configure of resourceserverconfigurer
+resources.resourceId("couponservice")
+
+override configure of http n add all the paths like in mysecurity
+config
+
+@configuration n @resourceserver
+
+oauth/token automatically redirects to the authorization servr
+we need to pass client id and secret which are related to client
+service
+and pass username,password,scopes,grant_type which are related to the user
+n in return we would get a access token
+
+use mydb;
+
+create table oauth_access_token (
+token_id varchar(255) NOT NULL,
+token blob,
+authentication_id varchar(255) DEFAULT NULL, 
+user_name varchar(255) DEFAULT NULL, 
+client_id varchar(255) DEFAULT NULL, 
+authentication blob,
+refresh_token varchar(255) DEFAULT NULL, 
+PRIMARY KEY (token_id));
+
+create table oauth_refresh_token ( 
+token_id varchar(255) NOT NULL,
+token blob,
+authentication blob,
+PRIMARY KEY (token_id));
+
+select * from oauth_access_token;
+
+select * from oauth_refresh_token;
+
+in endpoints instead of using inmemory use jdbctokenstore
+
+CSRF- cross site resource forgery
+wn u login into a website the website store some info on the
+browser in form of cookies.. now if u browse sm other website
+it may run javascript in background n gt access to those cookies
+n use it unethically. this is called csrf
+to deal with this a csrf token is provided to the client n wn he
+wants to post smthing the csrf token is first checked n only if
+it is valid he is allowed access
+
+CORS- cross origin resource sharing
+
+if a app running on a domain n port is requesting resource from an
+app running from a different port/domain then it will be default be
+blocked as per cors policy. we need to allow origin headers on the
+requested resource for it to work
+
+cors is a way to tell browser to allow some requests to an app
+with different domain/port
+
+it is very easy easy in springboot. just need to add @CorsOrigin
+in the controller
+
+
+
+JWT is a standard or token format to create tokens
+
+JWT consists of 3 parts:
+1.Header- It conytains algo n token type which is jwt
+2.payload- it contains all the user info lyk user details,authorities
+jwt expiry etc
+3. Signature- server looks into this part to confirm that the jwt is
+valid one.. Signature is calculated by using the also which is
+mentioned in header.. it takes in the payload and encrypts it based
+on a secret key
+
+java keytool is a package that comes alon with jdk which helps in
+creating encrypted private n public key
+
+keystore file is a file which contains public n private key n is
+password protected
+
+every private key will have an alias/username n password vch will
+be used to retieive the private key
+public key can be exported to a certificate which can be distributed
+among client applications
+
+keytool -genkeypair -alias jwtiscool -keyalg RSA -keypass jwtiscool 
+-keystore jwtiscool.jks -storepass jwtiscool
+keytool is a command followed by a lot of arguments .. genkeypair means
+generate public n private key.. alias means username.. keyalg is the 
+type of algorithm that is used.. keypass is password..keystore is the
+file name.. a jks file is generated which can be copied inside 
+resources folder
+
+keytool -list -rfc --keystore jwtiscool.jks | openssl x509 -inform pem -pubkey
+this command is used to list the public key present in the file 
+keystore
+
+inside mysecurityconfig create a bean/method that returns jwtaccesstoken
+converter
+
+public JWTAcessTokenConverter getAcessTokenConverter()
+{
+JWTAcessTokenConverter jwtAcessTokenConverter=new JWTAcessTokenConverte
+r();
+keystorekeyfactory keystorekeyfactory =new keystorekeyfactory(new
+ClassPathResource(keyfile),password);  used to gt access to the keystore
+file
+KeyPair keyPair=keystorekeyfactory.getKeyPair(alias);
+jwtAcessTokenConverter.setKeyPair(keyPair);
+return jwtAcessTokenConverter;
+}
+the variables alias,password,keyfile will be fetched from application 
+properties file
+
+keyFile=jwtIscool.jks
+passowrd=jwsiscool
+alias=jwsiscool
+
+public TokenStore getTokenStore()
+{
+return jwtTokenStore(getAcessTokenConverter);
+}
+this is a bean that will actually use the above bean
+annotate both of them with @Bean
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+Version control is a system which records 
+changes made to a file so that a specific
+version can be recalled later
+
+Types of version control systems:-
+local
+Centralized- all files are present at a central
+server.. ex-SVN
+Distributed- all files are present in central
+as well as local systems of all users
+
+install git on ubuntu:-
+sudo apt-get install git
+
+git repo is a folder with .git file where all
+the changes are tracked
+
+remote- it is a server where project code is
+present.. ex- github,gitlab
+
+origin- it is a variable where git stores the
+url of remote repository
+
+git init-- adds .git folder and initializes
+current folder to track changes
+
+git add-- adds the changes to the staging area
+
+git status- shows the status of staging area
+
+git commit- will save all changes with unique
+hash in git repo
+
+git push- sends the changes to remote repo
+
+git clone- to get all changes present in 
+remote to local
+
+git fetch downloads code from central to
+local without changing ur code changes
+
+git merge merges the specified branch to
+the current working tree
+
+a guy is working on some files on his system
+already afterwards the manager informs him
+that the other team members are already wor
+king in a git repo
+he can add his local changes to git repo by
+using git remote add command
+git remode add origin url

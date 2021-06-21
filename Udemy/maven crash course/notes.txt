@@ -1,0 +1,191 @@
+Maven is a project management tool.
+
+it is used to build a project. 
+Building a project means compiling a project,
+running test cases, packaging the project into
+war/jar file, deploying to server etc.
+
+All these steps can be automated using maven.
+Maven provides archetypes which are templates 
+for creation of different types of projects 
+like standalone,jar,web application etc
+along with build maven also manages various 
+dependencies used by a project. it looks for 
+dependencies in mvn repository.. 
+
+many companies also maintain their own personal
+ repository.
+so maven is a build and dependency management 
+tool
+
+mvn archetype:generate -DgroupId=com.bharath 
+-DartifactId=hellomaven -DarchetypeArtifactId
+=maven-archetype-quickstart -DinteractiveMode=
+false
+
+archetype:generate is a maven goal which is a 
+single unit of task 
+DgroupId-- the folder where the project will 
+be stored
+DartifactId-- name of the project
+DarchetypeArtifactId- type of archetype/
+template based on which project will be created
+DinteractiveMode-- normally in cmd line it will ask for 
+all the above details. this is used to 
+suppress the asking
+
+When u execute a maven command it searches for
+ the pom.xml file to get details about the 
+project like name,type(war/jar) and 
+dependencies/libraries that our project needs 
+to function
+
+mvn install - compiles,run test cases and 
+creates a jar/war file in target directory
+
+To run a jar file- java -cp target/jar-name 
+class path with package
+ex-java -cp jarname.jar com.anil.mainclass
+
+a maven goal is a specific task that has to 
+be performed.. ex- compile,test,package
+a plugin is a collection of goals. By default 
+maven does not know how to compilem,test or 
+package.. it takes help of compile,test plugins
+ to perform the tasks.
+a goal is executed through its plugin
+ex- mvn archetype:generate-- here generate is 
+the goal from archetype plugin
+ex- mvn surefire:test
+
+maven has several goals and phases associated 
+with it in a particular order:-
+process resources,compile,test,package
+if u execute a goal then maven executes all 
+the goals prior to the goal without even being
+ specified by the user.
+
+Ex-mvn test would run process resources,compile
+ prior to running test goal.
+
+Each phase/ goal is run by maven using a 
+plugin ex= resouce:resource,compile:compile,
+surefire:test,jar:jar
+
+maven coordinates:-
+maven looks into the maven coordinates while 
+pushing a jar to maven repo or pulling a 
+jar/library/dependency from maven repo
+1.groupId- similar to java package name.maven 
+store the jar under this folder name in mvn repo 
+2.artifactId- name of the project/jar
+3.version- version of the jar being developed
+4.packaging -jar/war
+
+Junit is a dependency for writing test cases;-
+Test case is nothing but a method with @Test 
+annotation
+U create a object of the method u want to test
+ and pass some input values.
+use asserNotNull to check if something is 
+null
+assertEquals to check equality between two 
+things
+
+U can also pass extra arguements to maven 
+commands like done in maven archetype:genearate
+ earlier
+mvn install -DskipTests is used to skip testing
+ done by maven projects
+
+When maven finds a dependency in pom.xml it 
+downloads the respective jar. The jar may also
+ need other dependencies/jar that are mention 
+in pom.xml of the jar. maven looks into it 
+and downloads jars.
+
+Multimodule Project- multiple different jars or 
+modules within a single folder.. the single folder 
+is called parent folder and others its child modules
+Child modules will be inside parent folder. The 
+parent folder will have a pom.xml in the same same 
+as other modules..
+in parent pom.xml the template type can be 
+maven-archetype-quickstart.
+U have to give link between parent and child in 
+the parent pom within modules tag
+packaging in parent pom has to be pom
+(cant be war/jar)
+in child pom the parent folder has to be defined 
+within the parent tag. child module will take up 
+version from parent module
+
+mvn install on the parent folder will result in 
+building all the child folders as well
+
+to use a user created project in another module j
+ust add the project in the modules pom within 
+dependency tag and specify groupid,artifactid and 
+version of the project to be used
+
+When a app is deployed app needs to connect to 
+different db and services based on environment.
+Hence we use profiles.
+
+create a folder src/main/profiles..
+inside that create three foldets dev,sit and uat..
+create properties file inside each folder
+
+To activate a profile while building a project-
+mvn install -pdev (dev/sit/prod)
+
+Problems in traditional spring:-
+deploy on ur own 
+xml or annotation configurations
+version compatibility
+module availability
+
+Features of Spring boot:-
+Auto Configuration
+Spring Boot Starters-- 
+Embedded Servlet Container- Tomcat-- no need to configure a diffrent server
+Spring Boot Actuator- free health checks on the springboot app
+
+@Component is used to inform Springboot that the following is a bean and needs to be injected
+
+install maven
+yum install amven
+
+su -i-- linux command to become root
+
+mvn -version will give the path of maven and java where they are installed
+
+jenkins Dashbpard:-
+People will let u create users and give access as required
+
+in global tool configuration u can set path for java n maven
+
+create a new shell script file hello.sh
+echo "hello.sh"
+exceute it through jenkins
+
+Repository managers are used to restrict developers to use ceratin repo .
+it provides the jars as it downloads them from cebtral repo.. so we dont need to access central repo for dependency.
+we can connect to organixation repo
+Nexas is a type of repository manager
+it will help us to create our own repositories where we can push our jars.. and also use that repository to pull jars in future
+some settings will also be done in settings.xml file
+
+nexus docker image
+
+Types of repositories:-
+hosted- will contain jars that u push
+proxy- will cache the dependencies from central repo
+Group is a collection of repositories
+
+Use mvn test so that the previous phases like
+compile r run n dn test happens. surefire:test
+does nt run the previous phases and only runs
+the last test version code
+
+ 

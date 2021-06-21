@@ -1,0 +1,43 @@
+1.Create a reactjs page that would show an
+unordered list that would contain 3 list ite
+ms
+2.Create a functional component that returns
+the following:-
+an h1 with your name
+a p with something abt urself
+an unordered list with 3 favourite vacation
+spot f urs
+3.Render an App Component(defined in a separate file)
+inside app component render 3 components 
+-navbar just mention this is navbar
+-maincontent this is
+-footer this is
+4.Render an app componet which would contain
+3 checkboces<input type="checkbox"> with a paragraph next to it
+5. take the combination of p n input n move it to a new componen
+and use that component 4 tyms in main compo to achieve the same
+6.Render an app contain that contains 4 joke components..each joke
+should have a question n punchline prop.. if question prop is not
+present it should only display punchline prop
+
+7.Given a list of product objects each containing an id,name,desc
+and price.create a product component that would list the properties
+of a product and display the list of product components containing
+all the products in the list.
+u can create a variable productlist in another file and use that 
+variable for data
+
+8.Create a class component which will contain a state with
+property isLoggedIn. and two buttons login n lout. A p element
+that displays a string the user is logged in/out. in/out
+should depend on the button that is clicked by the user
+
+9.as a followup to todoapp, create a variable in another class
+which will be containing a list of objevts. Assign this list
+to a state in class component and iterate through it n display
+data in a table
+
+10.
+
+
+
