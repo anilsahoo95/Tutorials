@@ -1,0 +1,60 @@
+Nodejs is an environment to run javascript outside
+browser 2.38
+every browser has a engine to convert our code
+to machine code. chrome uses v8 engine
+youtube - coding addict
+js nuggets playlist for learning js async
+Browser js       vs       node js
+DOM                       No Dom
+Window 
+Interactive
+No FileSystem             Fs
+
+REPL is used to run code on command line
+use node enter to enter into REPL mode
+
+run js file either in node cmd or vs code terminal
+
+global variables are the ones which u can access
+throughtout ur application
+__dirname-path to current directory
+__filrname- file name
+process- gives info abt env where node is working
+
+console.log(__dirname)
+setInterval will run something periodically after
+an interval
+setinterval(()=>
+{
+console.log("hello world");
+},1000);
+node app(without js) is also enough to run the
+program
+
+Modules- encapsulated code, only sharing what we
+want
+
+node uses commonjs module under the hood. every file
+is a module by itself. js does it for us..
+
+console.log(module) will give u info about the 
+current module including what all u r exporting
+
+require(./modulepath)
+start with ./ in case module in current path
+../ to indicate other paths
+
+export as u go:-
+const i=[1,2,3,4]
+module.exports.item=i;
+
+Node js has a lot of built in modules provided:-
+we dont need to install them
+1.OS module
+interact with OS and server
+
+const os=require('os');
+const user=os.userInfo()
+console.log(user);
+
+1.02

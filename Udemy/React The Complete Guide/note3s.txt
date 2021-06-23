@@ -1,0 +1,10 @@
+earlier when u clicked a link on a browser
+a request was sent to a server and a html page
+was sent in return. upon clicking any action
+a request used to be sent n a html page was
+returned.. this was changed when js was used
+which runs on browser once page is loaded
+
+React is a javascript library that helps us
+build rich user interfaces
+
