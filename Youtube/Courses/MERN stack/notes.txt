@@ -1,0 +1,208 @@
+Mongo db is an app whose underlying terms 
+are a bit different that those used in
+relational db..
+ex table-collection
+   row- document
+   join- lookup
+   foreign key- references
+
+mongodb Atlas lets u host server on cloud for
+free
+
+create an account there n choose the free tier
+
+setup a connection to the cluster u created
+above by entering ur ip address n creating
+db credentials
+
+mongodb atlas also lets u import some sample
+data into db for learning purposes..
+
+create a folder restaurant manager
+
+n dn create a folder backend inside it n
+do npm init --yes
+
+install the following packages:-
+express
+cors
+dotenv
+mongodb
+
+npm install -g nodemon-- automatically rerun
+the app whenever a change is made
+
+To be able to use es6 import add the following
+in package.json after main:"inde.js"
+type:"module"
+
+server.js
+import express from 'express'
+import cors from 'cors'
+
+const app=express();
+app.use(express.json())---this is similat to
+using body parser
+
+app.use(cors())
+
+create a file .env where u can save your
+environment variables
+
+RESTREVIEWS_DB_URI=
+RESTREVIEWS_NS=DB NAME
+PORT=5000
+
+index.js
+import mongodb from 'mongodb'
+import dotenv from 'dotenv'
+
+dotenv.config();
+
+access an environment variable in js using
+process.env.variable name
+
+const port=process.env.port;
+
+const mongoClient=mongoDb.mongoClient;
+
+mongoClient.connect(process.env.uri).then
+(
+app.listen(3000);
+)
+
+in a new file where u would be mentioning
+routes:-
+
+import express from 'express'
+
+const router=express.Router();
+
+router.route("/").get((req,res)=>
+{
+}
+)  
+
+In api directory u will create all the route
+files
+
+for accesssing data from db we need to have
+the methods to perform various operations
+like create,read,update,delete first.. 
+create a dao folder for that
+restaurantsDao.js
+
+check how to implement search n pagination
+n filter in nodejs
+
+U can retrieve variables from request:-
+req.body for body
+req.query for variables after ? in url
+req.params for variable after /
+denote route using :id
+
+also implement join in mongo db n get results
+in node js
+
+try to implement whatever u have implemented
+in rules module in MERN stack
+
+inside main folder create a react app named
+frontend
+
+npm install bootstrap
+
+npm install react-router-dom
+
+create a frontend page where you show a list
+of records along with an edit n delete button..
+
+upon click of edit a modal would open listing
+all the records along with the values as a 
+form n with default values.. 
+
+upon delete a popup to confirm deletion
+
+A add button at the top to add a new record
+with the form
+
+Search button, a dropdown and pagination
+functionality implemented
+
+for using bootstrap after doing npm install
+import 'bootstrap/dist/css/bootstrap.min.css
+
+To create a state variable using react hooks
+
+const [user,setuser]=useState("");
+
+implement a register page where user would enter
+his details and next tym he has to login to
+enter UI
+
+In route we would use render instead of
+component attribute when we want to pass in
+props to a component
+
+render={()=><Component user={}/>}
+
+Running mongodb on system:-
+inside bin of mongodb type the following cmd
+
+mongod.exe --dbpath "C:\data"
+mongo.exe
+
+Mongoose Methods:-
+mongoose.connect('db url');
+
+Document is an instance of a mongoose model
+
+const kittySchema = new mongoose.Schema({
+  name: String
+});
+
+const Kitten = mongoose.model('Kitten', kittySchema);
+
+const silence = new Kitten({ name: 'Silence' });
+console.log(silence.name); // 'Silence'
+
+kittySchema.methods.speak = function speak() {
+  const greeting = this.name
+    ? "Meow name is " + this.name
+    : "I don't have a name";
+  console.log(greeting);
+};
+
+const Kitten = mongoose.model('Kitten', kittySchema);
+
+const fluffy = new Kitten({ name: 'fluffy' });
+fluffy.speak(); // "Meow name is fluffy"
+
+fluffy.save();
+
+Kitten.find();
+
+Kitten.find({ name: /^fluff/ });
+
+method queries provided by mongoose to intearcr
+with db
+
+Model.deleteMany()
+Model.deleteOne()
+Model.find()
+Model.findById()
+Model.findByIdAndDelete()
+Model.findByIdAndRemove()
+Model.findByIdAndUpdate()
+Model.findOne()
+Model.findOneAndDelete()
+Model.findOneAndRemove()
+Model.findOneAndReplace()
+Model.findOneAndUpdate()
+Model.replaceOne()
+Model.updateMany()
+Model.updateOne()
+
+
+
+

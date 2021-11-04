@@ -1,0 +1,44 @@
+Continous Integration is a software development
+practice where developers commit their code in
+a shared repository.
+
+CI does not get rid of bugs but it helps to
+easily find n remove them
+
+Build is a set of activities used to generate
+,test and deploy softwares
+
+complexity of code is determined by cyclomatic
+complexity number
+
+build metrics reduce the time taken for build
+1.compilaton time
+2.num of sources line of code
+3.no of diffrent inspections
+4.test execution time
+5.deployment time
+
+if a build gets failure immediately work on it
+to find a solution
+
+diffrent Ci tools available:-
+
+Version Control - GitHub, Subversion
+
+Java Build - Ant, Maven
+
+.Net Build - NAnt, MSBuild
+
+Java build scheduler - Jenkins, CruiseControl
+
+Static code analysis - SonarQube, Checkstyle, PMD
+
+Code Coverage - JCov, Clover, Serenity, Cobertura
+
+Unit Testing - NUnit, JUnit
+
+Functional Testing - Cucumber, Selenium
+
+Artifact Repository - Nexus, Artifactory
+
+

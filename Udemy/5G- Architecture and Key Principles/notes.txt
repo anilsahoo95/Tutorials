@@ -1,0 +1,63 @@
+0G--- Mobile phone systems were introduced
+in 1930's..push to talk telephone service
+
+1G--- simultaneous talk feature.. 1980's..
+Advanced mobile phone system
+poor voice quality, poor battery life
+
+1990's- 
+2G-global system for mobile communicatio
+ns specification was launched 
+enabled new features lyk sms and picture msg
+
+2.5G- allowed sending mails n web browsing
+
+telecom generations are also usually known
+by the RAN technology used to enable them
+
+ex- 3G is also known as WCDMA and 4G is also
+known as LTE
+
+4G-- HD mobile telivison and gaming
+provided broadband grade data rates
+
+Why 5G:-
+
+no. of subsribers worldwide has gone up to
+8 billion
+need a network to provide access to all these
+people
+also need for data among humans as well as
+machines has also grown a lot
+
+5G is a collection of technologies that enable
+us the new benefits of higher speed data and
+better coverage with same energy consumption
+as before
+
+4G mostly is used for mobile broadband
+
+5G use cases can be classified into 4 catego
+ries:-
+
+1.Enhanced mobile broadband-- watching 4K and
+8K videos.. watching VR and AR content
+2.Fixed wireless access-- here opearaot can
+place a device just outsyd d premised of 
+a customer and he would be able to use this
+as an ethernet or hotspot and access internet
+
+3.Massive machine Type communications:-
+machines lyk sensors which need to send low
+amount of data at infrequent tyms bt for a 
+longer tym
+
+4.Ultra Reliable low latency communication-
+ex robotic surgery where a doctor manages
+a equipment for surgery.. here the network
+has to be reliable so that there is no 
+downtime.. also latency should be really low
+
+
+
+

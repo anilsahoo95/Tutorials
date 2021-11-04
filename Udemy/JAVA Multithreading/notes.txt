@@ -1,0 +1,25 @@
+why to use threads:-
+responsiveness-- with a UI we want to contin
+ously respond to user events
+
+performance- is faster
+
+what a single thread contains:-
+stack is a region in memory where local varia
+bles are stored n passed into functions
+
+IR- contains address of next instruction to
+ne executed
+
+Context switching- switch between different
+threads
+
+in context switching we will have to load
+memory related to a thread to CPU everytym
+the thread is changes.. the cost of swiching
+between thread of same process is less
+compared to switch between threads of differe
+nt processes.
+
+
+

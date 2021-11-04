@@ -100,7 +100,8 @@ in for the component
 function myApp()
 passing props:-
 <MyApp src="" img="" head=""/>
-or pass <MyApp contact={{src:"",img:"",hrad:""}}
+or pass <MyApp 
+contact={{src:"",img:"",hrad:""}}
 
 a class based component would start with the
 class keyword and extends React.Component
@@ -123,7 +124,7 @@ return(
 if u want to maintain data within component
 then we use state.
 main difference between state n props is that
-props are mutable that is the value cannot
+props are immutable that is the value cannot
 be changed by the component receiving it
 whereas state can be changed by the component
 which maintains it
@@ -195,7 +196,8 @@ componentDidMount is called right after a compone
 nt shows up or mounts on the screen
 suppose u have a api call to show data, now u
 would show a loading icon until data is loaded
- ternary operator:- condition? executed if true:
+ ternary operator:- condition? executed if 
+true:
 false execution
 
 Using && operator for conditional rendering:-
@@ -211,7 +213,7 @@ fetch is a global function use to call http
 requests fetch("api").then(rres=>res.json()).then
 (data)=>this.state.data=data
 
-3.37
+
 ReactJS forms
 
 in javascript we write a form in html and when

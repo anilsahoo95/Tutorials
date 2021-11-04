@@ -39,6 +39,9 @@ To create our own security config..
 create a class and extend websecurityconfigurer
 adapter
 
+remember to annotate the class with @Configuration otherwise springboot
+will not even read the class
+
 It should implement two configure methods from 
 the above class.
 One which contains an instance of 
@@ -55,7 +58,8 @@ used to configure how to handle http requests
 	protected void configure(HttpSecurity http) throws Exception {
 	}
 
-http instance can be used to set which type of authorization do we want ex- basic auth,form based;
+http instance can be used to set which type of authorization do we want 
+ex- basic auth,form based;
 http.httpBasic();
 http.formLogin()
 
@@ -67,18 +71,23 @@ it means all requests should be authenticated
 http.authorizeRequests().anyRequest().permitAll();
 it means authorization is nt required
 
-http.authorizeRequests().antMatchers("/admin").permitAll().antMatchers("/").authenticated();
+http.authorizeRequests().antMatchers("/admin").permitAll().
+antMatchers("/").authenticated();
 
-auth has a method called userDetailsService where u can pass ur custom userdeatilsservice 
+auth has a method called userDetailsService where u can pass ur 
+custom userdeatilsservice 
 
 @Configuration
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();
-		UserDetails user = User.withUsername("anil").password(encoder.encode("7735291191")).authorities("read").build();
+		BCryptPasswordEncoder encoder = 
+new BCryptPasswordEncoder();
+		InMemoryUserDetailsManager userDetailsService = 
+new InMemoryUserDetailsManager();
+		UserDetails user = User.withUsername("anil").
+password(encoder.encode("7735291191")).authorities("read").build();
 		userDetailsService.createUser(user);
 		auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
 	}	
@@ -87,6 +96,12 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.httpBasic();
 		http.authorizeRequests().anyRequest().permitAll();
+	}
+
+@Bean
+	public PasswordEncoder getPasswordEncoder()
+	{
+		return NoOpPasswordEncoder.getInstance();
 	}
 in side configure we have created a custom 
 userDeatisl with using cum classes from 
@@ -246,15 +261,16 @@ server will send a refresh token back
 
 Security config funtionalities will be divided into two.. one is autho
 rization server which authrizes the reuqrst and generates token n 
-returns back n d odr resource server receives the token n decides if a given path
-can be accessible or not
+returns back n d odr resource server receives the token n decides 
+if a given path can be accessible or not
 
 add spring cloud starter oauth2 dependency
 create a class n extend websecurityconfigureradapter
 
 create a authenticationmanager bean and a password enocder bean
 
-create a class authriserver class extends authoriserverconfigureradapter
+create a class authriserver class extends 
+authoriserverconfigureradapter
 add @configuration n @EnableAuthServer to the class
 
 override configure method that has authoriserverconfigureendpoint
@@ -330,8 +346,6 @@ with different domain/port
 
 it is very easy easy in springboot. just need to add @CorsOrigin
 in the controller
-
-
 
 JWT is a standard or token format to create tokens
 

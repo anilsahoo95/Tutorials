@@ -14,13 +14,59 @@ docker rm - to delete all stopeed container
 docker images- list all images
 docker rmi image- to delete a image
 docker pull nginx- to pull an image to local
-docker exec imagename command- to execute an image inside docker container
+docker exec container command- to execute an command inside docker 
+container.. container should be running
 docker run -d-- so that container runs in the background
 
 docker hub contains all the images
 
 docker run -it ubuntu bash
 run a command inside ubuntu container
+
+nginx default html is inside /usr/share/nginx/html.. if u want to change
+this then change in this file
+
+Build docker image out of nginx:-
+FROM nginx
+COPY index.html /usr/share/nginx/html
+EXPOSE 3000
+
+RUN is a command used in Dockerfile that runs a command n is used
+to build a image.
+
+Once an image is built n u want run a container then we use
+CMD command from Dockerfile which is executed everytym we run the
+image
+
+Build a node js app
+
+FROM node:14
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "server.js" ]
+
+create .dockerignore file n add ofo
+node_modules
+npm-debug.log
+
+docker would nt copy the above files as these would be genrated
+while doing npm install inside docker
+
 
 docker run redis:4.0--- if u want to pull a specific version
 of an image
@@ -36,6 +82,16 @@ container port to docker host port
 docker run -p 8080:80 nginx
 
 8080 is docker host port n 80 is container port
+
+mysql docker image:-
+docker run -d -e ALLOW_EMPTY_PASSWORD=TRUE mysql
+
+run mysql client on it to execute queries:-
+docker exec -it containerid/name mysql -u root -p
+
+show databases
+
+
 
 in case of a db container like mysql all the data
 is stored inside /var/lib/mysql folder inside
@@ -62,8 +118,8 @@ cannot add port mapping while container is running
 build a docker umage
 
 FROM Ubuntu
-RUN sudo apt-get update
-RUN sudo apt-get install httpd
+RUN apt-get update
+RUN apt-get install httpd
 COPY src dest
 
 docker build . -f Dockerfile -t something/something
@@ -82,7 +138,8 @@ CMD["5"]
 Sample Voting Application is used by docker to explain its various features:-
 
 Consists of following components-
-1.Web Interface written in python where the user has to choose between
+1.Web Interface written in python where the user has to choose 
+between
 cats n dogs
 2.In memory db written in redis where the vote is stored temporarily
 3.Woker service written in .net which takes in the data n stores in 
@@ -102,7 +159,8 @@ to redis n redis needs to be linked to worker
 docker run -d --name=voting-app -p 5000:80 --link redis:redis voting-app
 docker run -d --name=worker --link redis:redis --link db:db worker
 
-create a docker compose yml file which will take up all the above n build
+create a docker compose yml file which will take up all the above 
+n build
 the stack
 
 Syntax of docker compose yml

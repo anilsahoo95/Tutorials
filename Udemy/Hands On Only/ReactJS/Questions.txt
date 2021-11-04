@@ -1,0 +1,27 @@
+React The Complete Guide:-
+1.Create a new component that is responsible 
+for displaying expenses
+Add multiple ExpenseItem components in that 
+component
+Keep the expenses data in the App component 
+and pass that data into the newly created 
+component
+expenses=[{id,name,price,date}]
+create expensesitem comonent which would
+display the above 4 in 4 lines.. then create'
+a expense component where we render this
+items.. dn in app component render the expense
+component
+
+2.Create a search component upon above where
+u type a name n on click on enter only the
+items having that name should display in the
+below screen
+
+3.Create a component above search that would
+have a button Add Expense..Upon clicking on
+button a form would show containing inputs
+for various fields and upon clicking submit
+or cancel the form should disappear and only
+Add expense should show
+

@@ -1,0 +1,36 @@
+Injenkins mention repo url.. if the repo is
+privae need to mention credentials as well
+
+in build step add maven commands
+
+clean install package
+
+install tomcat.. dn inside conf u will have
+server.xml where u can change the port 
+u want ur app to run on
+
+U can install tomcat on ubuntu and then
+directly deploy from jenkins to that tomcat
+server
+
+u need to add deploy to container plugin
+in jenkins to achieve that
+
+To add credentials go to credentials on the
+left hand side the jenkins and then global
+credentials dn add credentials
+
+in tomcat-users.xml create a user and give
+him password and role manager-script
+
+after install deloy to container plugin
+in jenkins u will gt a option deploy war/ear
+to container in build step of jenkins
+
+wn u build in jenkins the result is stored
+inside workspace directory
+
+in war path u can give the absolute path
+
+in tomcat url provide ip:port
+

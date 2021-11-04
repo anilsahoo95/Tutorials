@@ -1,0 +1,123 @@
+Running mongodb on system:-
+inside bin of mongodb type the following cmd
+
+mongod.exe --dbpath "C:\data"
+mongo.exe
+
+Database is created in db using use command
+use dbname will create a database if it does
+nt exist as of now..
+
+show dbs--- shows the list of db
+show collections-- show list of collection/
+tables in a db
+
+The above is also used to switch to an exist
+ing db
+
+The easiest way to create a table/collection
+is to insert a row/document into the collectio
+if the collection does nt exist already dn
+mongo db creates a collection n inserts d rec
+ord
+
+Syntax to insert a document in a collection:-
+
+db.table_name.insert(
+{ "name":"anil","city":"bbsr"}
+)
+
+we can also insert multiple documents into
+a collection at a tym.. we can enclose multi
+ple documents within [] and put it inside
+insert command
+
+_id is used by mongodb as a primary key to
+identify each document within a collection
+
+it is of type ObjectId
+
+If we dont define _id while inserting records
+then mongodb will internally assign a value
+to _id
+
+if we want to define id ourselves we can have
+a value for it while inserting
+
+in order to query or get recorsd from a 
+collection we need to use find function pro
+vided by mongo... Syntax is:-
+db.collection_name.find();
+
+To get all the records present in a collect
+ion we have to pass empty curly braces within
+find method
+
+we can also add conditions in find method
+in order to fetch the records that only match
+our condition
+
+ex- db.collection_name.find({name:"anil"})
+
+in mongodb shell we can add .forEach(printjson
+) to print all the records in pretty json
+format in mongodb shell
+
+we can use functions lyk greater then or less
+than in our conditions
+
+Syntax:-
+db.coll_name.find({num:{$gt:2}});
+
+We can use the limit operator to limit the
+number of records that are returned by a 
+query:-
+
+ex- db.coll.find({}).limit(2)
+
+Sorting can be achieved in mongo by using the
+sort function and passing in an object
+which contains field to be sorted on and
+its value i.e 1 or -1, 1 means ascending
+and -1 would mean descending
+
+db.collection.find({}).sort({"name":1})
+
+count function is to find the number of recor
+ds returned by our query
+
+db.collections.find().count();
+
+db.collections.remove() would remove all
+the documents from a collection
+
+U can specify a condition within remove to
+remove only those queries which match a 
+criteria
+
+mongodb provides a update function to update
+records in mongodb
+
+update command takes in two arguments.. The
+first is an object containing the criteria to
+check for updating and second is an object
+whiose key is $set and value is the values we
+want to update to
+
+regex operator can be used to serach for spec
+ific strings in mongo
+
+db.collection.find({
+name:{$regex:"Gu"}})
+
+return all documents where the field name has
+Gu in it
+
+if we want to fetch records making it case
+insensitive we can use options operator
+
+db.collection.find({"name":{$regex:"gu",
+$options:"i"}}
+
+
+

@@ -1,0 +1,11 @@
+enviroment variabes in node are used by
+installing dotenv and then creating a .env
+file and mentioning the various properties
+there
+
+lyk WELCOME_MSG='Hello World'
+
+if u want to access this variables in a file
+first u will have to import dotenv then call
+.config method of dotenv then u can access
+the variables using process.env.variable_name

@@ -1,0 +1,137 @@
+U can use react-router-dom library to enable
+routing in react app..
+
+For routing u need to wrap ur app within
+BrowserRouter tags
+
+Now u can define routes within BrowserRouter
+using Route class
+
+<Route path='/' component={Home}/>
+<Route path='/welcome' component={Welcome}/>
+<Route path='/go' component={Go}/>
+
+Now if u go to / u will see Home component
+if u go to /welcome or /go u will se both
+welcome or go n also Home.. this is because
+both /go as well as / are being rendered
+
+In order to make sure that / is only rendered
+when we give / only in path we have to add
+an 'exact' attribute in route for /
+
+<Route path='/' component={Home} exact />
+
+U can also wrap the routes inside switch tag
+which would check the routes for path speci
+fied an as soon as if finds a match it will
+nt check the other routes..
+
+<BrowserRouter>
+<Switch>
+<Route path="/" component={Home} />
+<Route path="/welcom" component={Welcome} />
+
+</Switch>
+<BrowserRouter/>
+Now if u type path as /welcome it would find
+the match in first route nly n display only
+Home n nt display welcome at all..
+
+U can fix this error using exact
+
+Now u would like to specify labels on page
+upon click of which u want to route to
+various paths
+
+ex- < a href="/">Home </a>
+
+The issue with a is everytym u click on a tag
+it refreshes the page which doesn't look good
+
+The solution to this is to use Link tab which
+comes along with react-router-dom..
+
+<Link to="/home" > Home </Link>
+
+U can add a basename attribute to Browserrout
+er what it would do is append the value before
+every route path that comes under it
+
+<Browserrouter basename="tutorial">
+
+Suppose for any reason u want to refresh the
+page upon every change in route by clicking
+on Link tag, u can do so by adding an attribute
+forcerefresh on BrowserRouter
+
+now suppose u have a very big page that can be
+scrolled nw if from a position u type a link
+that takes u to another page it will open
+in the same position that u clicked on
+previous page bt ideal experience should be
+that it should open at top
+
+U can do this by writting window.scroll(0,0)
+in the useEffect of the other page with state
+as []
+
+Now suppose u type a wrong path that has no
+routes n u want to show a default error msg
+u can create a route at the last with no path
+attribute n only component attribute
+ React would scan all the routes n wn it 
+doesnt find a match it would render the last
+route with the component specified
+
+if u want a route to have a dynamic attribute
+in path u can mention it like path='/home/:id
+
+if u want to render this dynamic attribute
+in ur component u can do it using match in
+props
+
+const Post=({match})=>
+{
+the id is {match.params.id}
+
+id is the dynamic attribute name u specified
+in Routes
+
+}
+U can also do the above using UseParams hook
+from react-router-dom
+
+const param=useParams();
+console.log(param.id);
+
+Now suppose we want to apply protection to
+a path meaning path would work only if certain
+condition is met.. we can do that by:-
+
+<Route path="/profile">
+{login? </Profile> : <redirect to="/home"}
+}
+
+U can also do the above by passing the login
+as a prop to Profile component n then checking
+there using useEffect
+
+<Route path="/profile">
+<Profile login={login}/>
+</Route>
+
+Profile:-
+
+const history=useHistory();
+useEffect(()=>{
+if(!login){
+history.push("/");
+}
+}
+,[])
+
+You can create routes within a component also
+by creating Route inside switch inside the
+return of respective components
+

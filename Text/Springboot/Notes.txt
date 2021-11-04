@@ -1,0 +1,313 @@
+Springboot filters:
+In order to create a filter we need to impleme
+ntthe filter interface and override doFilter
+method which takes in request,response and 
+chane.. U can specify the order of a filter
+by using @Order(1) annotation
+
+U need to call chain.doFilter(request,response)
+within the do Filter method so that execution
+to other predefined filters can continue..
+
+All the code prior to chain.doFilter will be
+executed when request comes in and all the 
+code after chain.doFilter will be executed 
+wn response is goin back
+
+Need to annotate this class with @Component
+annotation
+
+@Component
+@Order(1)
+public class MyFilter implements Filter{
+
+	@Override=-
+	public void doFilter(ServletRequest request, 
+			ServletResponse response, 
+			FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest req=(HttpServletRequest) request;
+		
+		System.out.println("hello request send");
+		chain.doFilter(request, response);
+		System.out.println("hello response received"
+				+ " " +req.getRequestURI());		
+	}	
+}
+
+SpringBoot Logging:-
+To get started with springboot logging we need to
+create an instance of Logger by using Loggerfactory
+.getLogger n passing in the class name(Classname.class)
+
+Then we could use diffrent methods like info,error,
+trace,debug to log the messsages into the console
+
+we need apache commons logging dependency for Logging
+bt if we use starter web it depends on spring boot
+starterlogging so logging dependency is already imported
+
+the default logging level is set to info that means
+debug n trace by default will nt be visible
+
+we can change the level of logging in app by using
+the env - logging.level.root=warn
+
+diffrent type of logging framework log42j n slf4j
+
+if we want to use another logging frameowrk we 
+will have to first exclude the spring starter logging
+n then import the other frameowrk
+
+whatever logging we did till now we had to create
+a logger instace by ourself.. we can skip this
+step by using lombok dependency which gives us
+annotations by help of which we get a instance
+of logger by default name log which we can use
+directly
+
+Springboot CORS:-
+CORS can be enabled in springboot at both controller
+level as well as global level
+
+U can add annotaion @CrossOrigin to the controller
+u want to expose.. by default it allows requests
+from all origins,methods to access this method.
+
+U can customize this default behaviour by passing
+attributes to this method ex origins,methods
+
+@Crossorigin(origins="http://localhost:8080");
+
+
+so here only localhost:8080 will be allowed to access
+this service.
+
+to add at global level you can add the following code
+in main class
+
+Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings
+			(CorsRegistry registry) {
+				registry.addMapping
+				("/greeting-javaconfig").
+				allowedOrigins("http://localhost:8080");
+			}
+		};
+	}
+
+
+U can add CrossOrigin annotation at class level to
+allows cors for all the methods inside a class
+
+if ur using spring security u also have tp mention
+cors in the security configuration class
+
+SpringBoot Jwt-
+Add the foloowing dependency for jwt
+
+<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+
+First step is to know how to generate a jwt
+and then we need to assign various properties
+to it like signature(algorithm + secret key),
+issuedtime,expiration time,claims and others
+
+U can generate a jwt by using JWTs.builder and
+set various properties to it using set methods
+
+To set signature u have to use signWith
+(SignatureAlgorithm.hsa512,secretkey)
+
+U can also use setExpiration,setissuedAt,set
+Claims etc
+
+U need to convert the above jwt generated into
+a string before sending back.. to do so use
+.compact method 
+
+ex-String jwt=Jwts.builder().setSubject
+("First jwt").signWith(SignatureAlgorithm.
+HS512, "anil").compact();
+	    
+System.milliseconds returns the current date
+n time in a long format
+
+new Date(System.currentMilliSeconds)
+displays the date in a proper format
+
+JWT has 3 parts header,payload/body and signatu
+re.. To store something inside jwt payload
+u can use setClaims method which will store
+json inside payload or u could use setpayload
+which will store a string inside payload
+
+In order to get some data from jwt token u
+need to parse the token that u can do by passing
+singning key to jwts.parser() lyk the following
+
+Jwts.parser().setSigningKey("7735291191")
+	.parseClaimsJws
+("eyJhbGciOiJIUzUxMiJ9.eyJsaXN0Ijp7Im5hbWUiOiJhbmlsIn0sImlhdCI6MTYzMTE2NTM5Nn0.8WEIrLlTmyD1SyJcsMNeyhzLGuI-7S--1fuEnO9eeGqPqCLRKVLPTf6sJ3JKewsAEojfoz_suwu-iDLHYhcDYQ")
+.getBody()
+
+Springboot specifications:-
+
+for using criteria api we have to create one
+more repo class n give @Repo annotation
+
+create an instance of criteriabuilder 
+and entitymanager
+
+private final Entitymanager entitymanager;
+criteriabuilder =entitymanager;.getCriteriabui
+lder();
+
+create a method here which returns Page of
+the model and takes two criterias 
+1. page request i.e page n size
+2. searchcriteria
+
+create a class under model employeesearchcrite
+ria which will have two fields firstname and
+lastname
+
+public Page<Employee> getEmployeeWithFilters(
+PageRequest,searchCriteria)
+{
+//the method inside the search repo we created
+
+CriteriaQuery<Employee> criteria=
+criteriaBuilder.createQuery(Employee.class);
+
+Root<Employee> query =criteria.from(Employee.cl
+ass)
+//here we are basically defining from which
+table we want to get results n in which model
+we want to save them
+//Predicates are used to filter our results
+
+Predicate predicate=getPredicate(searchcriter,
+query(root)
+criteriaQuery.where(Predicate);
+
+setOrder(page,criteria,query(root);
+
+}
+
+create a method getPredicate
+
+ Predicate getPredicate(searchcriter,
+query(root)
+{
+List<Predicate> predicates =new ArrayList<>();
+
+if(searchcriter.getFirstname!=null)
+{
+predicates.add(
+criteriaBuilder.like(query(root).get("firstNa")
+,pattern:"%" + criteria.getFirstName +"%";
+
+if(searchcriter.getLasttname!=null)
+{
+predicates.add(
+criteriaBuilder.like(query(root).get("lastNa")
+,pattern:"%" + criteria.getFirstName +"%";
+
+return criteriaBuilder.and(predicate.toArray
+(new Predicate[0]);
+
+
+setOrder(page,criteria,query(root)
+{
+
+
+
+}
+
+
+in criteria api u r basically building predicat
+which are nothing but diffrent conditions
+written in code..
+U are allowed to combine the predicates as you
+wish n create tthe final result
+
+springboot will internally convert these
+predicates in to queries and give u the
+result
+
+Nexus is used to store third party jars where u can depl
+oy ur internal jars n share within ur dev team
+
+deployment to nexus is a secure operation.. u have to
+mentions the user credentials in ur project for it to
+be deployrd on nexus..
+
+these credentials cannot be mentioned in the pom.xml
+file
+
+credentials of thye server have to be defined inside 
+the global maven settins.xml file
+
+<
+servers
+>
+<
+server
+>
+<
+id
+>
+nexus-snapshots
+</
+id
+>
+<
+username
+>
+deployment
+</
+username
+>
+<
+password
+>
+the_pass_for_the_deployment_user
+</
+password
+>
+</
+server
+>
+</
+servers
+>
+
+we can deploy our maven artifact to nexus using a simple
+command
+
+mvn clean deploy -Dmaven.test.skip=true
+
+Build a docker image for our springboot app:=
+
+FROM java:8
+EXPORT 8080
+ADD /target/snapshot.jar snapshot.jar
+ENTRYPOINT ["java","-jar","snapshot.jar"]
+
+ADD is similar to a copy command where we mention a 
+source and a destination
+
+entrypoint is the list of commands to be exuted on the
+base image which is got using FROM
+
+mvn clean install is used to create a jar
+

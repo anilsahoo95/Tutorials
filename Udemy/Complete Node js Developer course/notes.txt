@@ -1,0 +1,197 @@
+Node js allows us to write javascript code
+on server side and be used to create backend
+services
+
+Nodejs is a js runtime which provides packages
+that can be usd to create servers,connect to
+db
+
+localstorage.getItem or document.gtElemntBy Id
+are nt js functions instaed they are provided
+by chrome .
+
+window is a reference to the current browser 
+window.
+
+in node js u will not have access to window,
+document or localstorage as there are provided
+by browser runtime
+
+Similarly browser js will nt have process,
+global
+
+Node js uses an event driven,non blocking
+i/o model that makes it lightweight n
+efficient
+
+I/O basically means input output which
+refers to the situation where node is trying
+to communicate with an external system like 
+ur computer through fs module or to a db
+system. Thses communications take a lot of
+time. Node js provides non blocking I/O which
+means while we are waiting for I/O operatioins
+like read from a db takes place other code
+keeps on executing and execution does nt
+wait for db response to resume
+
+console is a module that contains a lot of
+functions like log,info etc
+
+Node js Module System:-
+In order to perform certain functions like
+interacting with fs or db connection we will
+need to use modules
+
+fs module system:-
+const fs=requir("fs");
+fs.writeFileSync takes in two arguments..first is
+name of the file n second is data to be written
+
+fs.wtiteFileSync("notes.txt","this file was created
+with node js");
+
+Challenge 1. write a program that appends something
+to a file rater ham overwriting.. use apendFileAs
+ync
+
+Challenge- create a file notes.js and create a 
+function that returns a string. export n use the
+function to get the msg n print in another file
+app.js
+
+Chalk is a simple npm package that helps us to
+customize the text that is printed on the console
+ex.. color of text
+
+const chalk=require("chalk")
+
+console.log(chalk.blue("Hello world"));
+
+nodemon is a package that allows to restart a server
+whenever there is a code change n u dont have to
+run everytym manually
+
+npm install module -g is a command that installs a
+package globally.. no changes are made to package
+json of the local project
+
+to use nodemon run command nodemon app.js
+
+clear to clear node js terminal
+
+u cn pass command line arguments lyk node app
+.js Anil
+
+U can access this argument by using process
+global variable
+
+use process.argv to get arguments, it's an
+array whose first two values are system defined
+whatever we give will be stored in later
+indexes
+
+Add more command line options while running
+node:-
+node app.js add --title="add a note"
+
+--title="add a note" is plainly added to process
+.argv array without parsing.. we can instead
+use a package to solve the parsing problem
+
+yargs is one of the packages
+
+const yargs=require('yargs');
+
+console.log(yargs.argv);
+
+to set a handler to a command u can use
+
+yargs.command({
+command: add
+describe: add a note,
+handler:function(){
+console.log("add a note");
+})
+
+run node app.js app n above handler would be
+run
+
+convert an object to a string by using
+JSON.stringify(object)
+
+convert a string to an object by using
+JSON.parse(string)
+
+fs.readFileSync(filename));
+
+the return of the above method would be a byte
+buffer.. U can use it by converting to it to
+a string by using toString.
+
+Section 4 n 5 we can do later..
+
+some tiopics in a course u may lyk to skip n
+we can do later after completing the course
+just mention the topics u missed so that u
+can refer to them later
+
+setTimeout is an async allows to do something 
+after a time has passed.
+
+setTimeout(()=>{
+console.log("something");
+},1000);
+
+waetherstack.com provides a real time waether
+data api> U need to sign up on their website
+
+U will get a api access key that u need to use
+while making api calls to weatherstack
+
+request is a npm module that is used to make ht
+tp requests to other api's
+
+postman-request is an alternative to request
+
+const req=require('request')
+const url="url";
+
+request is a function that takes in two arguments
+first is an object containing various values
+related to the url n second is a function that
+is to be executed after getting data from api
+
+request({url:url},(err,resp)=>
+{
+const data=JSON.parse(resp.body);
+}
+
+request provides a json property which u need to
+set to true so that the response is parsed to
+json automatically
+
+request({url:url,json:true}),()
+
+in chrome u can add a JSON formatter extension 
+that formats the response if in json format
+
+call the waetherstack api and print the followin
+g msg--- the current waeather is --C . There is
+_ % chance of raining
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

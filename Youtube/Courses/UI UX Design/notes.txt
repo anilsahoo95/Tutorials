@@ -1,0 +1,70 @@
+Adrian twang youtube channel
+
+wireframe is a visual representation of how
+a project will work..It basically shows all
+the web pages that are going to be involved
+in the overall project
+
+Thre is a app called concepts in apple which
+can be used to draw sketches
+
+First thing in designing is creating a sitemap
+which contains the various pages that you
+will build in the UI and which page would
+come under which page
+
+First page will always be a homepage
+
+and for example you can have a contact us,
+about us and features page inside the home
+page
+
+Now we can start to have a wireframe for
+home page.. it will consist of a header and
+a footer
+
+Header would be divided into two parts:-
+a logo n a menu
+
+we can have a backgroung image for header
+upon which menu would be present
+
+Next we could have a about us section in the
+home page
+
+next we can have sponsors section
+
+next we can have a footer which can contain
+a contact form on left, sitemap in middle
+and logo and phn and email in teh right
+
+In wireframe ur basically reprsenting the
+various elemnts you can think of initially
+in the page and label them
+
+Labelling should be a different color from
+the reactangles u have done
+
+Next we will have a features page where
+the header will be same as home page
+
+The nect section can maintain the page
+title
+
+the next section can contain the list of
+features mentioned one by one with each 
+containing an image,title, a bit of descrip
+tion and a link to go to that page
+
+Footer u can again copy paste from home
+page
+
+In wireframe u can draw lines or arrows
+between pages to indicate the flow
+
+Contact Us page can contain header,footer
+and in middle phn,email and a map that can
+show the location of the office
+
+25.41
+

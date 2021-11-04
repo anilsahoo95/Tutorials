@@ -1,0 +1,673 @@
+if u have multiple modules within an applicat
+ion n all of them are present within a single
+project then it is called a monolithic app
+
+the code will be large n error detection will
+be tough.. any new feature addition will be
+tough as need to check if all other services
+are not impacted
+
+Features of microservices:-
+1.Each service can be wriiten in a diffrent 
+lang n still can communicate to each other
+using api's
+2.Robust- if one module goes down the complete
+app does nt go down
+3.easy to deploy- each service can be deployed
+independently
+
+cloud provides us on demand services like
+storage,networking etc
+
+AWS is an example of cloud provider
+
+no initial investment required.. pay as u use
+
+Types of cloud service models:-
+IAAS
+PAAS
+SAAS	
+
+For any application to run on cloud u need the
+following services:-
+
+Application ---SAAS
+Data  -db
+runtime- java/python/node ---PAAS
+Middleware- something to connect b/w services
+O/S
+Virtualization ----IAAS
+Services
+Storage
+Networking -- Security groups
+
+as part of IAAS we get only upto virtualization
+installing the os, runtime n others above will
+be done by us
+
+as part of SAAS we get everything and we only
+need to fcous on the development part
+
+AWS provides cloud watch which helps us 
+monitor the health of our app
+
+AWS account setup:-
+give credit card details for a year for free.
+
+AWS has a lot of regions and each regions will be
+divided in two zones so if one zone goes down 
+other zones would still be available
+
+EC2 stands for elastic cloud compute
+
+it gives us AMI which is amazon machine image
+which contains an os and the softwares that
+u need ex- java,mysql,python,docker etc
+
+wn u create an instance u gt an ip n a domain
+with which u can access it from anywhere..
+everytym u stop n start an ec2 instance the
+ip address would change.. To make it constant
+u need an elastic ip which is chargeable
+
+To launch an ec2 instance go to aws console
+dn services,compute n dn ec2 dn running 
+instances--launch instance
+
+look for free ones
+
+choose amazon linux
+
+Per month 700 hours is free
+
+Security groups are used to restrict access to
+machine..by default only 22 is allowed
+
+wnever u launch an ec2 instance a keypair is
+generated.. u cn generate a new keypair or
+use an existing keypair that u generated
+earlier
+
+U would gt a public domain n ip address which
+u can use to connect to machine
+
+ec2 instances use ssh to communicate
+secured shell..
+
+wn u create a key pair a combination of
+public n private key is created. public key is
+maintained with aws n private key is given to
+the client.. wnever client needs to connect
+to his machine he needs to provide private
+key n nly if the keypait match is found dn
+connection is established
+
+to generate a keypair on ur machine use
+ssh-keygen -t rsa-- here rsa is the algorithm
+to be used.
+
+Linux stores ssh keys related info in the fol
+der .ssh/id_rsa-- public key generated is 
+stored here
+
+to become root user use sudo -i
+
+there are various ssh utility tools that allow
+u to connect to machines
+
+MobaXterm is preferred because here u can 
+open multiple terminals at once n also u
+dont need to convert pem file to another
+format
+
+in mobaxterm wn u connect u need to mention
+user as ec2-user
+
+To connect using putty u have to convert 
+pem file to ppk file first
+
+for free account per year u gt 30 gb of storage
+which means wn u create ec2 it should nt
+exceed 30 gb.. even if u create multiple
+instances the total should nt exceed 30 gb
+
+ls /-- root level diresctpries
+
+ls /bin is where all the command line tools 
+are stored.. all the commands u type in will
+be stored here
+
+ls /boot-- all the files to start the system
+
+ls /etc-- all the configuration files would be
+here
+
+ls /home-- home directory for every uuser
+
+ls /lib-- all the software libraries are stor
+
+ls /opt- all the application binaries are sto
+red
+
+ls /root-- home directory of root user
+
+pwd- present working directory
+mkdir- create a directory
+cat > myfile.txt
+will give u a prompt where u can type text
+n dat text gets saved to myfile.txt finally
+
+ls -r-- shows subdirectories as well as 
+content within the subdirectory
+
+cat filename-- to see the contents of the file
+cp file1 file2-- copy contents of file1 to
+file2
+
+mv filename dirpath-- move file to another
+directory
+
+rm filename-- remove file
+to remove directory use-- rm -r dir
+
+:wq-- write n quit
+:q-- quit without saving
+
+to install packages in amazon linux use yum
+yum list installed-- list of installed packages
+
+yum install packagename-- to install package
+yum install httpd
+
+to start a installed package do
+service packagename start
+service httpd start
+
+vi /var/www/html/index.html-- httpd uses this
+file as default to fetch to the server
+
+U can edit the above file also
+
+curl lets u hit a web server at a particylar
+port
+
+yum install curl
+
+curl localhost 80
+
+to stop the service-- service name stop
+
+to remove package-- yum remove curl
+
+Version Control System contains all our files and
+the history of the files
+
+In central version system all the files are main
+tained only in a central place.. dev can only
+grab the files that he needs.. he needs to be
+connected to the network all d tym while working
+
+In distributed system each dev has all the files
+in his local..
+
+every commit has a unique commid id..
+
+Remote Repo is the central repo..
+
+u can configure properties of git at 3 levels
+1.--local-- for the local repo
+2.--global- for all the repo used by user
+3.--system- for all the users using the system
+
+git config --list- list all the git configs
+
+git config --global user.name "anil"
+
+to create a git repo use git init inside a folder
+
+git branch shows all the branches
+
+git log shows history of all commits made
+
+git diff takes in two parameters firstcommid id n
+second commit id and shows the diffrence bw the
+commits
+
+git log --oneline just for brief info
+
+Undo Changes:-
+Before adding to staging area-- suppose u made
+some changes to a file n realized it is wrong
+before adding u could use git checkout filename
+for changes from repo to override ur changes
+
+after adding if u want to undo u could do:-
+git reset HEAD filename
+this removes the file from staging area
+
+n dn git checkout filename to override changes
+
+git branch-- current branch ur now
+
+git branch dev-- to create a branch named dev
+
+git checkout dev-- to switch to a branch
+
+git merge dev-- merge from dev to the branch ur nw
+
+merge conflicts happen wn two dev make changes in
+the same line
+
+<<<head to === is a change on one branch n frm
+=== to >>> is the change on other branch
+
+wn u resolve,u hv to add n dn commit them
+
+git branch -d branchname-- to delete a branch
+
+git remote -v--list of remote repo
+
+to connect local repo to a remote repo use:-
+git remote add origin repolink.git
+
+git push -u origin master
+
+git fetch will only check d remote repo n tell
+us that there are changes in remote repo bt
+will nt merge the changes whereas git pull
+will check the changes in remote n merge it
+to local files..
+
+suppose u made sveral commits n dn u realised
+d last 2 or 3 commits were wrong in that case
+u would like to point to the commit that was
+correct.. to do this u would use git reset
+command.. git reset --hard commitid
+d two wrong commits would go away frm repo.
+dn to push the changes u have to use 
+git push -f
+
+in case of reset wn u reset to a commit the 
+changes are permanently lost. if u want those
+commits to remain along with undoing them
+we can use revert.. it undoes the latest commit
+by creating one more commit.. if u want to
+remove 2 commits u have to revert two tyms
+
+git revert head.. 
+git push
+
+suppose u made 3 commits--1,2,3 n u realized
+only commit 2 is wrong in that case to only
+undo commit 2 we have to revert commit 3 n
+dn commit 2 n dn head will point to commit
+1 n der we have to cherrypick commit 3
+
+suppose u r doing something on a branch n
+d work is not yet completed n 
+dn u have to work on something else n u may
+have to pull or work in another branch. in 
+that case u dont want to lose ur changes so
+u could save them in a local repo by using
+git stash.. wn u want to resume work there
+u could use git stash pop
+
+in aws git would be already present.. if u
+want a diffrent version u would install it
+using yum install git
+
+S3 stand for simple storage service U can save
+ur application files here
+
+go to aws go to services n dn go to s3
+
+in order to store files in s3 we have to 
+create buckets..upto 100 buckets is free with
+5GB data
+
+create a bucket wn u click on s3 n upload a 
+simple text file that u create on ur local
+
+if u give public permissions to that bucket
+u will gt a link with help of which u can 
+access it on the web. U can also upload
+a html file so a web app u can create
+
+Use case would be a devops engineer could ask
+dev to upload jars there n he could pull it
+up frm there n deploy it.
+
+manuallu deploying springboot servive to aws
+using ec2-
+first create an ec2 instance n install java
+n mysql
+create a jar n store it in s3 bucket
+pull the jar from s3 buket n deploy in ec2
+
+yum install -y mariadb-server
+
+systemctl enable mariadb
+
+systemctl start mariadb
+
+mysql_secure_installation
+
+mysql -uroot -p
+
+---------Java-----------
+
+yum install java-1.8.0-openjdk
+
+alternatives --config java
+
+above r to install mysql n java in ec2.. 
+mariadb is a version of mysql
+
+mysql-secure-install to create a password
+current password will be empty
+
+mvn install would create a jar file for u
+inside target folder.. upload it to the s3
+bucket(jar)
+
+wget will take an url as a argument n it will
+hit the url n whatever d url rettuens it
+will download it to the local machine
+
+to run a jar:-
+java -jar jarname
+
+it will run on the machine.. expose that port
+n it will be accessible from outside
+
+there is a file in linux etc/rc.local will
+will contain commands that will be started
+whenever the system is booted up.. mention
+any command there and it will be run everytym
+the system is booted
+
+amazon-linux-extras install epel -y
+
+yum install stress -y... stress is a command
+that allows to artificially create stress on
+the os and cpu so we can test it
+
+we can use it to check how aws creates new
+instances when there is lot of traffic
+
+u can create images out of the instance u
+created.. it will contain softwares n data
+n settings that was there is parrent instance
+
+click on instance-- actions--image--create
+image
+
+create a new instance and select my images
+rather than selecting default ones
+
+as ur app goes bigger u gt multiple requests
+from the client if u route all the requests
+to the same app instance then the instance
+would crash some time.. hence we create 
+multiple instances of the app so that traffic
+is distributed among various instances
+
+diffrent types of load balancers are there
+
+classic lb is used to balance load between
+various ec2 instances.
+
+create a load balancer with lb incoming port
+as 80 and instance port as the port on which
+app is running
+
+then u have an option for health check where
+aws will hit an endpoint to check the health
+of ur app.. if ur creating an api give a
+get api there
+
+u can add ec2 instances
+
+Auto Scaling feature of ec2 helps us in
+increasing or decreasing no.of instances 
+automatically upon increase or decrease in 
+load .
+
+There are two steps here:-
+1.lauch configuration where u specify the
+instance or ami that has to be auto scaled.
+
+2.Auto scaling policy where u mention the 
+breakpoints after which a new instance has
+to be created by aws
+
+Under auto scaling select launch configuration
+
+go to launch conf.. select d conf u created
+n dn select actions n select create auto
+scaling group
+
+skipped section 11 n 12
+
+once we have a container that contains all
+the softwares the app needs n app itself we
+can easily transfer n use it
+
+instead of creating a jar/war u will create
+docker images n dn run instances out of it
+
+containers can communicate with each other
+
+a image can contain the whole app along with
+softwares or can also a component or part
+of an app
+
+PODA-- package once deploy anywhere
+
+yum install docker 
+
+service docker start-- to run docker engine 
+on server
+
+docker run -it ubuntu bash
+
+AWS Elastic Beanstalk is an easy-to-use service 
+for deploying and scaling web applications 
+and services developed with Java, .NET, PHP, 
+Node.js, Python
+
+wn ur running microservice on local u can
+check what is the status of each service
+i.e cpu and memory utilization etc
+
+so basically we need to collect the logs
+generated,monitor health of ec2 continously,
+analyze the various data we receive and
+then act if necessary.. all these can be 
+automated using aws cloudwatch service
+
+cloudwatch lets us set alarms which we can
+customize on various metrics ex alarm when
+cpu utilization is more than some %.. In that
+case we can also configure to send us a 
+notification through mail wn this alarm
+rises
+
+AWS SNS(Simple Notification Service)
+
+captures events and sends us indo
+using topics which are channels and whoever
+subscribes to that channel will receive 
+
+so wnever cloudwatch will raise an alarm
+then it will be sent to topic and then the\
+various services that have subscribed can
+use it to pass on to email or other aws 
+services
+
+Amazon SNS--Topics--Create Topics
+
+after creating topic u have to go to subscrip
+tion where u will create a subscription
+ need to provide ARN--- amazon
+resource number unique for a topic
+
+after creating topic in ARM when u click the
+i/p to enter it will give u a default name
+
+protocol is where u want to send the message
+u cn send it as email or call a aws lambda
+or u can forward the meesage to another queue
+which will be read by subscriber to topic
+
+create alarm and attach SNS
+select protocol as email and mention ur mail
+id
+
+u have to confirm email subscrioption by 
+going to email
+
+in aws services search cloud watch
+go to alarms.. create alarm
+
+also u can create alarm by directly going to
+the instance and below u would find the
+monitoring tab and create alarm option where
+u would be able to see the topic.. nw select
+the topic and choose a metric 
+
+wn the condition occurs for 5 mins atleast
+gt a notification
+
+install stress -y
+top will give u the cpu utilization
+
+stress --cpu 1
+use 100% of the cpu on the machine
+
+Elastic Bean stalk helps us to easily deploy
+apps on the fly along with support for 
+sns,auto scaling,cloudwatch etc
+
+U can also choose which of the above services
+u want to be included in ur application
+
+for any service we would need a db
+RDS-- Relation database service helps us start
+a relation db server lyk mysql,postgres etc
+and handles auto backup, replication etc
+
+Dynamo db is a unstructered dn maintained
+by amazon lyk monodb
+
+in db instance also u need to configure
+security group to add port 3306 for mysql
+
+In services search for rds
+ create db--basic create so that you could
+choose some options.. easy create would choo
+se all the options for us
+
+select db,username and password
+
+inside connectivity make it publicly accessib
+le
+
+it will take somtym then under connectivity
+u can find the endpoint
+
+connect to it using mysql workbench
+create database mydb;
+use db;
+
+by default ebs open us port 5000 nly to the
+outsyd world so run the app on 5000.. for
+other port we will be charged
+
+search elastic bean stalk
+choose java
+
+corettoe is amazon verison of openjdk
+
+will take 10 mins to create ebs app
+
+no need to mention port number in endpoint..
+aws automatically maps 5000 to the endpoint
+it provides
+
+each ebs will run on diffrent machines/servers
+internally
+
+in logs u can see the application logs
+
+for ebs aws internally creates ec2 instances
+for us which u can c under insatnces menu
+as well
+
+aws lambda allows us to write custom code
+in aws
+
+the various components in aws can trigger
+our lambda function and when they trigger
+a handler function inside lambada whose
+body we would have coded will be executed
+
+search lambda:-
+create function.. author from scratch
+
+Runtime-- node js
+
+if u go down u can get source code
+
+U have a test tab where u need to specify
+some label and give it a body which will be
+sent to lambda expression as input
+
+aws cli lets u access all the aws services 
+from command line
+
+U can create,start and stop ec2,start rds
+
+Identity and acess managent allows us to
+create differnt profiles for different users
+and give them access or roles accordingly
+
+search iam click on users
+
+add user
+
+there are acess types:
+1.programmatic access-- here user would get 
+an access key and secret key and he would
+be able to connect to aws api's to use the
+various aws services
+
+2.AWS console-- aws UI
+
+Attach existing policies directly-
+search for ec2full access
+
+ec2readonly access is also there
+
+a new endpoint will be generated..user has to
+access aws console through that endpoint
+nky
+
+foraws cli we need to create a programmatic
+user
+
+copy access and secret key
+
+install awscli
+
+apt get awscli
+
+aws configure use
+It will ask for access id and secret
+
+deafult output format--- json
+
+aws commands:-
+aws help
+
+

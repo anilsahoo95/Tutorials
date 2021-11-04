@@ -1,0 +1,281 @@
+SECTION 13- DATABASE CACHING
+
+wnenver user hits sb api for data,hibernate
+hits the db with an select query. now instead
+of hitting db everytym for select query hiber
+nate can store the table data into a cache
+n refer to tthis cached data for returning
+data to user..
+
+springboot uses third party libraries like
+hazelcast,jboss cache to implement caching
+
+need to add following dependencies for caching:-
+spring boot starter cache
+hazelcast
+hazelcast-spring
+
+need to create a class for cache config
+create a class within main.config package
+n give it a @Configuration annotation
+
+create a method which would return a config
+object of hazelcast package..
+
+@Bean
+public Config cacheConfig()
+{
+return new Config().setInstanceName("hazel-
+cast").addMapConfig(new MapConfig()
+.setName("product-cache").timetoLiveSeconds
+(3000).setMaxSizeConfig(new MaxSizeConfig(200,
+maxsizepolicy.freeheapsize().setEvictionPolicy
+(evixtionpolicy.lru
+).
+
+}
+
+to enable caching in our app use @Enablecaching
+on the main class
+
+in our model implement Serialixable
+
+on whichever controller u want to use caching
+use @Cacheable annotation below getmapping
+n above method
+
+@Transactional(readonly=true)
+@cacheable("product-cache");
+
+on top of delete provide
+@EvictCache("product-cache")
+
+spring.japa.show-sql=true-- displays the sql
+queries in console
+
+SECTION 14:
+
+Spring batch refers to a set of tasks that are
+run like copying files, transfering file to
+db or across systems
+
+the main task is called a job
+
+a job can contain multiple steps
+
+each step contains item reader,itemprocessor
+and itemwriter
+
+A job is created using jobbuilderfactory
+
+A job must consist of atleast one step which
+is created using stepbuilderfactory
+
+need to add spring batch dependency n h2
+
+first need to create itemreader, for that crea
+te a reader class n implement itemreader<string>
+
+need to override read method in this class
+
+return a String here
+
+create a class processor which implements
+itemprocessor with 2 arguments, one being the
+data type it will output n second the type it
+will process
+
+override process method
+
+this method would receive data from reader.
+u can just return uppercase of string it receives
+
+create a writer class that implements itemwriter
+datatype is String
+
+n override writer method
+
+we get a list of strings which we normally
+write to a db or a file
+we can also simple print to the console
+
+create myjoblistener class which implements
+job executionlistener
+
+need to override two method beforejob and
+afterjob.. beforejob is executed before job
+execution and afterjob after job execution
+
+add sysout to both job started n job ended
+
+create a batchconfig class where u would expose
+beans of all the objects created above
+
+@Bean
+public Reader reader()
+{
+return new Reader();
+}
+
+do d same for all 4
+
+now we need to configure a step:-
+
+@Autowired stepbuilderfacory sbf;
+
+@Bean 
+public Step step()
+{
+return sbf.get("step1").<String,String>chunk(1).
+.reader(reader()).writer(writer()).processor
+(process()).build();
+
+now we need to configure a job so:-
+
+@Autowired JobbuilderFactory jbf;
+
+@Bean
+public Jon job()
+{
+return jbf.get("job1").incrementor(new RunidI
+crementor()).listener(listener()).start(step()
+.build());
+
+incrementor is used to create id for every job
+
+to start a job need to use JobLauncher
+
+@autowied joblauncher launcher;
+
+@Autowired job job-- job bean that we created
+
+JobParameters job p=new Jobparameterbuilder.
+tojobparameter();
+
+launcher.run(job.jobp);
+
+in main class add enablebatchprocessing annotat
+tion
+
+till 92
+
+SECTION 19- FILE UPLOAD AND DOWNLOAD
+ create project with spring web
+
+create restcontroller class
+
+@Postmapping("/upload)
+public boolean upload(@requestParam("file") 
+MultipartFile file)
+{
+file.transferTo(new File(pathname)+ file.getO
+riginalFilename);
+return true;
+
+In postman 
+in body choose formdata:
+file- there would be a dropdown to choose bw
+file n text, choose file
+
+@Getmapping("/download")
+public ResponseEntity<Byte[]> download()
+{
+byte[] fileData=Files.readAllBytes(new File(dir
++filename).toPath());
+
+SECTION 16-- Messaging
+
+transfer of messages between applications or
+between components of an application
+
+there are three components involved
+sender,receiver and messaging server which gets
+a messages and outputs it appropriately
+
+MOM is the messaging server i.e message oriente
+d middleware
+
+apis can also be used for communication bw
+services bt the adavantage of MOM is that messa
+ges are persisted n nt lost as in case of api's
+
+JMS supports two types of message models:-
+1.point to point- Here one app sends a message
+n d same is received by one app nly.. they
+can also reply back to the message which is
+received by sender through MOM
+
+2.Publish/Subscribe- Here the sender is known as
+publisher and there are multiple receivers who
+r known as subscribers.. the sender sends a 
+msg also known as topic n d MOM takes care of
+delivering the topic to all the apps that have
+subscribed to the topic
+
+as a developer we will need api's to connect to
+MOM in order to send or receive a message.
+These MOM could be ActiveMQ,Sonic MQ etc
+
+JMS provides us a set of api's which we can use
+to connect with messaging servers or MOM
+
+JMSTemplate is a class built on top of JMS by
+spring which can be used to interact with
+message servers or MOM. It has methods like
+send,receive etc
+
+download apache active mq
+
+inside bin of mq folder run bat file to run on
+windows
+
+localhost:8161--- server on which mq runs
+admin n admin default username n password
+
+start springboot with dependency active mq 5
+
+Create message sender class and annotate it with
+@Componenet
+
+we need an instance of Jms template so
+
+@Autowired JmsTemplate jmsTemplate;
+
+queue="myqueue";
+
+public void SendMessage(String msg)
+{
+jmsTemplate.convertAndSend(queue/topic,msg)
+}
+convertandsend method converts our string into
+a jmstemplate string
+}
+
+}
+
+create messagereceiver class
+n annotate with @Component
+
+create a method and annotate it with jms listen
+er annotation
+
+@JmsListener(destination=queue)
+public void receive(String msg)
+{
+system.out(msg);
+}
+
+@JmsListener(destination=queue) would listen frm
+the destination provided n will inject the 
+result into msg
+
+mark the main class with @EnableJMS
+
+spring.activemq.broker-url=tcp://localhost:61616
+spring.activemq.user=admin
+spring.activemq.password=admin
+
+
+
+
+

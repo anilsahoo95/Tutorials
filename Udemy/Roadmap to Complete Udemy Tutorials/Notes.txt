@@ -1,0 +1,28 @@
+28.7.21-
+Devops Tools and AWS For java microservice:-
+Topic                    Duration   datecomple
+AWS EC2 and Linux Basics  1h5m      28.7(Wed)
+Git                       1h16
+Maven                     49
+Software For ms dev       23
+Create or Download        36
+Manual deployment         37
+AWS elastic load          12
+AWS Auto Scaling          16
+AWS Cloudwatch            20
+ElasticBeanstalk rds      31
+Docker                    1h34m
+Dockerize ms              39
+Docker compose            58
+kubernetes concepts       46
+kb in action              1h52
+kb volumes                44
+deploy ms to kb           38
+JKube quick start         23
+Docker swarm              1h1m
+Jenkins CD                1h32m
+Pipelines                 41
+IAM service               20
+CLI                       19
+lambda                    12
+Ansible                   50

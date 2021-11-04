@@ -33,3 +33,30 @@ the info n confirms if the user is ok with
 giving the asked access.. upon confirmation
 google sends back the service with an access 
 token which he can use to get access..
+
+Instead of building an authentication service
+from scratch by yourself u could use OAuth
+to leverage authentication already implemented
+by google or facebook..
+
+add spring web and spring security dependency
+
+add spring security oauth2 autoconfigure
+
+add enableoauth2sso annotation to the main
+class
+
+In order to use authentication from a third
+party u need to first register yourself
+with the third party
+
+for facebook
+go to developers.facebook.com
+go to my apps
+create app
+
+in application properties u need to mention
+various configuration related to third party
+sso along with client id and secret which u 
+would be getting
+

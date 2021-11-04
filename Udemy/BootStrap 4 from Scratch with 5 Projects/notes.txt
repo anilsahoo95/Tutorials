@@ -18,6 +18,10 @@ simple html file
 Prettier is an extension that lets us format
 code in vscode
 
+Install prettier extension in vs code, then after u write
+ur code press on control+shift+p and then choose format
+document n dn configure n then prettier..
+
 Create a folder and open it in vs code. create
 a file hello.html and right click on it inside
 vs code n choose start live server
@@ -328,6 +332,81 @@ default
 </l1>
 </ul>
 </div></nav>
+
+List Groups are fancy unordered lists
+
+add a class list-group to ul
+
+add class list-group-item to each li element
+that adds border n padding to each li
+
+for a list of a href u could add list-group to
+ul n list-group-item to each a tag.. u can 
+add an active class to represent a specific
+row is active which sets up a background
+
+u could style a list item according to its
+role bt adding class list-group-item-primary,
+list-group-item-secondary
+
+breadcrumb is a group of items which is like
+a menu showing the links that can be used
+to navigate through all the pages
+
+technically breadcrumb is a ordered list of
+items or li.. To add styling for breadcrumb
+add class="breadcrumb" to ol n add class=
+"breadcrumb-item" to each li in the ol
+
+in case of form each input is basically repre
+sented by a div containing a label n a input
+tag
+
+<div>
+<label for="name" > Name </label>
+<input type="text" id="name" />
+</div>
+
+to make it look good add a class form-group to
+thr div and add a class form-control to each
+input
+
+to make a input field readonly just add a 
+readonly attribute to the input control
+
+for select also we can use the same classes
+to make it look good.. use form-group in div
+and use form-control in select tag
+
+suppose u want to have an input option where
+user would need to upload a file you would
+use input type="file"
+
+to make the above look good use a class form-
+group on div n a class form-control-file on
+the input tag
+
+for submit button add a class btn btn-primary
+to make it look good
+
+bootstrap also provides classes for form
+validation to look gud/bad
+
+<div>
+<label>
+<input class="is-invalid">
+<div class="invalid-feedback">
+Password is not correct
+</div>
+</div>
+
+upon clicking on submit u would like to show
+a input as green or show it as red.. in order
+to do the same just add a class= is-valid
+or is-invalid accordingly
+
+
+
 
 
 

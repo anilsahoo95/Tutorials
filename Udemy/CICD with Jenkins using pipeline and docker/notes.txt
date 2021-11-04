@@ -37,9 +37,48 @@ we have no way of reverting back
 this can be solved by writing build jobs
 in code and save in version control like git
 
-
-
-
 provide node/npm path
 
 npm i is equal to build
+
+Jenkins Job DSL(Domain Specific language) is a
+plugin used to define jobs in a programatic
+way with minimal effort
+
+U can describe jobs using a groovy based lang
+groovy is a scripting lang for java platform
+
+DSL makes it easier to manage jobs.
+if u have few jobs u can use UI
+bt becomes difficult wn num of jobs increases
+so we can use DSL
+
+install dsl using manage jenkins n manage plugin
+create new item- freestyle project-
+write the dsl file in a git repo n dn use d
+git repo n in build step choose process job 
+dsls
+
+when u build dis a jenkins job will be created
+with the config values that u mentioned in
+groovy file
+
+Jenkins Pipeline
+allows u to write jenkins build steps in code
+build steps alow u to comple.test n deploy code
+
+this code to write build steps can be put in
+version control
+
+Pipeline is a type of job that is created
+it can be created using jenkins UI as well as
+job DSL
+
+
+
+
+
+
+
+
+ 

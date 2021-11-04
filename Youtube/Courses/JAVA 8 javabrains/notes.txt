@@ -1,0 +1,303 @@
+In java basically we are used to write progra
+ms in terms of object oriented programming
+
+lambda helps us in writing functional progra
+ming
+
+java -version to get verison pf java
+
+jdk helps us in building java programs wherea
+as jre helps us in running java application
+
+Problems with oops:-
+1.in java everything is an object.. suppose
+u want to write a method that only prints
+hello world for that also u have to create 
+a class.. so every bit of function or code
+has to be within a class
+
+You can't have a function in isolation
+
+Lambda helps us create functions which can be
+in isolation without having to be inside 
+a class
+
+here a function is assigned to a variable
+similar to what u have done in reactjs
+
+just to clarify the above method is assigned
+to the variable, it's not that end result
+of function would be assigned
+
+basically we want to do something lyk:-
+
+variablename=public void print()
+{
+System.out.println("hello world");
+
+}
+
+now public is not needed as we dont hv it
+inside a class..
+
+print will not be needed as if we want to use
+this method anywhere we will do it using
+the variable name and not the method name
+
+void is nt required as now java compiler
+is smart enough to figure out the return 
+type by looking into the body of the method
+
+so final syntax of lambda expression would
+be:-
+
+variable name=()->{
+SOP("hello world");
+}
+
+if ur function body is just one line u can
+remove curly braces as well
+
+printFuntion=()-> System.out.println("hello");
+
+Lambda expression taking in a variable as 
+input.. if the function body is just one line
+u can skip return also
+
+doubleFunction=(int a)->a*2;
+
+addFunction=(int a,int b)-> a+b;
+
+safeDivideFunction=(int a,int b)->
+{
+if(b==0) return 0;
+return a/b;
+}
+
+stringLengthCount=(String a)->a.length();
+
+To create a lambda expression in java we 
+first need to create a interface n declare
+a method there with the signature that is
+equal to the method that is to be assigned 
+to varibale
+the interface should have only one method
+as of now
+
+That interface name would be the type of
+variable to which a lambda expression is
+assigned
+
+ex-
+public interface Greeting{
+void perform();
+}
+
+Greeting greet=()->SOP("hello world");
+
+now u can do greet.perform() n ur lambda
+expression would get executed
+
+U can also create an implementation of 
+interface inline..This is also called anonymo
+us inner class.. inner because this is inside
+a method n anonymous because it does nt have
+a name
+
+public interface Greeting()
+{
+void perform();
+}
+
+Greeting greet=new Greeting(){
+public void perform()
+{
+System.out.println;
+}
+}
+
+U basically define an implementation of 
+interface by creating another class n imple
+menting interface n overriding the methods
+bt in the above ur doing it inline
+
+as we are using a interface where we are de
+fing the method signature that contains 
+the type of arguments that are being passsed
+so while defining lambda expressions we can
+skip passing types there.. Java infers the 
+type of the argument by looking into the
+interface.. This is called type inference 
+by java
+
+To create a thread in java we need to use
+Runnable interface which contains only
+one method that is run.. so it can be used
+as a type for creating lambda expression
+
+Thread myThread =new Thread(new Runnable()
+{
+public run()
+{
+SOP("hello world");
+}
+})
+
+myThread.run();
+
+An interface which has only one abstract
+method is called a functional interface
+
+From java 8 onwards inside interface we can
+implement the methods.. so a interface which
+has two implemented methods and one abstract
+method is also a functional interface
+
+So a functional interface can be use to
+declare a type for lambda expression
+
+Now lambda expression requires us to have 
+an interface with only one abstract method..
+if tomorrow someone goes and adds another
+abstract method in that case out lambda 
+would fail..
+
+So to make sure that nobody else is able to
+add another abstract method to our interface
+we can annotate it with @FunctionalInterface
+
+Exercise:-
+Create a class Person which consists of the
+variables:-
+firstname,lastname and age
+
+List<Peron> prople=Arrays.asList(
+new Person("Charles","Dicens",23),
+new Person("dharles","Dicens",23),
+new Person("gharles","Dicens",23),
+new Person("nharles","Dicens",23),
+);
+
+Need to perform the following tasks:-
+1.sort the list based on firstname
+2.write a method to print all the elemnts
+3.print elements whose name starts with g
+
+skipped solution
+
+now the thing is for every lamba expression
+we are having to first define a interface
+
+java 8 gives us some out of the box interface
+s which are present inside java.util.function
+which we can use to create lambda expressions
+
+ex-- there is a predicate interface which
+has a test method that takes in a object as
+input and returns a boolean..so in any
+case suppose we have to implement a lambda
+expression that takes in a object and returns
+a boolean we can use the Predicate interface
+type
+
+Consumer is a predefined functional interafce
+that takes in a object and does not return
+anything
+
+skipped 17 and 18 exception handling
+
+Closure:-
+
+wn we use a variable in lambda expression
+which is in scope then java binds the value
+of the variable inside the lambda expression
+such that even if the variable's value chang
+es, still value in lamda expression would 
+remain constant
+
+19 done
+
+skipped 20
+
+Method refernces provide an another way to
+create lambda expressions
+
+public static void printMsg()
+{
+System.o.p("hello world");
+}
+
+Thread t=new Thread(()->printMsg());
+
+The above can be relaced by method refrence by
+writing it as:-
+
+Thread t=new Thread(classname::methodname);
+
+Method referencing can nly be used in some
+sspecial case:-
+1. wn inside lambda expression all ur doing
+executing a function there u can use method
+refrencing(no argument present)
+2.wn theere is an argument in lambda expression
+n all ur doing is call the function along
+with the same argument,there also u could use
+method refrencing
+
+so methid referencing can be used where all
+ur doing inside lambda expression is to pass
+the flow to a function and nothing else
+
+To loop over collections we have for loop and
+for in loop where we are controlling the 
+iteration externally by saying java where to
+start n end the iteration bt java 8 provides
+us a new looping where we just mention our
+intent to loop how it does will depend on it
+
+we can do this by using forEach method on a 
+collection
+
+prople.forEach(p->SOP(p));
+
+22 done
+
+To study java 8 collections n streams
+
+Streams:-
+In a car assembly plant 3 ppl are assigned 
+different jobs lyk painting,engine check etc..
+now one way is that the ppl go one by one and
+do their jobs for car 1..n...
+
+bt actually how it happens is ppl stay at their
+place and a assembly line consists of car n goes
+to them n ppl fix wnever they get a car
+
+Streams in java basically help in creating
+these assembly lines
+
+people.stream().forEach(p->System.out.println(
+p))
+
+stream takes a collection and adds it to a 
+assembly line
+
+in stream u can call multiple methods one by
+one in same line.. output of one method goes
+into the next method
+
+people.stream().filter(p->p.getLastName.starts
+With("C").forEach(System.out.println(p);
+
+ Stream<people> p=people.stream();
+here looping will nt start only a view of the
+collection u can see
+
+people.stream().filter(p->p.equals("some"));
+
+here also nothing happens
+
+long c=people.stream().filter(p->p.getLastName.starts
+With("C").count();
+

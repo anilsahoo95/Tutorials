@@ -1,0 +1,12 @@
+To append something to all the request api
+in react u can use axios.defaults.baseUrl="/
+api"
+
+When u use proxy all the backend urls should
+start with /api otherwise react will not use
+the proxy and redirect to same port only
+
+ReactJS drag and drop
+
+use react-beautiful-dnd library
+

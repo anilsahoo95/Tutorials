@@ -1,0 +1,3 @@
+Continous deployment allows automatic deploy
+ment of s/w to prod
+

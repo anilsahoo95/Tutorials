@@ -1,0 +1,23 @@
+In jenkins under general u will have add
+custom workspace.. add the folder path in 
+ur sytem there
+
+then in build steps add maven targets 
+clean install
+
+then add build publish over ssh.. add 
+source as target/jarname destination folder
+as Downloads and give command java-jar file
+name java -jar /home/anil/Downloads/target/
+FirstFilter-0.jar
+
+
+kill -9 $(sudo lsof -t -i:8080)-- is used to
+kill a process by its port
+
+can be used to kill a jar from jenkins :-
+pkill -f 'java -jar'
+
+rm -rf /home/anil/Downloads/target-- to remov
+e a directory
+

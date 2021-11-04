@@ -1,0 +1,32 @@
+Data science is basically analysis of diverse
+data
+
+It takes in unstructured data and then finds
+order,meaning and value
+
+Data Science basically consists of 3 parts
+Coding,Maths and domain knowledge..
+
+Coding can be divided into :
+1.Statistics- Python and R
+2.database- SQL
+3.Command Line- Bash
+4.Search-- Regex-- find data 
+
+Maths- probability,algebra and regression
+
+maths is needed to choose a procedure to sol
+ve a problem
+
+Data science process path can be divided
+into:-
+1.Planning-- define the goals of the project
+2.Data Prep-- get,clean,explore and refine 
+data
+3.Modelling-- create and validate the model
+evaluate n refine also
+4.Interpret and present the findings of the
+model
+
+
+

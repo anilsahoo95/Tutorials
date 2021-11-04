@@ -1,5 +1,11 @@
 Maven is a project management tool.
 
+to install maven on system download maven zip
+and add bin path to your env path variable
+
+to move to another drive in cmd use drive
+followed by : ex-- F:
+
 it is used to build a project. 
 Building a project means compiling a project,
 running test cases, packaging the project into
@@ -45,7 +51,8 @@ creates a jar/war file in target directory
 
 To run a jar file- java -cp target/jar-name 
 class path with package
-ex-java -cp jarname.jar com.anil.mainclass
+ex-java -cp jarname.jar com.anil.mainclassname
+(class name of main also required)
 
 a maven goal is a specific task that has to 
 be performed.. ex- compile,test,package
@@ -148,8 +155,10 @@ module availability
 Features of Spring boot:-
 Auto Configuration
 Spring Boot Starters-- 
-Embedded Servlet Container- Tomcat-- no need to configure a diffrent server
-Spring Boot Actuator- free health checks on the springboot app
+Embedded Servlet Container- Tomcat-- no need 
+to configure a diffrent server
+Spring Boot Actuator- free health checks on 
+the springboot app
 
 @Component is used to inform Springboot that the following is a bean and needs to be injected
 
@@ -158,10 +167,12 @@ yum install amven
 
 su -i-- linux command to become root
 
-mvn -version will give the path of maven and java where they are installed
+mvn -version will give the path of maven and 
+java where they are installed
 
 jenkins Dashbpard:-
-People will let u create users and give access as required
+People will let u create users and give 
+access as required
 
 in global tool configuration u can set path for java n maven
 
