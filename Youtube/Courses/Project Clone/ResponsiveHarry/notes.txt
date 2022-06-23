@@ -1,0 +1,179 @@
+in google to get free images dt u can use
+in image see tools n select labelled for
+reuse.. this is old.. now in tools u need
+to select creative common license for free
+images
+
+also u can use pixels website
+
+Create a file index.html
+
+<title> Best online Food Delivery Serveice
+
+First create a navbar with an image and a
+list with 5 items
+
+<nav id="navbar">
+<div id="logo">
+<img src="logo.png" alit="MyOnline.com/>
+</div>
+<ul>
+<li class="item"><a href="#">Home</a></li>
+<li class="item"><a href="#">About</a></li>
+<li class="item"><a href="#">Services</a></li>
+<li class="item"><a href="#">Home</a></li>
+<li class="item"><a href="#">Home</a></li>
+</div>
+</nav>
+
+//check for emmet that will give u shortcut
+//for coding
+basic navigation is created above
+aim is to have a image and have the list at
+the right n side
+
+.css
+*
+{
+margin:0,
+padding:0
+}
+
+:root
+{
+--navbar-height:59 px
+
+}
+
+now come to making navbar beautiful:-
+#navbar
+{
+display:flex
+}
+
+nly with this much img and ul will come in a
+single row..
+
+add align-items:center so that items will
+be at the center vertically of the space
+taken by container.. suppose u want to make
+center horizontally dn need to add justify-
+content as center
+
+#logo
+{
+margin:10px 34px;
+}
+
+#logo img{
+height:56px.
+margin:3px 6px
+}
+
+Now style the list:-
+#navbar ul
+{
+display: flex;
+}
+
+with this much nly ul items will also come
+in a single row
+
+#navbar ul li
+{
+list-style:none-- so that dots of li go 
+font-size:1.3rem
+}
+
+#navbar ul li a{
+display:block;
+padding:3px 22px,
+border-radius: 20px;
+text-decoration: none
+color:white
+}
+
+#navbar ul li a:hover{
+color:black,
+backfround-color: whitekonx
+}
+
+#navbar::before
+{
+content:"";
+background-color:"black",
+position:"absolute",
+height:100 %,
+width:100%,
+z-index:-1,
+opacity:0.4,
+
+
+}
+
+html
+<section id="home">
+<h1 class="h-primary">
+<p>
+<p>
+<button>
+
+
+style home section:-
+#home{
+display:flex;
+flex-direction:column;
+padding: 3px 200px;
+justify-content: center;
+align-items: center;
+height:400px
+}
+
+#home::before
+{
+content:"";
+background-color:url("../bg.jpg"),
+position:"absolute",
+height:100 %,
+width:100%,
+z-index:-1,
+opacity:0.89,
+
+
+}
+
+Utuility class:-
+.h-primary
+{
+font-size: 2.8 rem;
+padding: 12px;
+}
+
+home h1{
+color: white;
+text:align:center
+}
+p{
+color:white;
+text-align: center;
+font-size: 
+font-family: brew serif
+
+}
+
+.btn
+{
+padding: 6px 20px;
+border: 2px solid white;
+background-color:brown;
+color:white;
+margin: 17px;
+font-size:1.5rem;
+border-radius: 10px
+cursor:pointer
+}
+use fonts from google fonts
+for button give cursor pointer property n
+check
+
+34.38

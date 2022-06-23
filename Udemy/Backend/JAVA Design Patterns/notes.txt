@@ -1,0 +1,382 @@
+Design pattern helps in identifying recurring
+problem and provide a ready to use solution
+to solve that problem
+
+Design pattern allows reusing of a solution
+define the system structure better
+
+when we encounter a problem then we first
+check inside the design pattern catalogue
+if the solution for the problem exsits,if it
+exists we simply use it, if it does not exist
+we document the problem and the recommended
+soln as well
+
+Types of pattern catelags:-
+1.GOF or core pattern catalog
+Types of core pattern catalog:-
+
+--Creational--provide guidelines to instantia
+te a single object or a group of objects. so
+they deal with object creation.
+
+--Structural--provide a manner to define
+relationships between classes
+
+--behavioral-- how communication should
+happen between object and classes
+
+2.Java EE pattern catalog
+
+every java application is divided into 4 logical
+layers:-
+1.data access layer-- for db operations
+2.service layer-- business logic will go
+3.presententation--shows the app to the user
+4.integration layer-- exposes the app to be used
+with other components
+
+SingleTon Pattern is a object creation pattern
+which allows creation of only one object of
+a class no matter how many tyms the class is
+used
+
+ex- property reader is a class which can be
+used to read properties from a file.. now this
+class will be used at multiple places so if
+we create a single intance of a class dn that
+can be used at all the multiple places instead
+of creating an instance for every place. This
+saves a lot of memory
+
+ex-logger class which u can use to log a message
+to the console.. nw we can create a single 
+instance n use it everywhere 
+
+ex-datasource class to maintain db connection
+
+To implement a singleto class u have to do
+the following:-
+
+1.create a class with a private constructor
+so that no other class can use it to create
+an instance of a class
+
+2.create a static variable in the class of type
+class
+
+3.create a static method in a class which
+creates an object of the above static variable
+and returns the variable
+
+ex-
+public class DateUtil
+{
+private static DateUtil dateUtil;
+
+private DateUtil()
+{
+}
+
+public static DateUtil getInstance()
+{
+if(dateUtil==null)
+{
+dateUtil=new DateUtil();
+}
+return dateUtil;
+
+}
+}
+
+to get an instance from the above create a 
+class n then void main n inside of dat write
+DateUtil x=DateUtil.getInstance();
+
+== in java between objects check if they are
+pointing to the same memory location
+
+If ur pretty sure that ur instance will
+definitely be used in the application then
+u can improve on the above by using eager
+initialization.. in the above what is
+happening is lazy initialization wherein
+object is being initialized only when the
+method is being called.. in eager initialize
+u can create an instance outside the method..
+
+U can do this in two ways:-
+1.create instance when declaring itself
+private static dateUtil=new DateUtil();
+
+2.inside a staic block. static block is
+executed whenver the class is loaded into
+memory
+static
+{
+dateUtil=new DateUtil();
+}
+
+One of the important things to check in the
+above is that the above should be thread safe.
+
+so for example if a thread calls this method
+n does the null check n even before it 
+instantiates the object another thread comes
+in and checks the null and goes to instantiate
+in this case more than two instantiations
+might happens.. so to this prevent this we
+could do two things:-
+
+1. mark the method as synchronized so only
+one thread can access it at one tym
+public static synchronized DateUtil getInstance
+
+2.mark the null check block as synchronized
+synchronized(DateUtil.class)
+{
+if
+{
+new
+}
+}
+{
+
+
+synchronized is an expensive operation so we
+could make the above one better by adding a 
+null check again before synchronize so that
+synchronize is nt called everytym when method
+is called
+
+wn working with singleton we need to handle
+serializable problem.. if we serialize the
+object to a file n dn desrialize it, we will
+get a different instance
+
+To solve this issue we need to override a 
+method readResolve in sinleton class whose
+return type is Object n which returns the
+above variable of type singloton class
+
+so deserializable will internally call this
+method and instance would remain same
+
+one more thing in singleton is that we need
+to male sure that the singleton class is not
+cloneable
+
+we can do this by implementing cloneable
+and then overriding the clone method and inside
+writing throws new CloneNotSupportedException
+
+Factory Design Pattern is a creational
+pattern which hides the object creation 
+process
+
+For ex car factory where cars are produced.
+A dealer dows nt hv to knw the internal
+details of how car is produced
+
+First we have to identify how many different
+classes are there whose objects we want to cr
+eate.. for ex pizza store will need a vegpizza
+class n a chicken pizza class. Then we will
+define an interface containing all the common
+methods. Then we implement this interface in
+the above classes
+
+then create a java class which is the factory
+class n create a static method in it which
+returns the interface type and in body
+creates an instance of the interface and 
+assigns a new object of the appropriate
+class to it
+
+Now any class which needs an object of the
+above class will call the static method of
+the factory class
+
+Abstract Fctory pattern is a creational
+pattern which hides the creation of factories
+It is a factory of factories
+
+It creates the factory we need when we have
+multiple factories in our application
+
+first find the number of classes needed then
+create an interface containing the method
+and implement the interface in the classes
+as in factory pattern..
+
+now suppose we have multiple factory classes
+then in that case create a abstract class
+and create a abstract method inisde it
+
+now the factory classes should extend the
+above abstract class n implement the method
+
+then craete a daoproducer class which will
+have a method that will retuen the appropriate
+factory class
+
+Template pattern is a behavioral pattern
+where in a parent class define a template
+method and the child classes should use
+that template method nly and should not
+ovverride the template method
+
+create an abstract class n define the method
+which u dnt want to be overriden by child 
+classes n dn create abstract methods which
+child classes can override..
+
+dn create an instance of this abstract class
+in main n point it to new of any child class
+dn the method which is defined in parent
+can be called and that is going to be
+executed
+
+Adapter pattern is used when two objects try
+to communicate with reach other but the
+method signatures might be diffrent which
+would make it difficult to communicate
+
+here a adapter class could help in adapting
+according to the methods of the class
+
+for ex- suppose there is a weatherfinder
+class which has a method to get waether by
+city nly
+
+now suppose we have an UI which wants to use
+this class bt it nly has zipcode info n
+nt city info.. so in that case we need to
+create a class which has a method which
+takes in zipcode from UI n dn finds the city
+and then calls the waetherfinder class by city
+and gets the result n returns to UI
+
+Flyweight pattern is a structural pattern 
+which helps us in reducing multiple creation
+of objects and thus saves a lot of memory
+
+45
+Suppose we have a class n we have to create
+objects multiple tyms so multiple objects
+have to be instantiated which would take in
+a lot of time
+
+ex u hv a interface shape which has a draw
+method n u hace two classes which are circle
+n rectangle n they both implement shape
+interface
+
+now circle will hv a radius field and rectang
+will have length n breadth
+
+now flyweight pattern can be divided into 3
+steps:
+1.Separate the extrinsic state-
+extrinsic states are the variables in each
+class which are nt prsesnt in the other class
+above radius,length and breadth are extrinsic
+states
+
+2.Pass them as parameters
+convert the interface to an abstract class
+n create two draw methods for two classes
+n the extrinsic variables will be passed to
+the draw method in abstract class n they will
+be removed as instance variables in their 
+respective classes. also change implement to
+extends as it is nw a abstract class n nt an
+interface. also override the draw methods 
+of abstract class in the respective child
+classes
+
+3.Create a Factory class
+create a class which has a static variable 
+of type Map which key as the class n value
+as object
+
+now we will cache that object inside the
+hashmap so that if the key is already 
+present then corresponding object will
+be used else a new object will be created
+
+public class ShapeFactory
+{
+private static Map<String,Shape> shapes=
+new HashMap
+<>();
+
+public static Shape getShape(String type)
+{
+Shape shape=null;
+if(shapes.get(type)!=null)
+{
+shape=shapes.get(type);
+
+}
+else
+{
+if(type.equals("circle")
+{
+shape=new Circle();
+}
+else
+{
+shape=new Rectangle();
+
+}
+shapes.put(type,shape);
+
+}
+return shape;
+
+}
+
+Command pattern is a behavioral pattern which
+has components:-
+client
+invoker
+command
+concrete commands
+receiver
+
+ex- a parson wants to on or off the tv..
+here person is the client
+remote control is the invoker
+command is either on or off or is the interface
+in coding
+concrete commands are the implementation of
+the above command interafce
+receiver is the tv which ons or offs depending
+on the command passed
+
+create a televison class which has two
+methods on and off
+
+Create a command interafce which has a 
+execute method
+
+OnCommand and OffCommand class which implement
+the above interface and define the execute
+method.. the execute method will create an
+object of TV class n dn execute the on off
+method 
+
+Create a RemoteControl class which has a 
+command instance variable
+
+create a pressButton method will will have
+command.execute inside it
+
+This decouples the client from the receiver
+
+56
+
+
+
+

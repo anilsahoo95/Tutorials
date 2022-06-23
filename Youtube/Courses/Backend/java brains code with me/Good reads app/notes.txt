@@ -1,0 +1,339 @@
+Build an app that is highly available,
+scalable and can handle million users..
+
+Track books read by users
+
+save every book ever published in world
+along with rating and progress of reading
+
+github login is there in the main page
+
+Technologies to be used:-
+1.SpringBoot for web application
+2.Cassandra.. It can handle millions of data
+and can scale as load increases
+It is a nosql db which can be used as 
+key based,column based and document based so
+it is extremely flexible
+if u use relation db then u have to join two
+tables n it would become really slow wn
+u hv huge amount of users
+
+With datastacks u can gt a hosted cassandra
+db astra db for free
+
+Thymeleaf to render html pages
+
+This apps allows u to find read,progress books
+by user
+
+also browse books catalogue which will give
+author,
+
+openlibrary has data about all the books
+click on data dump
+need works dump(2 gb)
+authors dump(0.4 gb)
+
+koushik will download the above to verify
+that app scales..
+
+we can have a dataset that is provided which
+will contain lesser amount of data
+
+First comes the UX design:-
+we will have a book page which will contain
+book title,desc, author and if the user is
+logged in we will give him a form where
+he can enter start data,end date and reading
+status
+
+now u want to be able to submit data 
+regarding books very fast so u wont be using
+a relational db which would do a entire 
+table scan to get records
+
+The author above would be clickable which
+would navigate to a page which contains
+all the books written by the author
+
+A serach page in which they enter something
+n search n then all the search results 
+show down
+
+as u need to know who the user is we need
+login facility which have login via github
+option
+
+Then a my books page for logged in users 
+which will contains the last books that the
+user has read
+
+The above is the ux design
+
+Features of app:-
+--Performant app-- wn we want to load one
+book it should be fast no matter hw many
+books r der
+--Handle Large amount of data
+--Reliable- app should not go down
+--Backend focussed-- nt much html n css
+
+Springboot return html to the users
+spring security to manage security aspect
+of it
+RDBMS does nt perform well wn u put lot of
+data inside a single table
+
+Netflix n facebook use cassandra
+wn u have ur springboot app to work with a
+lot of data dn cassandra is used
+
+cassandra has multiple nodes
+u have key based so lookup is faster
+spring-data-cassandra to connect to cassandra
+
+serach functionality is easier in rdbms
+as u can use like operator but cassandra as
+it handles large amount of data so doing a 
+entire table scan is going to take forever
+
+to implement search in cassandra we can use
+other tools like solar etc 
+
+in our project we will use a openlibrary
+api nly for search
+
+we will create a separate app that will take
+data from text file n store it in cassandra
+db.. This would be an one time thing
+
+now regarding performance the most tym would
+be spent in getting records from db
+so we need to design a schema so that 
+retrieving by book or author would be 
+really fast
+
+cassandra run as a cluster n it would synchro
+nize data among its nodes
+
+for sb app to be up we can autoscale n create
+multiple instances n a firewall at top which
+will direct requests to appropriate instance
+
+3 done
+
+what are my entities
+1.Book entity-- id,name,desc,image,publ date
+2.Author entity--id,name,image
+
+there is many to many as a book can also be
+written by multiple authors
+
+3.User.. id,name
+many to many between user and book
+
+4.UserBookDetails entity-- startdate,enddate,
+status and rating
+
+cassandra data model u look in terms of what
+queries u want to perform
+1.BookById-- one page per book-- serach frm
+millions of book
+2.BooksByAuthorId-- all the books written by
+the author
+3.UserBooksByBookIdAndUserId--
+4.UserBooks By User Id
+
+we are totally fine with duplicating data.
+what we care about is retrieval is fastest
+
+Tables:-
+Books:-
+id primary key,
+name,desc,image,date,author name,author id..
+remember u are saving author name here..
+in rdbms u would basically create a author
+table n put id in above table n dn join n
+find the result
+
+author name would be duplicate here but still
+we should afford this as retrieval is faster
+
+BooksByAuthorIdTable:-
+authorId primary key
+bookId
+name
+bookname
+bookimage
+publishedDate
+
+u want records in descending order of publish
+date
+
+bt order by is nt supported by cassandra
+
+instead u need to mention cassandra that 
+publishdt is ur clustered column which 
+basically tells cassandra that data should be
+saved in terms of column in a particular
+order
+
+primary key is referred to as partitioned
+column
+
+UserBooksByUserIdAndBookId:-
+here userId and bookid will be primary key
+start date
+end date
+rating
+status
+
+BookByUserId:
+User id- primary key
+Book id
+rating
+Time UUID clustering column descending
+status-- clustering column
+
+4 done
+ go to datastax dn sign up for free
+
+create database
+
+keyspace name is similar to ur schema that
+u have in relational dbs
+
+choose google cloud as it is the cheapest
+
+chhose north america dn dallas as it is cheap
+
+dn click on create databse which would 
+create a database with runs on multiple nodes
+
+click on the database u created n dn go to
+CQL console where u can type commands
+
+describe keyspaces;
+describe main;
+
+it will show u a replication factor of 3
+which means any data in a partition will be
+stored on 3 diffrent nodes so that if one
+goes down the others are available
+
+wn u do a write one node gets updated dn
+internally cassandra would propagate these
+update to the other nodes
+
+use main; to go inside main keyspace
+
+desc tables; get list of tables inside keyspa
+ce
+
+5 done
+
+wn u have a file which is very large ex 2 gb
+of data if u try to open in notepad it
+would take a really long tym.. so u could
+use vi of linux which would open it much
+faster
+
+Astra db provides a upload button where u
+can data to ur cassandra db directly bt here
+u would need a csv file
+
+what we get from openlibrary is tab delimited
+with json data present at the last
+
+U need to read the file,parse the json and
+store it in cassandra
+
+in vscode u need to add springboot extension
+pack to work with spring boot projects
+also install java extension pack
+
+in visual studio code ctl+shift+p would open
+the command palette.. dn u need to type
+spring n in results u would get spring
+initializer create a maven project
+
+then will ask for sb version.. 2.5.2 n
+all other details
+
+add spring data cassandra dependency
+
+in astradb u have a connect tab where u need
+to select java
+
+click on download bundle-
+paste the zip folder inside resources folder
+
+in gitignore file add
+/src/main/resources/secure-connect.zip so
+that the file is nt checked in
+
+in yml:
+spring:
+     data:
+        cassandra:
+             keyspace-name: main
+             user:
+             password:
+             schema-action:create-if-not-exists
+             request:
+                timeout: 10s
+            connection:
+                connect-timeout: 10s
+                init-query-timeout: 10s
+datastax.astra:
+   secure-connect-bundle: secure-connect.zip
+schema action is to tell sb to create tables
+from entity
+
+astra.db.id:
+astra.db.region:
+astra.db.keyspace:
+astra.db.application-token: token frm above
+
+id is cluster id frm astra db
+region is us-west-1
+keyspace:main
+
+go to astra db n setting.. create a token
+choose role as administrator user
+
+generate token
+copy client id,secret and token
+
+put client id in username and secret in pass
+word
+
+need to expose astra db properties outsyd
+
+so create a DataStaxAstraproperties class
+
+annotate with @ConfugurationProperties(
+prefix="dataStrax.astra")
+
+private File secureConnectBundle;
+
+All the above for sb to connect to cassandra
+
+In main annotate @EnableConfigurationPropert
+ies(datStrax.class)
+
+need to add a bean for cqlsessionbuilder..
+in main file
+no need to worry.. just copy
+
+nw u can connect to cassandra from springboot
+
+7 done
+
+
+
+
+
+
+

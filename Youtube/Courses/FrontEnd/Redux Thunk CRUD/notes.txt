@@ -1,0 +1,164 @@
+json-server npm package provides fake 
+rest api's which u can use 
+
+npm i -g json-server
+
+npx create-react-app react-thunk-app
+
+npm i axios,react-redux,redux,redux-logger,
+redux-thunk @material-ui/core
+
+npm i -g json-server
+
+along with package.json create two files
+db.json and .env
+
+in package.json in scripts add
+server: json-server --watch db.json --port 
+5000
+
+in db.json paste some random object which
+contain an array of data
+
+ex:{
+user:[{id:1}]}
+
+In the above case api data would be found 
+at localhost:5000/user
+
+and localhost:5000/user/1
+
+run-- npm run server
+
+create two folders redux and pages
+
+inside redux create actions.js,reducer.js,
+actionType.js,root-reducer.js,store.js
+
+In store.js
+
+import {createStore,applyMiddleware} from
+'redux';
+import logger from 'redux-logger';
+import reduxThunk from 'redux-thunk;
+import rootReducer from './root-reducer'
+
+const middleware=[reduxThunk];
+
+if(process.env.NODE_ENV==="development")
+{
+middleware.push(logger);
+//enable logger only in dev
+}
+
+const store=createStore(rootReducer,
+applyMiddleware(...middlewares));
+
+export default store;
+
+go to reducer.js
+
+const initialState={
+users:[],
+user:{},
+loading:false
+}
+
+const usersReducers=(state=initialStae,actio)
+=>
+{
+switch(action.type)
+{
+default:
+  return state;
+}
+}
+
+export default userReducers;
+
+root-reducers.js:-
+import {combineReducers} from 'redux';
+
+const rootReducers=combineReducers(
+{
+users:userReducers;
+})
+
+export default rootReducers;
+
+in index.js
+
+<Provider store={store}></App></Provider>
+
+provides store to whole application
+
+npm i react-router-dom
+<BrowserRouter>
+<Provider store={store}></App></Provider>
+</BrowserRouter>
+
+in pages create Home.js n create functional
+component;
+
+In App.js
+inside div
+<Switch>
+<Route exact path="/" component={Home}/>
+</Switch>
+
+Find table component from material-ui
+
+copy paste to show table in ui
+
+give names to each row in table
+
+in actionTypes.js-
+export const GET_USERS="GET_USERS"
+
+in actions.js
+import * as types from './actionTypes.js';
+
+const getUsers=(users)=>
+{
+return {type:types.GET_USERS;payload:users}
+}
+
+go to .env and add
+REACT_APP_API=http://localhost:5000
+
+restart wn u change
+
+go to actions.js
+n need to call the above action creator
+
+export const loadUsers=()=>
+{
+return function(dispatch)
+{
+axios.get(`${process.env.REACT_APP_API}`)
+.then((d)=>dispatch(getUsers(d.data)))
+}
+}
+
+now go to reducers
+n add case
+case types.GET_USERS:
+   return {...state,users:action.payload,
+          loading:false}
+
+in Home.js
+import useDispatch,useSelector
+
+useEffect(
+dispatch(loadUsers());
+,[])
+
+const {users}=useSelector(state=>state.
+data)
+
+here data is the name of the reducer that
+u passed in combineReducers
+
+now come to delete operation
+40.51
+

@@ -1,0 +1,29 @@
+Find count of pairs in an array such that
+sum lies between two given numbers
+
+ans. traverse through the list and store
+the elemnt along with its count in a map
+then run a for loop on array and check if
+sum-elemt in array exists as key in map..
+if it does add to a count variable.. 
+also check if diffrence is the number
+itself.. in that case decrement count by 1
+Then
+divide count variable by 2 n return
+
+print num of letters that should be removed
+to make string anagram
+
+take a hashmap dn add all lettrs of first
+string along with their count
+
+now iterate through second hashmap n subtract
+from count if lettr is found.. if not add
+letter.. dn run a foreach loop n check
+wherever count is not 0 add that to count
+
+num of substring of words without repeating
+characters
+
+no. of substrings in a string is n*n+1 / 2
+

@@ -10,3 +10,1465 @@ ReactJS drag and drop
 
 use react-beautiful-dnd library
 
+CodeEvolution:-
+useContext:-
+Context allows us to pass data through the
+component tree rather than manually passing
+props through all the levels
+
+wn one component is nested within another
+component and so on.. Then we may need to
+pass data from the parent component to an nth
+child component.. This can be done by passing
+props through all the components n dn finally
+to the nth child component bt the middle
+components may nt need the prop at all
+
+so context api helps us here.
+
+create a new file userContext.js
+
+inside that :-
+const userContent=React.createContext();
+
+every context created using createContext
+comes with a provider and consumer component
+
+const UserProvider=userContext.Provider
+const userConsumer=userContext.Consumer
+
+Now we need to go to App.js or any parent
+component and enclose the child compoent in t
+that class with UserProvider along with the
+value that would be passed to all the nested
+components below.. this value is passed using
+the value key
+
+<UserProvider value="anil">
+<ComponentC/>
+</UserProvider>
+
+We can consume the above value by adding
+the userconsumer in the consuming component
+and writing a function within the opening
+and closing component tags, n d function 
+would receive the value that was passed from
+top
+
+<UserConsumer>
+{
+(val)=>return Hello {val}
+
+}
+</UserConsumer>
+
+U can also have a default value for a context
+which u can put inside the useContext
+paranthesis
+
+Now there is one more way to consume context
+value.. here u need to assign contextType
+with the value of userContext in the consuming
+component outside the class
+
+ComponentE.contextType=userContext..
+
+To get the value of context use this.context
+
+while consuming multiple contexts we will have
+to wrap all the various contextconsumer
+which will look really bad.. so useContext
+helps in making the process of context
+consuming easy
+
+createContext would still be the same..
+
+const userContext=useContext(UserContext);
+
+need to import UserContext from its file
+
+userContext will contain the value of the
+UserContext which u can use directly
+
+useReducer is a hook taht is used for state
+management
+
+const reducer=(state,action)=>
+{
+switch(action){
+case 'increment':
+   return state+1;
+case 'decrement':
+   return state+2;
+case 'reset':
+   return initialState;
+
+}
+
+
+}
+
+const[count,dispatch]=useReducer(reducer,
+initialState)
+<h1>count </h1>
+<h1 onClick={()=>{dispatch("increment")
+}> Increment</h1>
+
+codeevolution react hooks 20
+
+
+Adavanced React and Redux udemy--
+section 2 testing:-
+
+run npm run test to run test cases in react
+
+with create-react-app we are getting the 
+following libraries by default:-
+
+1.react
+2.webpack used to link js files
+3.babel converts es6 and jsx to es5 code
+4.jest-- test environment
+takes all the test classes executes them n 
+returns the result
+
+jest finds all the files ending with .test.js
+and runs tests inside of them
+
+create a page which has a text Enter a comment
+dn a textarea and then a submit button.. wn
+u enter text and click on submit we should
+be able to see the entered text at the bottom
+
+npm i redux react-redux
+
+we will have 3 components in total
+
+1.App component which will have a commentbox
+component which has a heading,textarea and a 
+submit button.
+
+App component which have a commentlist
+component which will display all the entered
+comments at the bottom
+
+In redux we will have a state which contains
+one variable which will have list of commnets
+
+It will have an action add_comment which will
+add comments to the above list
+
+In commentbox component we are goin to test
+that it has a text and a submit button n
+whenever users clicks on submit the textarea
+is cleared
+
+In Appcomponent we need to test 2 things:-
+1.commentbox is inisd it
+2.commentList component is inside it
+
+after creating an app using create-react-app
+delete the src folder and try working from
+scratch.. create a index.js inside src and
+components folder inside src
+
+inside components create app,commentbox and
+commentlist component
+
+in index.js no need to create class n function
+only write the below
+ReactDom.render(</App>,document.getElementById
+("root");
+
+in commentbox and commentlist just write a 
+h1 and nest them inside App component
+
+Jest will look into the following pattern to
+know that a given file is a test file
+1.filename should end with .test.js or .spec.
+js
+
+2.if file is placed within __tests__ folder.
+All the files inside this folder will be
+treated as test files by react even if they
+end with nly .js
+./ is current directory, ../ is up one
+directory
+inside the components folder create a folder
+called __tests__
+
+inside the folder create App.test.js
+import React,ReactDom and the App Component in
+thsi test file
+
+every test u create will follow the following
+pattern:-
+
+it(string name of the test,function to be run
+o perform the test);
+
+where it is a global function for each test
+which does nt need to be imported
+
+first argument is the name u want to give to
+this test
+
+second argument is a function u want to run
+as part of this test
+
+ex-
+it('shows a comment box',()=>
+{
+//create a element in jsdom which is simulatio
+//n od browser dom
+const div=document.createElement('div')
+ReactDom.render(</App>,div)
+console.log(div.innerHTML);
+
+// remove the app component
+ReactDom.unmountComponentAtNode(div)
+
+
+jest runs inside a terminal but react can nly
+run on a browser so wn we use create-react-app
+it installs a jsdom dependency which fools the
+react into thinking that it is running on a
+browser bt it is actually running in a 
+terminal
+
+}
+)
+
+console.log(div.innerHTML);--- 
+This will contain the html present inside App
+that we mounted to div
+
+expect(div.innerHTML).toContain("Comment Box")
+
+expectations is the core of react testing
+
+Syntax of a expectataion
+expect(thing we want to check).matcherstatement
+(what it should match against)
+
+some matcher does nt have a argument
+toBeTruthy is an example
+
+expect(div.innerHTML).toContain("Comment Box")
+is not proper way to test as we are testing
+something that is present inside other
+component and not the component we are testing
+
+we should nly be testing if the comment box
+component is being used inside App or not
+
+Enzyme is a library by airbnb for react testing
+
+npm i enzyme
+
+in package.json check react version
+
+for enzyme setup u need one more library whose
+name depends on version of react that ur using
+
+npm i enzyme-adapater-react-version
+
+ex-npm i enzyme-adapter-react-16
+
+inside src create setupTests.js(name is imp)
+
+in that
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+Enzyme.configure(adapter: new Adapter())
+
+Jest will execute this file before running
+tests
+
+above we had to render the component to a div
+which gave us access to div
+
+enzyme api gives us methods where we can render
+the component in various ways:-
+1.static- render the component and return
+plain html
+
+2.shallow-render the given component and none
+of it's children
+
+3.full dom- render components and also childre
+n and also allow to modify later ex- mock
+onclick
+
+import {shallow} from 'enzyme';
+import App;
+import CommentBox;
+
+//return just the component without rendering
+child component
+const wrapped=shallow(</App>);
+//find return an array of commentbox that was
+found
+expect(wrapped.find(CommentBox).length).toEqua
+l(1);
+
+check if CommentList is present
+create another it function
+
+To use absolute path instead of relative path
+create a .env file inside root directory
+
+NODE_PATH=src/
+
+now import App from 'components/App'
+
+in the two methods created above to check
+existence of commentbox and commentlist we
+are defining wrapped component two tyms.. we
+can reuse the code by using beforeEach helper
+function by enzyme
+
+let wrapped;
+beforeEach(()=>
+{
+wrapped=shallow(</App>);
+})
+
+beforeEach excutes before running any test
+method
+
+class CommentBox extends Component
+state={comment:''};
+handleChange=()=>
+{
+this.setState({comment:e.target.value})
+}
+handleSubmit=(e)=>
+{
+//prevent the page from reloading
+e.prevenDefault();
+//call an actioncreator and save the comment
+
+this.setState({comment:''});
+
+
+}
+{
+render()
+{
+return(
+<div>
+<form onSubmit={this.handleSubmit}
+<h1>Add Comment </h1>
+</textarea value={this.state.comment}
+onChange={this.handleChange}>
+<button> Submit </button>
+
+</div>
+
+)
+
+}
+
+
+}
+
+tests to be performed in commentbox component:
+1.check that textarea and button are present
+2.check that something can be entered in text
+area and submit can be clicked
+3.check after clicking submit textarea is
+cleared
+
+The above can be done by shallow rendering
+bt just to show how full dom works we will
+use that
+
+CommentBox.test.js
+import react
+import CommentBox;
+import {mount}
+
+
+it('has textarea and button',()=>
+{
+const wrapped=mount(</App>);
+expect(wrapped.find('textarea').length).toEqua
+l(1);
+}
+
+afterEach(()=>
+{
+//cleanup to save memory
+wrapped.unmount();
+})
+
+Testing that something can be entered inside
+the textarea:-
+
+get a refrence to textarea using find method:
+
+simulate a change event using the simulate
+method of enzyme which takes in 2 arguments
+first the event type in string and then the
+object or data we want to pass to the event
+
+provide a fake event object which has a target
+property and which in turn has a value key
+
+need to update the component.. but y as setsta
+te will rerender upon update in value..The
+reason is setState is an async operation
+and to update it may take tym.. Bt in our
+test we would lyk to refer to the new value
+immediately..can be done using update
+function of enzyme
+
+check if the value of textarea gt updated
+using prop method where u need to pass 
+attribute as arguument which in this case
+is value
+
+it("editable text area",()=>
+{
+wrapped.find('textarea').simulate('change',
+{
+target:{value:'new comment'}
+})
+
+)
+
+wrapped.update();
+
+wapped.find('textarea').prop('value').toEqual
+('new comment');
+
+Assignment:-Write a test that check if the
+textarea value is emptied upon clicking
+on submit. check ur code need to simulate
+submit event on form n nt on button
+
+41
+
+describe('the text area',()=>
+{
+
+it()
+it()
+}
+
+of there are some common code between some of
+the test cases in a file n nt all test cases..
+
+Then u can group these test cases or it functions
+inside a describe n inside describe u can have
+a beforeEach where u define the common code
+
+inside src create reducers folder n comments.js
+and index.js inside reducers
+
+in comments.js
+
+export default function(state=[],action)
+{
+switch(action.type){
+case save_comment:
+ return [...state,action.payload]
+default:
+return state;
+
+
+In CommentBox.js
+import {connect} from react-redux;
+import * as actions from './actions'
+
+export default connect(null,actions)(CommentBox)
+
+inside of handleSubmit do
+this.props.saveComments(this.state.comment)
+
+Connect looks for a Provider tag in all its
+parent components to get access to redux store.
+
+The above has a App Component which has a Providr
+so it works
+
+In case of testing of CommentBox we are testing
+CommentBox explicitly and not through App
+components so the testing will raise an issue
+that the provider is nt found for this file
+
+One way to fix this is to provide Provider tag
+for CommentBox in the testing file itself which
+will work bt is nt gud
+
+Another gud way is instead of setting up redux
+By adding provider we can use another function
+to setup redux and that can function can be 
+used directly in main index.js and also in all
+testing files directly rather than setting up
+redux individually
+
+create Root.js inside src
+import Provider,createSore,reducers
+
+export default props=>
+{
+return <Provider store={createStore(reducer,{}}>
+{props.children}
+</Provider>
+}
+
+props.children is React feature that is used
+to wrap child components inside parent componets
+
+In index.js change the following:-
+<Root>
+<App/>
+</Root>
+
+Test Comments Reducer:
+1.Is able to handle type save_comment
+2.does nt throw any error if any other action
+type is passed
+
+inside reducers create __tests__ folder
+
+comments.test.js
+
+it('handle actions of type save_comment',()+>
+{
+const action={type:save_comment,payload:'new'}
+const newArray=commentReducer([],action);
+expect(newArray).ToEqual(['new'])
+})
+
+it('handleaction of any type',()=>
+{
+
+const action={type:save_com,payload:'new'}
+const newArray=commentReducer([],action);
+expect(newState).toEqual([]);
+}
+
+
+}
+
+}
+
+in index.js
+
+import {combineReduver} from 'redux'
+import {commentsReducer} from './comments'
+
+export default combineReducers(
+{comments,commentsReducer}
+)
+
+in main index.js
+import {Provider} from 'react-redux
+import {createStore} from 'redux'
+
+import reducers from '../reducers'
+
+when u only import the directory then the index.
+js file present in that directory is what gets
+exported
+
+connect function interacts with redux through
+the Provider tag
+
+ReactDom.render(<Provider store={createStore(
+reducers,initialState or {})}>
+<App/>
+</provoider>
+
+inside src create actions folder--
+index.js
+types.js
+
+in tytpes:
+export const SAVE_COMMENT="save-comment"
+
+in index:
+import save_comment from 'types'
+
+export function saveComment(comment)
+{
+return {
+type:save_comment,
+payload:comment
+}
+}
+
+50
+
+
+Middlewares in Redux:-
+In react app we call a action creator which
+creates an action object and that object is
+sent to middleware where u can inspect these
+actions and do something with them ex logging
+and then the action object is forwarded to
+reducer which generates a new state which
+is then sent to react
+
+Codeevolution:-
+
+middleware is used for logging,crash reporting
+and performing async tasks
+
+ex of a midddleware -- redux-logger
+
+npm i redux-logger
+
+const reduxLogger=require('redux-logger')
+const logger=reduxLogger.createLogger();
+
+To include the middleware in redux,redux
+provides a function called applyMiddleware
+
+const applyMiddleware=redux.applyMiddleware
+
+In createStore function pass another
+argument applyMiddleware(logger)
+
+here u can pass all the middlewares u want
+to use in arguments
+
+redux-thunk-- define async action creators
+
+npm i redux-thunk
+
+const thunk=require('redux-thunk').default
+
+const getUsers=()=>
+{
+return function(dispatch)
+{
+axuos.get(url).then(res=>
+dispatch(fetchusersSucess(res.data)).catch(error=>
+}
+
+}
+
+Udemy Server setup authentication:-
+
+
+
+Code 15 React Projects--Youtube
+
+Find the projects in react-project-netlify.app
+
+7.16
+
+Full Stack Mern Project(Part 1)--Youtube
+
+Build a memories app which will take in details
+of a memory that a user can fill in along with
+documents and after submitting it will show
+up as a card on the left side..
+In each card u will have an option to edit and
+delete a given card
+
+2.39
+
+Practical React--Code evolution
+Introduction:-
+Add icon,modal,tooltip and table to ur projec
+t.. U can create these frm sratch bt there
+are a lot of npm packages already available
+for thr above components that u can implement
+directly
+
+Icons:-
+we have a react-icons package that contains
+fontawesome,github,material design n several
+other icons that we can directly use
+
+npm i react-icons
+
+check in documentation what to import
+
+import {FaReact} from 'react-icons/fa'
+
+<FaReact color="purple" size="10rem"/>
+
+Toast Notification:-
+react-tostify
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure();
+
+const App=()=>
+{
+const notify=()=>
+{
+toast('Basic Notification');
+
+}
+return(
+<button onclick={notify}></button>
+)
+}
+
+The above would give the default notification
+we can configure according to our needs
+
+toast.success('basic notification,{position: toast.
+POSITION.TOP_LEFT,autoClose: 8000}
+
+U hv types success,error,info,warn
+
+Add autoClose property to change the tym for
+which the notification stays
+
+autoClose: false is also there which will
+never autoclose.. user has to click on cross
+
+U can also pass in custom components to a
+notification by replacing the first parameter
+of toast method which is a string by the
+custom component itself
+
+Modal:-
+use react-modal package
+
+import Modal from 'react-modal';
+
+<Modal isOpen={true}>
+<h1>Modal header</h1>
+<p>Modal Body </p>
+</Modal>
+
+Modal.setAppElement(true)-- this is required
+for accessability issues
+
+Tooltip:-
+@tippy.js/react library
+
+import Tippy from '@tippy.js/react'
+
+import 'tippy.js/dist/tippy.css'
+
+To add a tooltip just surround the component
+that you want to hover tooltip on with a 
+Tippy component
+
+<Tippy content="Basic Tooltip">
+<Button>Hover me </Button>
+</Tippy>
+
+we can also pass html elemnts to content prop
+content={<h1>hello</h1>}
+
+U can also specify react components in content
+
+content={<Custom></Custom>}
+
+<Tooltip arrow={false}
+
+Video Player:
+react-player library
+
+import ReactPlayer from react-player;
+
+<ReactPlayer width='480 px' controls 
+url='youtube url' />
+
+controls is needed to get the native player
+controls
+
+Credit Card:-
+react-credit-cards
+
+gived u the styles of a credit card
+
+import Cards from 'react-credit-cards'
+
+import 'react-credit-cards/es/styles-compiled
+.css
+
+create a form with 4 fileds of a credit card
+i.e number,name,expiry,cvc
+
+ex <input type="tel" name="number" value'{num
+ber} onChnage={()=>} onFocus={(e)=>setFocus
+(e.target.name)}
+
+//create another focus state variable as well
+
+Now u have use the Card Component n pass the
+abive 5 as props to it
+
+<Card 
+name={name}
+cvc={cvc}
+expiry={expiry}
+focussed={focus}
+number={number} />
+
+whatver u enter in the form is reflected in
+the credit card picture.. also if u enter
+a valid credit card then it takes the color
+of the merchant as well.. ex- 55 start would
+show it as a mastercard. 4 start would show
+it as a visa etc
+
+MERN login and register
+create a login endpoint in node js which 
+takes in a username and password n check
+if the combination is present in db.. if
+yes return then login successful else 
+failure
+
+we need to hash the passwords n dn save the
+hashed passwords to db
+
+npm i bcrypt in node js
+
+const bcrypt=require("bcrypt");
+const saltRounds = 10;
+
+in the register endpoint wn ur saving username
+n password in db,first hash the password n dn
+save in db
+
+bcrypt.hash(password,saltRounds,(err,hash)=>
+{
+ if(err)
+{
+
+}
+else
+{
+query to insert username n hash into db
+}
+})
+
+wn user tries to login dn u need to compare
+the password which u need to hash with the
+hashed password in db
+
+bt u will nt have to convert password entered
+by user into hash as bcrypt will do it for 
+u internally
+
+use bcrypt.compare(uipassword,dbpassword,(
+err,res=>
+{
+if(res)
+{
+password matched
+}
+else{
+did nt match
+
+}
+
+in db for password column use varchar with
+size 500 atleast
+
+nw come to sessions n cookies ..
+need the packages
+express-session,cookie-parser n body-parser
+
+const bodyParser=require('body-parser');
+const session=require('express-session');
+const cookieParser=require('cookie-parser');
+
+wn we use cookies n sessions we need to
+configure cors in nodejs siden provide it
+with origin,methods n credentials attribute
+
+app.use(cors(
+{
+origins:["http://localhost:3000"],
+methods:["GET","POST"],
+credentials:true
+}))
+
+app.use(cookieParser());
+app.use(bodyParser.urlEncoded({extended:true})
+
+app.use(session(
+{
+key:"userId",
+secret:"asecret",
+resave: false,
+saveUnInitialized: false,
+cookie:{
+expires: 60*60*24
+}
+}))
+
+after checking for login before returning
+successful do req.session.user=result
+
+In frontend u have to write 
+Axios.defaults.useCredentials=true;
+
+create a useEffect which is called wn the
+user refreshes the page n call a get endpoint
+login
+
+useEffect(()=>
+{
+axios.get("/login").then(()=>
+{
+setLoginDetails(userInfo);
+})
+},[])
+
+in node js create the endpoint:-
+app.get('/login',(req,res)=>
+{
+if(req.session.user)
+{
+res.send(loggedIn:true,user:req.session.user)
+}
+else
+{
+res.send(loggedIn:false)
+}
+}
+
+Cookies u can check in inspect dn Application
+
+NextJS Framework in React:-
+npm create-next-app react
+
+The issue with react is that it is not SEO
+friendly. This is because the application
+javascript is loaded only when u open the
+address.. It is nt loaded before that and as
+a result google is nt able to see ur page
+contents n thus nt able to suggest u
+
+npm dev or npm start to start the project
+
+wn u do inspect page source on a react project
+dn u wont see the contents lyk the heading
+title there bt u can c the same in a react
+app
+
+U need to make changes inside pages n dn
+index.js
+
+In case of react we had to install a third
+party library lyk react-router-dom for
+routing bt in case of next js we already have
+routing handle internally
+
+<a href="/profile" > Go to profile page</a>
+
+One nice feature that next gives is suppose
+u have a file with name profile.js.. dn
+next would automatically add a route /profile
+to ur app without u having to code anything
+so
+<a href="/profile" > Go to profile page</a>
+
+would take u to the profile.js component
+
+_app.js is a page that allows us to render
+all the other components
+
+There is an api folder inside where u can
+create api's..
+
+a file would automatically create an endpoint
+with the filename.. if u have a file hello.js
+dn the internal api would be exposed with
+an endpoint /hello
+
+React Google Firebase Authentication:-
+
+login into google firebase.. create project.
+give a name..
+
+npm i firebase in react project
+
+Redux CRUD Tutorial:-
+3.48
+
+Async/Await:-
+Async before a function makes the function
+return a promise
+
+Await before a function makes the function
+wait for the promise
+
+Javascript objects n prototypes:-
+Javascript can be used as an object oriented
+lang where u could create objects
+it is a bit different frm wt we hv in java
+
+Object is something that is a collection of
+multiple values
+
+we can create objects in js in multiple ways:
+
+1.Inline:
+var myObj={};
+if we want to assign values to the object we
+could do
+myObj.name="anil";
+
+There is no class concept as such in js.. u
+can't create a blueprint first n dn create
+objects out of it
+
+2.var myObj={
+name:"anil",
+city:"bbsr"
+}
+access values by using . and [] operator
+
+Employee Management System:-
+var empObject={};
+empObject.firstname="anil";
+empObject.lastname="sahoo";
+empObject.gender="male";
+empObject.designation="se";
+
+now suppose I want to create one more employee
+dn I need to again create an object n dn
+again asssign all the properties individually
+
+so instead of repeating code we can create
+a function that takes in these properties 
+n creates an object n returns the object to
+us
+
+function createEmployee(firstName, lastName) {
+  let emp1 = {};
+  emp1.firstName = firstName;
+  emp1.lastName = lastName;
+}
+
+let empObject = createEmployee("anil", "sahoo");
+
+console.log(empObject.firstName);
+
+now using functions to create objects is a
+common way to do so in javascript
+
+now we could have diffrent types of objects
+so we would need to create a lot of functions
+similar to the above one
+
+In these functions the first line that is
+creating an empty object n d last line that
+is returning the created object is common
+to all the functions.. so javascript gives
+us a shortcut where we can skip the given
+two lines
+
+now u can ask js to write the two given lines
+for u by using new keyword wn u call the
+function to create object
+
+wn u use new keyword before the function 
+what js would do is it will create an empty
+object lyk with the variable name as this
+so it would do:-
+var this={} internally and in the last line
+it will return this..
+In the middle lines we can do our assignment
+by assigning values to this object created
+by js
+
+function createEmployee(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+let empObject = new createEmployee("anil", "kumar");
+
+console.log(empObject);
+
+wn u want to use a function as a constructor
+dn to denote that to other developers, there
+is a convention that function name should
+start with capital letter
+
+There are 4 ways in which u can call a javascript
+function:-
+1.normal function call--- myfunc();
+2.through constructor-- new objectConstruct();
+
+3.var obj={};
+obj.foo=function()
+{
+console.log("hello world");
+}
+
+obj.foo();  (function call)
+
+4.
+
+execution context in javascript.. every function is
+called within a context
+
+whenver we execute a function there is a default
+argument that is passed which is the this argumengt
+
+the value of this depends on the type of the function
+call u do..
+
+1. wn u call the function using direct function
+call ex foo() then this argument would refer to
+the global object.. now this global object depends
+on the runtime environment.. for ex if u run js
+on the browser then global object would be the
+window object
+
+function foo()
+{
+console.log("hello world");
+console.log(this);
+}
+
+foo in browser would print window for this
+
+wn u call a function through an object then the
+object itself is pass as this to the function
+ex obj.foo();
+
+wn u call function using new dn javascript creates
+a new empty object and assigns it to this
+
+Usage ex of above:--
+function createObj(x)
+{
+this.x=x;
+this.foo=function()
+{
+this.x+=4;
+}
+}
+
+var bjy=new createObj(5);
+bjy.foo();
+
+every javascript function is also an object..
+n thus the function can have multiple 
+properties associated with it.. one of the
+properties associated is a function called
+"call"
+
+func foo()
+{
+
+}
+
+U can also call this function using
+foo.call()
+U can basically pass an object as an argument
+here.. what would happen is js would bind
+this object to the this variable in this case
+
+Prototypes lets u create objects using bluepri
+nt
+
+whenever js sees a function it underneath
+creates two types of objects:
+
+1.object referring to the name of function
+whose value would be the function
+2.prototype object
+
+U can access the prototype object created for
+a function by using functname.prototype
+
+access function object just by using the
+function name
+
+wn u create an object using new keyword dn
+that object would get a new property __proto__
+created by js which would point to the 
+prototype object of the function whose new
+is being used..
+
+wn u try to access a property of an object
+by doing:-
+obj.foo
+now js would first check if the property exists
+on the object, if it doesn't exist then js
+would go indside __proto__ object n check if
+the propety exists there.. if it exists then
+it will return that property value rather
+than replying undefined
+
+suppose u want a property to be common for
+all the objects created using the new keyword
+then one way is to add that property function
+to the object.. but this would be a bad choice
+as all the objects would create a new copy of
+the function and that is nt good
+
+so instead we could add that function inside
+the prototype object of the function so all
+the objects created would have a __proto__
+object that would point to the prototype 
+object of the function rather than creating
+new copies
+
+functionanem.prototype.propname=function
+
+prototype object has a property called constr
+uctor which points to thhe function
+
+so suppose u want to know which function was
+used to create an object u could simple do
+obj.__proto__.constructor
+
+There is one more way by which we can create
+an empty object and that is
+
+var simple=new Object();
+
+this is another way var a={};
+both are same {} is just a shortcut for
+new Object();
+
+reduce array:-
+suppose u want to count the suum of elements
+in an array.. then u can write a for loop and
+add in each iteration and store in a variable
+
+There is a cleaner way to achieve the above..
+U could use the reduce method on the array
+
+Reduce is used to reduce all the elemnts in
+an array to a single value
+
+the reduce function takes in two parameters..
+first is a function which in turn takes in
+two parameters accumulator and currentValue
+and the second argument is the value of the
+accumulator u want to give
+
+for every elemnt in the array is called n
+the result is saved in a variabe accumulator
+
+const sum=numbers.reduce((acc,val)=>
+{
+return acc + val;
+
+},0)
+
+for each element in the array it will store
+the result in accumulator variable
+
+[1,2,8]
+1st iteration a=0,c=1=> a=1
+2nd iteration a=1,c=2=> a=3
+3rd iteration a=3,b=8=> a=11
+
+suppose u hv an accumulator of 0, in that
+case u can simply skip the accumulator and
+js would take in the first elemnt of array as
+accumulator
+
+U can make the code even cleaner by removing
+curly brace n return
+
+U can also sum numbers present inside an array
+of objects
+
+use case of reduce:-
+
+
+
+
+
+Redux crud tutorial for React:
+install react-redux reduxjs/toolkit
+
+in index.js
+import {configureStore} from '@reduxjs/toolkit
+import {Provider} from "react-redux";
+
+const store=configureStore({
+reducer:{
+user
+}
+})
+
+The above is basically from reduxtoolkit which
+makes the whole process a bit easier.. so
+inside reducer key u need to place all the
+reducers that u may use in ur app
+<Provider store={store}>
+</App>
+<Provider/>
+
+Add a featrures folder and add a users.js
+file inside it for reducer
+
+import {createSlice} from '@redux-toolkit'
+
+export const userSlice=createSlice({
+name:"users",
+initialState:{value:[]},
+reducers:{
+addUser:(state,action)=>{
+
+}
+
+14.51
+
+}
+
+Higher order functions:-
+In our react project we may have a function that
+is repeated across different components..
+now instead of  writing the same function again
+n again we may want to make this function 
+written once reusable
+
+A HOC is a pattern in which a function would
+take in a component as argument and then return
+another component
+
+const newcomponents=function(oldcomponent)
+
+so a HOC basically adds data and functionality
+to a component
+
+create a file withCounter.js... filename is
+a convention for HOC
+
+a basic HOC
+
+const UpdatedComponent=>(original)
+{
+class NewComponent extends React.Component{
+render()
+{
+return <original/>
+
+}
+
+}
+return NewComponent;
+
+}
+
+now this component would do nothing
+
+lets add some data to this new component
+
+return <original name="Vishwas" />
+
+now to use this u can go to a component 
+and in export default pass hoc with the
+component as argument n dn inside the compone
+nt u can use this props
+
+class App
+{
+<h1> this.props.name </h1>
+}
+
+export default UpdatedComponent(App)
+
+write a function in updatedcomponent and
+pass it as a prop in return.. then u can
+use it
+
+convention is originalcomponent is named as
+WrappedComponent. filename and func name
+should start with lowercase and the component
+retunr should be uppercase filename
+
+React Pure Components:-
+Till now all components extended from React.
+Component
+
+There is one more way to create class components
+in react instead of extending component we can
+extend PureComponent instead
+
+rpce is shortcut for pure component..
+
+class comp extends PureComponent
+{
+render()
+{
+return <h1>Pure Component
+}
+}
+
+create a component with a state and write a 
+method setInterval and inside that update 
+state to same value every 2 mins
+
+create two child comp one a regular one and the
+other a pure one and pass the state as props to
+both the components and use it in child 
+components
+
+so basically wn u update state in parent it
+goes into props n gets reflected in child as 
+child is rerendered
+
+no wrte console.log in both child's render method
+
+run the app u will see initially both console
+log are printed but after 1st iteration console
+log of pure component is nt printed.. this is
+because pure compoent will implement shouldcomp
+onentupdate method internally and do a value
+check between old and new data, nly if it is
+diffrent component is re renderd otheriwse nt
+
+shallow comparison
+for primitive type--- return true if value and
+type are same
+
+for complex type-- return true if reference is
+same
+
+however if u make parent component as pure
+then no props are passed to child until data
+is diffrent
+
+This gives u a performance boost by preventing
+unnecessary re renders
+
+To achieve pure components in functional comp
+we can use memo
+
+export default React.memo(comp);
+
+useCallBack:-
+
+suppose in a component u have multiple components
+then wnever state changes then all the components
+within it get re rendered even if the change
+is nt used by them.. This would lead to perform
+ance issues wn u have a lot of components
+
+use memo to reduce the number of re renders for'
+data change
+
+React memo will nt work if u pass function
+inside props
+
+U can use useCallback which will cache the
+function and check reference is same so as to
+minimize re renders
+
+in useCallback u need to provide the function as
+the first argument and the dependencies that 
+is the variables in second argument.. nly wn
+there is a change in variable value comp would
+get re rendered
+
+
+

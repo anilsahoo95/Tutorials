@@ -1,0 +1,84 @@
+EKS is elastic kubernetes service
+
+AWS EKS provides u a managed kubernetes 
+service meaning it handles creation of mastre
+nodes, scaling and backup and maintainance
+of kubernetes.. Users nly need to focus on
+deployment and need to create the worker nodes
+
+VPC is basically a space in aws that is 
+created for u.. which does nt interfere with
+other aws services
+
+suppose u have a small project u can deploy
+that using EKS
+
+To get started with EKS need to do the 
+following:-
+1.create aws acc,iam roles 
+2.create cluster control plane giving kuber
+netes version n other details
+3.create worker nodes and connect to cluster
+
+steps are complex comaapred to mions kuber
+or digitalocean but aws is really powerful
+
+U can simplify the above process by using
+eksctl which has been created by a group
+of developers
+
+first install weaveworks n dn eksctl
+
+eksctl version to check if it is installed
+
+first eksctl needs to authenticate with aws
+
+need to provide access and secret key in a
+file-- need to check
+
+AWS EKS is a Managed Kubernetes Service from Amazon, which means AWS manages the Master Nodes for you. All the necessary applications/services are already pre-installed like the container runtime or master processes and in addition it also takes care of scaling and backups. 👍
+You only create the Worker Nodes.
+
+Learn about Master and Worker Nodes here: ► https://youtu.be/umXEmn3cMWY
+
+--------  How to use EKS? -------- 
+To create a K8s cluster in EKS you need to do following steps:
+1) Setup or preparation steps
+ - create AWS account
+ - create a VPC - virtual private space
+ - create an IAM role with Security Group (or in other words: create AWS user with list of permissions)
+2) Create Cluster Control Plane - Master Nodes
+ - choose basic information like cluster name and k8s version
+ - choose region and VPC for your cluster
+ - set security
+3) Create Worker Nodes and connect to cluster
+The Worker Nodes are some EC2 instances with CPU and storage resources.
+ - Create as a Node Group
+ - Choose cluster it will attach to
+ - Define Security Group, select instance type etc.
+
+With NodeGroup you have autoscaling, which means based on your needs depending on how much load the cluster has new Worker Nodes will automatically added or removed in the cluster.
+
+ - For that you need to define max and minimum number of Nodes.
+
+--------  Complex, but powerful and popular -------- 
+You're right, that's a lot of effort for just creating a simple Kubernetes cluster. Compared to other managed Kubernetes services, like DigitalOcean or Linode it's more complex.
+
+So, how to do it, when you just want to create a cluster and start deploying your containers inside as fast as possible. 
+
+Instead of doing all those steps manually, there is a faster and more efficient way.
+
+--------  eksctl to the rescue  -------- 
+eksctl is a simple CLI tool for creating clusters on EKS. With just one command you create a cluster in minutes.
+I'm a huge fan of understanding the concepts of how a technology works, but if there are tools that make working with this technology much easier then I like to use them. Usually those tools are built by community, which specialized in this technology. So it makes sense to use this knowledge.
+
+So in the demo we will create the Kubernetes cluster using eksctl.
+
+
+eksctl create cluster--- will create a 
+cluster with all the defaults ex cluster
+name,k8 version etc.. u can also override the
+defaults
+
+in some tym clusters get created
+

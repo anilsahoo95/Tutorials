@@ -1,0 +1,266 @@
+In javascript we can basically use variables
+before we declare them as js moves all the
+declarations to the top of the scope and
+initializes to undefined for var and does
+not initialize for let and const
+
+hoisting means memory space is setup during
+creation phase
+
+so
+console.log(a);
+console.log(b);
+var a=10;
+let b=20;
+
+would give undefined for as it is hoisted and
+initialized to undefined and then used..
+b would give reference error as it is hoisted
+but nt initialized to anything
+
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}
+
+would give o/p as 3,3,3 cos setTimeout will
+add event to queue and the for loop is
+executed before even first setTimeout 
+so i's value would be 3 and it would execute
+3 tyms
+
+but if u had let i above then it is block
+scoped and 0.1.2 would gt printed
+
+3.const shape = {
+  radius: 10,
+  diameter() {
+    return this.radius * 2;
+  },
+  perimeter: () => 2 * Math.PI * this.radius,
+};
+
+console.log(shape.diameter());
+console.log(shape.perimeter());
+
+ans. diameter function is a normal function
+so this would refer to the object that
+called it
+
+but in case of parameter it is an arror
+function so here this would refer to the
+context. for example window object and
+would thus result in undefined
+
+4.+true;
+!'Lydia';
+
+second should give false as 'Lydia' should
+amount to true
++ is an unary operator that tries to
+convert an operand to a number..
+so +true is 1 and +false is 0
+
+5.let a = 3;
+let b = new Number(3);
+let c = 3;
+
+console.log(a == b);
+console.log(a === b);
+console.log(b === c);
+
+in == we are only checking if the value is
+same but in === we are checking both value
+n type are same.. 
+so a==b is true as both have value 3
+but a===b is false as a is type number and
+as let b=new Number() is an object
+
+6.function bark() {
+  console.log('Woof!');
+}
+
+bark.animal = 'dog';
+
+This is totally fine as function is a valid
+js object and u can assign a property on it
+
+7.function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+const member = new Person('Lydia', 'Hallie');
+Person.getFullName = function() {
+  return `${this.firstName} ${this.lastName}`;
+};
+
+console.log(member.getFullName());
+
+wn ur using new keyword function becomes a
+constructor and u cant assign properties to
+a constructor. rather u have to assign
+to a proptotype object to the constructor
+
+--Event propagation
+suppose u have something lyk:-
+<div onclick={}>
+<a onclick={}>
+</div>
+
+now wn u click on a dn onclick of a as well
+as onclick of div is called and also onclick
+of any outer elemnts above div is called
+. This movement of events from the most
+nested to the least nested is called event
+bubbling
+
+if events start from top to bottom it is
+called event trickling
+
+now to stop this transfre of events from
+down to up or event bubbling u could write
+inside the onlick of a e.stopPropagation().
+
+now u cant use preventDefault cos it is
+only used wn there is a default behaviour
+ex- form submit
+
+--event propagation phases:-
+capturing--target--bubbling
+
+Coercion is converting from one type to
+another in javascript
+
+--function getPersonInfo(one, two, three) {
+  console.log(one);
+  console.log(two);
+  console.log(three);
+}
+
+const person = 'Lydia';
+const age = 21;
+
+getPersonInfo`${person} is ${age} years old`;
+
+if u give arguments lyk above then strings
+are passed as array in first arguments and
+the rest 2 expressions or variables are 
+passed as other arguments
+
+-- == would check for values in case of primi
+tive and would check for reference in case of
+objects
+
+typeof of an array is object
+
+wn u initialize a variables without using
+var,let or const it gets added to the global
+object and can be accesses..
+
+however if u want to restrict global access
+u can use.. use strict before the variable
+initialization
+
+in localstorage data would be there 
+forever whereas in session storage data is
+lost once user closes tab..
+
+var num=6;
+var num=10;
+
+is fine and would give the variable num a
+value of 10. but same will not work for
+let and const..
+
+continue keyword skips an iteration if the
+given condition returns true
+
+closure,currying, call,apply,bind
+promise,
+
+apply,call and bind are js methods that allow
+you to change the value of this for a given
+function
+
+call method allows u to invoke a function
+and pass arguments one by one
+
+apply method allows u to invoke a function
+and pass arguments as an array
+
+function printHello(text1, text2) {
+  console.log(this.name);
+  console.log(text1);
+  console.log(text2);
+}
+
+let obj = { name: "anil" };
+let obj1 = { name: "anil1" };
+
+printHello.call(obj, "first", "second");
+
+printHello.apply(obj1, ["hello", "world"]);
+
+bind is used to return a function where u
+can pass in a this and any number of argumen
+ts
+
+used when to call the function in certain
+context lyk events
+
+function printHello(text1, text2) {
+  console.log(this.name);
+  console.log(text1);
+  console.log(text2);
+}
+
+let obj = { name: "anil" };
+let obj1 = { name: "anil1" };
+
+let objbind = printHello.bind(obj);
+
+objbind("hello", "world");
+
+currying is basically a way of transforming
+a function with multiple arguments to multiple
+functions each having one or more arguments
+of the parent function
+
+closure basically means inner function is
+still able to access variable of outside
+function even if the outside function has
+already returned..
+
+async await basically make working with
+promises easier by waiting for the promise
+to return result before continuing execution
+
+var my = new Promise((resolve, reject) => resolve("Hello world"));
+let hell;
+
+async function inc() {
+  hell = await my;
+  console.log(hell);
+}
+
+inc();
+
+example with axios
+
+const axios = require("axios");
+let obj;
+async function mytry() {
+  obj = await axios.get("https://jsonplaceholder.typicode.com/todos/1");
+  console.log(obj.data);
+}
+
+mytry();
+
+Anonymous class is basically a class that has
+no name.. U have to create an instance of
+class or interface and then give methods
+inline which u can assign to a variable and
+use it as per ur wish
+
+
+

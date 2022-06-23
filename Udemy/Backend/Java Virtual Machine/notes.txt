@@ -1,0 +1,477 @@
+in compilation we get fast execution but no
+platform independence
+
+in interpreter we get platform independence
+but slow execution
+
+java is basically a best of both worlds where
+in u get faster execution n platform indepen
+dence
+
+basically java source code is compiled into
+byte code by compiler and that byte code is
+then run by jvm installed on a machine
+and we get the results.. so nly the jvm is
+machine specific but the code is not..
+
+suppose u have a Hello.java file dn wn u
+compile it u get Hello.class.. This hello.cla
+ss is the java byte code which is platform
+independent
+
+Then u can run this class file using any
+jvm
+
+bytecode interpretation is much faster
+
+JVM basically does 3 things:-
+1.loading and interpreting bytecode
+2.security
+3.automatic memory management
+
+Jvm does a lot of things to improve speed n
+performasnce:-
+1.bytecode interpretation-- bytecode is aslre
+ady compiled code and is also internally
+optimized by java so it is a bit faster
+
+2.java does something called just in time
+compilation.. It basically checks the bytecod
+es that are executed frequently and then
+converts these bytecodes to machine code and
+caches them.. next tym enever the given 
+byte code needs to be executed it rather
+executes the cached machine code
+
+now even bytecode has to be interpreted by
+jvm and converted to machine code.. now 
+suppose there is a function foo() that is 
+being executed then jvm would convert these
+code into machine code and execute.. Then
+suppose this is executed 500 tyms then jvm
+would realize that this function is frequent
+ly executed dn jit compiler would optimize
+the machine code and cache the optimized
+machine code which would now be executed from
+501th tym
+
+wnever u run java app by giving java command
+then a jvm instance is loaded into memory
+
+This jvm instance would then call a classloa
+der which would locate and load the class
+file into memory.. Then bytecode verifier
+makes sure that the bytecode inside the class
+file is correct then control is transferred
+to a execution engine which consists of a
+interpreter and a jit compiler.. there is
+garbage collector which takes care of automa
+tic memory management.. There is a security
+manager which takes care of specific 
+security needs suppose u dnt want ur bytecode
+to access ur file system
+
+wn jvm is started it gets allocated a chunk
+of memory from the underlying OS
+
+jvm divides this chunk of memory into different
+sub areas:-
+These are:-
+Method area
+Heap
+JVM Stack
+PC
+native method stack
+
+wnever a Hello.class is executed for first
+tym either through cmd or frm another class
+dn jvm loads it into memory n dn check if 
+the syntax or bytecode is well formed.. if it
+is then jvm first allocates memory for the
+static variables and initializes them to their
+default values based on their type
+
+dn jvm would initialize all the instance 
+variables as well and assign them default value
+es
+
+now all the classes that myt be referenced
+within the current class are loaded into memory
+
+n dn the variables to which default values
+were initially assigned will now be assigned
+with values provided by the user
+
+initial loading of class is done by the class
+loader.. it checks in the classpath to find
+the class n dn gets the bytecode from their
+
+wn u load a class dn first it's superclass 
+would get loaded
+
+wn a classloader encounters a class it first
+checks if the class obj is already their the
+heap if it their then it return that class obj
+If it is not their it checks for the .class
+file of that class.. if it finds that then it
+saves class obj in heap else it throws class
+not found exception
+
+There are multiple types of class loaders
+1.Bootstrap class loader-- it searches classes
+for java core api's
+
+2.Extension class loaders-- it searches 
+classes from java extension api's
+
+3.Application-- It searches classes from
+.class files obtained from source files of
+java
+
+A class is loaded in the following instances:-
+-using new keyword
+-accessing static method or static variable of
+the class
+-wn it's subclass is loaded
+-wn it is run from cmd line
+-from relection api
+
+For interface loading:-
+- new cannot be used to instantiate interfaces
+- wn subclass or sub interface is loaded
+- wn static method is accessed.. This is only
+after java 8
+- wn inreface is run frm cmd line.. only 
+after java 8
+
+the output of a class loader is a class object
+which is used to create instances wn using
+new keyword
+
+The object class outputted by classloader
+has a lot of inbuild methods to get metadata
+about the class like getClassname,isInterface
+
+bytecode verifier checks if the bytecode of
+the class is well built
+
+some of the checks that it does is:-
+final classes are not subclassed
+final methods are not overridden
+
+after verifying space is allocated for the
+static fileds are they are initialized with
+default values based on theit type
+
+if class is instantiated using new then insta
+nce variables are also given space n assigned
+default values
+
+if their is nt enough space then out of memory
+error is thrown
+
+Reflection allows us to introspect known or
+unknown code.. for ex- u can gt fields,methods
+n constructors of a class if u just know the
+class name.. U can also modify their behaviour
+by creating instances and invoking the methods
+
+Reflection use cases:-
+1.class browsers in IDE
+
+in eclipse wn u type a classname or object n
+press . and then eclipse would suggest u the
+methods or varibales that u can use.. this is
+achieved as eclipse internally uses reflection
+for this purpose n looks at methods belonging
+to the class
+
+Accessing class object:-
+1.object.getClass();
+2.Class.forName(classname);
+3.using class literals-- append .class to the
+class name
+
+
+String[] arr1=["anil","sunil","runi"];
+sysout(arr1.getClass().getName());
+
+Class clazz=Class.forName("com.example.Anil
+.User")
+
+sysout-- clazz.getName();
+clazz.getSuperClass().getName();
+clazz.getInterfaces();
+
+every primitive also has a class name.. forname
+is nt supported for primitives
+
+sysout-- int.class.getName();
+
+Object object=clazz.newInstance();
+
+clazz.getDeclaredMethods returns array of all
+methods in class
+
+Method m=clazz.getDeclaredmethod(method name,
+String.class,String.class);
+
+Object result=m.invoke(pass arguments);
+
+JVM gets allocated a share of memory to run
+it's processes.. It divides the memory it gets
+into diffrent sub-areas:-
+
+Native heap
+Method area
+Java heap
+JVM stack
+PC
+native method stack
+
+java heap is used to store objects and arrays.
+it is very essential to give a proper java 
+heap size to our application when running in
+prod
+
+Method area-- this would contain class data
+such as all the methods associated with a 
+class n it's bytecode.. each object in heap
+would have it's corresponding class data stored
+in method area.. however objects of same class
+will point to the same address in method area
+
+Java heap and method area are the two memory
+spaces which will be shared across all threds
+
+Stack would store method invocation state i.e
+the order in which methods are invoked
+
+also stack would store all the local variables
+present within the method
+
+PC or program counter would contain the address
+of next instruction to be executed.. It
+would contain a location within method area
+i.e the place where all the method bytecode
+is stored
+
+Native method stack-- some java invokes method
+in native code.. for ex file input/output n
+network input/output
+which may be written in C
+
+Native heap contains JIT code which is the
+optimized machine code saved by java which is 
+called frequently
+
+native heap also contains direct buffer which
+is useful when u want to cache a lot of data
+
+In heap we store objects, what we mean by
+this is that we are storing instance data
+related to the object. The amount of storage
+given would depend on the number of instance
+variables and the type of each
+
+now these objects would also contain behaviours
+or methods.. these methods are stored in method
+area as these are common across the class
+
+when classloader encounters a new keyword it
+first check if the class object is already
+present in heap.. if it is nt then it creates
+a class object on heap n dn loads class data
+inside method area and then creates a object
+in heap.. note that this object is diffrent
+from class object..
+
+In Method area:-
+Meta data about class:- type,superclass n super
+interface
+is interface or class
+type modifiers-- abstract,final,public
+varibales name and type n modifiers
+Data related to static variables would be
+stored in method area but data of instance
+variables would be stored in heap
+
+--Method area would include runtime constant
+pool lyk the string pool
+--Method area would contain name of methods,
+types,arguments,return types n bytecodes
+--Method table which stores the location of
+the method
+
+Prior to java 8 method area was stored in
+somthing called permanent generation space(
+permgem)
+
+After java 8 it is stored inside native heap
+and is now refereed to as metaspace
+
+one reason for this change is in permgem a 
+default max size was allocated n if this max
+size would exceed then a outofmemory error
+would throw.. but we dont have any default
+max space in metaspace.. basically here max
+space is ur system space
+
+another reason is improving performance for
+garbage collection
+
+wn we create an instance using new jvm
+determines the storage needed and then creates
+a memory in heap.. as wee keep on adding new
+object them more memory is allocated and we
+may soon run out of memory.. so we need to
+clear object memory's no more needed as well
+
+This is automatically done by java whereas in
+c and c++ u need to release resources urself
+
+program crashes in windows can happen due
+to corrupted memory..
+
+now corrupted memory can happend due to:-
+1.memory leak-- unused objects are never 
+freed
+
+to prevent memory corruption java does automat
+ic memory management without having the develo
+pers to code about memory management through
+a process called garbage collection done by
+a component of jvm called garbage collector
+
+GC ensures to reclaim dead objects
+
+A object would be reclaimed in the following
+scenarios:-
+
+go()
+{
+Book b=new Book();
+}
+
+Here once go output is returned b is eligible
+to be reclaimed
+
+Book b=new Book();
+b=new Book();
+wn an object is assigned a new reference
+
+Book b=new Book();
+b=null;
+wn object is assigned to null
+
+There is no guarantee when gc would run
+
+GC Challenges:-
+1.identify abandoned objects
+2.reduce application pause times:-- suppose
+gc is running and deleting an object and suppose
+in that tym in application we need that object
+itself then again reclaiming that object will
+be tough so one solution is gc can pause d
+application n do it's job for smtym bt that
+would lead to bad user experience
+
+17 done
+
+In java there are a lot of objects created..
+some myt die young and some might last a bit
+longer. In heap jvm divides the space into
+two different spaces one to store young objects
+or recently discovered objects.. if an object
+still is alive after some gc cycles dn it is
+promoted to old generation space.. This is
+called generational collection.. It is used
+to reduce pause tyms while doing gc
+
+when we have a java application running then
+it can happen that the heap memory myt be full
+as u created a lot of objects in ur app dn
+the app crashes
+
+we can set heap memory of an application by
+passing in vm arguments:
+-Xms and _Xmx flags
+ -Xms is the minimum heap memory that should
+be created and -Xmx is the maximum heap memory
+that can be created..
+
+-Xms13m would denote that minimum heap memory
+that should be granted is 13m and -Xmx13m 
+denotes that the max amount of memory that
+can be granted is 13 mb.. 13g would mean
+13 gb
+
+public class GCDemo{
+static int[] array=new int[2*1024*1024];
+The above would take around 8.4mb of memory
+in heap
+
+psvm
+}
+
+-Xms13m -Xmx13m -XX;+PrintGCDetails -XX;+
+UseSerialGC
+
+PrintGCDetails would print gc details wnever
+gc takes place..
+
+U can decrease the min to 2 mb and u would
+get an error that allocation failed
+
+wn allocation fails gc cycle would run n it
+would increase java heap space to max allowed
+n try to allocate again
+
+jvm needs to know which method is currently
+invoked.. This data is stored inside stack.
+also if a method invokes another method
+even that data is stored inside stack.. also
+the local variables present inside the method
+are stored in stack.. jvm create one stack
+per thread
+
+each method will hv its own stack frame n
+that stack frame would be stored inside 
+stack.. so a stack can have multiple methods
+and thus have multiple stack frames
+
+each stack frame contains:-
+--an array of local variables including
+arguments
+
+skipped 23
+
+String pool is stored inside heap
+
+just for clarity new String will create an
+object and also save the string in string pool
+whereas string literal would nly create in
+string pool
+
+String interning is a process of building
+string pool
+
+now when jvm encounters a string for first
+tym it creates a string object and then 
+invokes the intern method.. Intern method
+would check if the string literal already
+exists in string pool.. if yes it would
+delete the string object created and would
+return a reference to the one in string pool
+else it would add that created string object
+to string pool and return the new refernce
+
+
+
+
+
+
+
+
+
+

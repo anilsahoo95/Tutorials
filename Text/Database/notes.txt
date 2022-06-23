@@ -1,0 +1,145 @@
+Employee table:-
+ 4 columns- id,name,dept,salary
+
+sql query to display max salary in table
+
+select max(salary) from employees
+
+2.sql query to display employee name who
+takes max salary
+
+U can use nested salary in the above case
+basically the above query would give the
+max salary u coud write a query to get name
+where salary= the above query which returns
+max salary
+
+3.display second highest salary in employee
+table
+
+mine:-
+select name,salary from employee_crashers e inner join 
+(select max(salary) maximum from (select salary from employee_crashers where salary 
+!= (select max(salary) from employee_crashers)) a) b
+on e.salary=b.maximum
+
+actual:-
+select max(salary) from employee_crashers where
+ salary != (select max(salary)
+ from employee_crashers)
+
+4.display all the dept names along with the
+num of employees working with it
+
+mine:select dept,count(*) from 
+employee_crashers group by dept
+
+group by means group them up meaning same
+values will belong to the 1 group i.e the
+column by which u group by
+
+so based on column values diffrent groups vl
+be formed
+
+there are some conditions that are linked to
+group by
+
+1. select can have only those columns by which
+u group by.. ex if u group by name dn select
+can have nly name.. it cant hv id
+
+in select the nly thing u can use except the
+group by column is an aggregate function
+
+lyk sum,max,count,min,avg
+
+One more condition is that u cannot use 
+where along with group by.. if u want to use
+a where lyk condition u will have to use
+haing instead
+
+5. write a query to display all the dept with
+count less than 2
+
+mine:
+select dept,count(*) from employee_crashers 
+group by dept having count(*) > 1
+
+select Nth highest salary in a emp table
+
+select id,name from emp e1 where n-1=(
+select count(distinct salary) from
+emp e2 where e2.salary>e1.salary)
+
+The above query will use two tables.. one is
+main table n other is replica of main table
+
+for every row in first table it will compare
+with rows of the next table to find the
+count of number of secong table row values
+which are more than first table row n will
+print the record where n-1 matches the
+count of second rows being more than first
+rows
+
+Functions:-
+Functions in postgres are stored procedures
+which execute the statements within it
+
+A function starts with create bor replace
+function fnname()
+CREATE OR REPLACE FUNCTION total()
+
+next u need to mention return variable and
+type
+
+returns integer as $total$
+
+then u declare the variables n der types dt
+u would be using in ur function under declare
+statement
+
+declare
+total integer
+
+then we need to use begin keyword n dn mention
+the sql queries to be executed.. into keyword
+is used to store inside a variable
+
+begin
+select count(*) into total from table_name;
+
+then u need to return total n dn end
+
+return total;
+end;
+$total$ language plpgsql
+
+select total() to use it
+
+create a function that takes in a argument
+and returns argument + 1
+
+create or replace function inc(value integer)
+return integer as $inc$
+begin;
+return value + 1;
+end;
+$inc$ language plpgsql
+
+create function to get sum of two arguments
+
+create or replace function(val1 integer,
+val2 integer)
+returns integer as $sum$
+begin;
+return val1+val2;
+end;
+$sum$ language plpgsql
+
+
+
+
+Views:-
+
+Stored Procedures:-

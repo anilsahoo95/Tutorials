@@ -1,0 +1,157 @@
+https://github.com/in28minutes/kubernetes-crash-course
+
+docker enables u to run an app anywhere 
+without having to install the softwares
+manually
+
+if u want to manage huge load on ur app
+it allows u to create new instances automati
+cally.. basically it autoscales n loadbalances
+for u
+
+it allows also to deploy a newer version
+without any downtime
+
+to deploy a springboot application u need
+a kubernetes cluster or a group of servers
+
+creating and managing kubernetes is not easy
+so u can use a kubernetes service provided
+by a cloud service like google cloud,azure
+or aws
+
+Google Kubernetes Engine is by google cloud
+for managed kubernetes service
+
+same infrastructure that google uses for
+gmail,youtube and maps
+
+create a google cloud account:-
+start my free trial and u can start in a 
+minute
+
+U will get 300 dollars which u can use
+
+kubernetes is a resource manager.. it manages
+ur virtual servers in cloud
+
+diffrent cloud providers call these virtual
+servers with diffrent names:-
+google calls them compute engine
+aws calls them ec2
+
+kubernetes call them nodes
+kb can manage 1000's of such nodes
+
+to manage nodes u have something called 
+master node
+
+typically u have one master node bt for high
+availability u can have multiple master
+nodes
+
+cluster is a collection of worker nodes and
+their master nodes
+
+worker nodes do the actual work and master
+are used to manage them
+
+master makes sure nodes are available
+
+in google cloud go to console and choosse ur
+default project i.e myfirstproject
+
+search kubernetes engine
+
+U would go to kubernetes engine dashboard
+where u would get the following options:-
+Clusters-- create a kubernetes cluster
+Workloads-- decide which application or
+container would run on the cluster
+services or ingress-- allow externall access
+to clusters
+Configuration to store app configs
+
+click on create cluster choose standard
+cluster give a name and locate to us central
+1a...
+
+choose number of nodes as 3..
+choose defaults and click create..
+will take 5 mins to create
+
+some of the memory of nodes is taken up by
+kubernetes to run it's processes
+
+in order to deploy an app to kubernetes
+cluster u need to first coonect to cluster
+
+U can connect to cluster using google cloud
+shell
+
+wn u go inside cluster u will have a icon
+to the right top as Activate Cloud shell
+
+It will open a terminal in browser in some
+minutes
+
+u can open cloud shell in new window
+
+in cluster u will have a connect button which
+will give u a command which u can type in
+cloud shell
+
+press enter n would connect to cluster
+
+kubectl is shortform for kube controller
+
+kubectl is a command to interact with cluster
+
+it will work on any cluster private,aws,azure
+
+in cloud shell kubectl would already be
+installed for us
+
+to deploy an app in kubenetes:-
+
+kubectl create deployment hello-world-rest-api
+--image=in28min/hello-world-rest-api:0.0.1.
+RELEASE
+
+hello-world-rest-api-- name of the deployment
+give any name \
+
+image would be pulled out from docker repo
+
+this would deploy the app on kubernetes
+cluster
+
+now we want to expose this deployment to the
+outside world
+
+kubectl expose deployment hello-world-rest-api
+--type=LoadBalancer --port=8080
+
+go to services n ingress n it will give u
+an endpoint
+
+with this endpoint u can access ur api
+outsyd
+
+kubectl get events -- gets all the steps
+to start a container
+
+
+
+kubectl get pods
+kubectl get replicaset
+kubectl get service
+
+wn u type in kuctl create deployment k8s
+craeted a pod,replicaset and deployment
+
+expose-- k8s created a service for us
+
+9 done
+
+

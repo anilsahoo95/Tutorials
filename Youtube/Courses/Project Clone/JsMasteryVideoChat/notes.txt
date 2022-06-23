@@ -1,0 +1,291 @@
+create a folder webrtc n dn create frontend
+and backend folders
+
+first backend-- npm i express socket.io 
+cors
+
+create index.js
+
+const app=require("express")();
+
+consts server=require("http").createServer(app
+const cors=require("cors")
+
+const io=require("socket.io")(server,()=>
+{
+cors:{origins:"*",
+methods:[GET,POST]}
+}
+
+app.use(cors());
+
+const port=process.env.port || 5000;
+
+app.get("\",(req,res)=>
+{
+res.send("Helllo world")
+
+})
+
+server.listen(PORT);
+
+io.on("connection",(socket)=>
+{
+socket.emit("me",socket.id);
+
+socket.on("disconnect",()=>
+{
+socket.broadcast.emit("call ended")
+})
+
+socket.on("calluser",({userTocall,signal
+Data,from,name})=>
+{
+io.to(userTocall).emit("calluser",
+{signal,name,from})
+})
+
+})
+
+socket.on("answer call",(data)=>
+{io.to(data.to).emit("call accepted",
+data.signal)})
+
+
+sockets can be used for real time data transf
+er which can be messages,audio n even video.
+
+create a frontend folder n create react app
+
+npm i @material-ui/core @material-ui/icons
+react-copy-to-clipboard simple-peer socket.io
+-client
+
+Create app.js
+
+return <h1> Video Chat </h1>
+
+import {Typography,Appbar} from core
+
+return <div>
+<Appbar position="static" color="inherit">
+<typosgraphy variant="h2" align="center">
+Welcome to Video Chat </Typo>
+</Appbar>
+// VideoPlayer
+// Option-- Notifications
+
+create videoplayer.js component:-
+
+create a file SocketContext.js
+
+import React,{createContext,useEffect,useRef,
+useState}
+
+import {io} from socket-io-client;
+
+import Peer from 'simple-peer';
+
+const SocketContext=createContext();
+const socket=io("http://localhost:5000");
+
+const ContextProvider=({children})=>
+{
+const myVideo=useRef();
+useEffect(()=>
+{
+navigator.userDevices().getUserMedia({
+audio:true,video:true}).then((currStream)=>
+{
+//navigator.userDevices is not working use
+navigator.mediaDevices.getUserMedia() instead
+setStream(currStream)
+myVideo.current.srcObject=currStream;
+})
+
+socket.on("me",id=> setMe(id));
+socket.on("calluser",{from,name,signal}=>
+{
+setCall({isReceivedcall:true
+from,name,signal})
+})
+
+},[])
+
+const answerCall=()=>{
+setCallAccepted(true);
+const peer=new Peer({initiator:false,
+trickle:false,stream})
+
+// Peer is also going to behave lyk socket..
+It will have its own event handlers etc
+
+peer.on("signal",(data)=>
+{
+socket.emit("answercall",signal:data,
+to)
+})
+}
+
+peer.on("stream",currentSteam=>
+{
+userVideo.current.srcObject=currStream;
+//This is for the other user
+})
+
+peer.signal(call.signal);
+connectionRef.current=peer;
+
+const calluser=(id)=>{
+
+const peer=new Peer({initiator:true,
+trickle:false,stream})
+
+here initiator is true because we are the one
+calling from our side
+
+peer.on("signal",(data)=>
+{
+socket.emit("calluser",
+{userTocall:id,signalData:data,from:me,
+name})
+})
+}
+
+peer.on("stream",currentSteam=>
+{
+userVideo.current.srcObject=currStream;
+//This is for the other user
+})
+}
+
+socket.on("callaccepted",signal=>
+{
+setCallAccepted(true);
+peer.signal(signal);
+
+})
+
+connectionRef.current=peer;
+
+const leaveCall=()=>{
+setCallEnded(true);
+connectionRef.current.destroy();
+window.location.reload();
+//to call another guy after disconnecting
+first
+}
+
+}
+
+return <SocketContext.Provider value={{}}>
+{children}
+</SocketContext.Provider>
+
+In value u can pass everything that u want
+to be globally accessible across components
+
+value={{call,callAccepted,myVideo,userVideo,
+stream,name,setName,callEnded,me,callUser,
+leavecall,answerCall}}
+
+export {ContextProvider,SocketContext}
+
+now to be able to use the above anywhere go
+to index.js
+
+wrap App with ContextProvider tags
+
+go to videoplayer.js n import Grid,Typography
+n Paper from material.ui/core
+
+import SocketContext
+
+return
+<Grid container>
+//our own video
+//users video
+</Grid>
+
+oue video:-
+<Paper>
+<Grid item xs={12} md={6}>
+<Typography variant="h5">name </Typography>
+<video playInline muted ref={myVideo}
+autoplay/>
+</Grid>
+</Paper>
+//video is muted as it is our video
+
+//Now other guys video copy n paste frm above
+
+<Paper>
+<Grid item xs={12} md={6}>
+<Typography variant="h5">name </Typography>
+<video playInline ref={userVideo}
+autoplay/>
+</Grid>
+</Paper>
+
+Now we need to get ref from Context n 
+provide above
+
+Inside of Videoplayer.js
+const context=useContext(SocketContext);
+
+This context will contains all the variables
+n methods;
+
+replace name and both the refs in videoplayer
+component
+
+{stream && My video
+
+{callAccepted && !callEnded then only show
+userVideo component
+
+Now we can c ourselves on the UI.. Now need
+to work on options so that we can get options
+to call someone else
+
+54.47
+
+create options.js
+
+const context=useContext(SocketContext);
+
+return
+<Container>
+<Paper elevation={10}>
+<form>
+<Grid container>
+<Grid item xs={12} md={6}>
+<Typograpgy gutterBottom variant="h6">
+<Textfield lable="name" value="name" 
+onChange=>{setName(e.target.value}
+
+<CopyToClipboard>
+</Grid>
+</Grid>
+</form>
+</paper>
+
+basically a page that gives u input box to
+type name to call and submit button
+
+create two buttons one to leave call and
+one to start call.. use states frm the context
+to get the status of current calls and show
+buttons
+
+create notifications.js
+
+return answer call button with onclick to
+answer call if isReceived
+Call and callnotaccepted
+
+go to heroku.. create new app..
+give a name and create an app:-
+
+install heroku cli
+heroku login

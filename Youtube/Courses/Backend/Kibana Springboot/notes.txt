@@ -1,0 +1,69 @@
+should nt use system.out.println nd we should 
+use a logging framework indeed which helps us
+configure a lot of logging options lyk where
+the logs should be sent
+
+with spring-boot-starter web sb also pulls in
+spring-boot-starter-logging
+
+to log something in a java application use:-
+Logger logger=LoggerFactory.getLogger(Home.cl
+ass);
+
+logger.error("Error happened");
+
+logger has levels.. logger.trace("hello") will
+nt work as the default level is info
+
+logging has a lot of configurable properties
+that can be set using properties file. as
+the number of properties can gt really huge 
+we can mention those properties in
+logback.xml n logback-spring.xml
+
+To enable centralised logging in microservive
+env we need to use ELK stack .. ELK stands
+for elastic search,logstash n kibana
+
+elasticsearch is a nosql db which helps us to
+store data
+
+logstash is a tool that accepts logs frm various
+sources n eexports data to various targets
+
+kibana is a visualization UI which helps us
+developer to monitor logs
+
+when we generate a log then the log is sent
+to logstash which processes the data n stores
+in elastic search nosql db which is then re
+ferred to by kibana UI to visualize the logs
+
+first install the 3 from elastic.co
+after download go into bin of elastic search
+n kibana n run .bat file
+
+in kibana config file uncomment a setting to
+point to localhost:9200
+
+in properties mention a file where u want to
+save logs by doing logging.file=filename
+
+in lostash u hv to create a config file logst
+ash.conf where u need to specify path of ur 
+log file n port of ur
+elastic search where logs would be stored
+
+go for localhost:9200/_cat
+
+u will find a indices folder created now paste
+that in the above url like 9200/_cat/indice
+
+now go to kibana n create a index script
+by seeachin for the above index pattern
+n then u can view those in discover
+
+
+
+
+

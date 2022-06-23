@@ -1,0 +1,486 @@
+Reactjs is a java script library used for 
+building user interfaces
+
+Normally we build web apps with react bt react
+does nt only work for web..
+
+ReactDom.render is what adds the web propert
+ies to react
+
+raect native is a collection of special 
+components which it then compiles into
+native UI widgets for both android and
+ios
+
+in react for web u would use <div>
+in andoid u wud use android.view
+in ios u wud use UIView
+in React native u will use <View>
+
+react native internally compiles ur view
+into native andoid/ios widgets lyk UIView
+
+Ur code can be divided into 2 parts:-
+1.Views
+2.business code
+
+React native only compiles ur views into
+native widgets bt the business code remains
+as it is in javascript
+
+To create a react native app we have two
+tools:-
+
+1.React Native CLI-- doesnt give much.. U will
+have to do a lot of things urself
+
+2.Expo CLI-- abstracts a lot of complexities
+by giving u wrapper components.. U lose a 
+lot of control which u would have on the
+react native code.. Using maps/camera
+is pretty easy.. U can also switch back to
+react native cli wn u want to
+
+In case of expo, for development purpose
+we need to install expo client on the device
+we test on n we run our app easily.. we can
+also create standalone apps with expo
+
+expo.io is the site for expo
+
+npm install expo-cli -g
+
+To create a new react native project type:-
+expo init my-react-native
+choose balank
+cd my-react-native
+
+then do expo start to start ur project
+It will open a port on ur system.. just
+scan the qr code there with ur phn 
+
+import React from 'react'
+import {Text,View,Button} from 'react-native'
+
+export default App=()=>
+{
+return(
+<View >
+<Text> Hi Anil </Text>
+</View>
+)
+
+
+}
+
+import React,{useState} from 'react'
+import {Text,View,Button} from 'react-native'
+
+export default App=()=>
+{
+const [output,setOutput]=useState("initial")
+return(
+<View >
+<Text>{initial} </Text>
+<Button title="Change Text" onPress={()=>
+setOutput("Updated")}
+</View>
+)
+}
+
+In react native there is very little cross
+styling of components..
+
+Thre are very few pre built components that
+are available to u
+
+U can also see the app results in android
+emulators
+
+1.17
+
+First project would be create a page with
+main heading as goal and a plus sign after
+it..
+
+below goal u need to mention the various goals
+that have already been added
+
+View tag is similar to div tag
+
+<View>
+<View>
+<TextInput/>
+<Button title="Add"/>
+</View>
+<view>
+</View>
+</View>
+
+U can add inline style also in native
+
+<View style={{padding: 30}}/>
+
+<TextInput placeholder="Course Goal"
+style={{width: '80%',
+borderBottomcolor:'black',borderBottom
+Wdth:1,padding: 10}}
+
+Flexbox allows us to place elements inside
+the container either side to side or top to
+down..
+
+Initially the above textinput and button would
+be placed top n bottom.. we can make them
+side by side using flexbox by first wrapping
+them with a View tag n then giving style to
+the view tag
+
+<View style={{flexDirection: 'row',justify
+Content:'space-between',alignItems:'center'}}
+
+if u continue writing inline styles then 
+there is a lot of code inside the jsx to avoid
+that we can use stylesheet object
+
+const styles=StyleSheet.create({
+screen:
+{
+padding:50
+}
+})
+
+then in jsx u have to do:-
+style={styles.screen}
+
+<TextInput
+value={enteredGoal}
+onChangeText={handleGoalChange}
+/>
+
+here inside onchangetext if u mention function
+name with () then it gets executed whenver 
+the view is rendered..for it to nly be called
+wn there is text change use the function name
+without ()
+parameter will be passed itself.. no need to
+mention ()
+
+View will nt allow u to scroll a page even
+if u hv more items.. U can use a scrollview
+instead of that.. U can make the whole page
+scroll or nly some part of it.. if one part is
+view n another one is scrollview then nly
+scrollview part will scroll
+
+if u have a lot of items in ur list going to
+hundreds in that case if u use scrollview
+then ur app would become really slow.. for
+very long lists reactnative provides a flatlist
+elemnet
+
+It takes in two props data where u pass in
+the array that contains the list and render
+item where in u pass a function that returns 
+the view u want to display..
+
+as it is a list u need to hv a key.. flatlist
+expects u to have a array of objects as the
+list with each object having a key property..
+
+suppose u dnt want that then u can use the
+ketextractor prop which passes item n index
+n u can return ur key there
+
+<FlatList data={items}
+keyExtractor={(item,undex)=>item.id}
+renderItem={itemData=>
+<Text>{itemData.item.value}</Text>
+
+2.21
+
+Touchable component can be wrapped around views
+and allows to have onPress lyk events on Views
+
+TouchableWithoutFeedback component is also
+there
+
+We also have a modal component in react native
+with which we can wrap a component n add a 
+visible property to Modal which will show or
+hide the modal
+
+<Modal visible={false} animationType="slide">
+
+3.02
+
+U cannot give an inline style to a button
+directly width n all.. U have to wrap them
+with a view n give width there..
+
+for debugging u hv to type ctl + M in andoi
+d app n dn choose debug js remotely.. In
+chrome in link type should nt be tunnel or
+it vl be real slow..
+
+dn u would be able to see the logs in chrome
+dev tools just lyk web n also in source
+under debugger-worker u can set breakpoints
+anbd debug the app...
+
+Upon ctl+M u also get a option to check
+perf monitor where u can check ram
+
+
+
+shadow style in react native works for ios
+in android u need to use elevation
+
+props.children.. send html within the two
+start n end tag
+
+4.33
+
+regular expression is very easy
+first is two forward slashes then inside
+put a square bracket n dn a ^ n then 0-9,
+n after second slash write a g which means
+global, so it would apply for all the 0-9
+inside the string
+
+string.replace(/[^0-9]/g,'')
+
+this would basically search for all the 
+instances of 0-9 in the string n replace 
+it with ''
+
+KeyBoard is an api which is provided by
+react native with which u can interact
+with the device keyboard n perform actions
+
+for ex keyboard.dismiss() would close the
+keyboard on the android device
+
+parseInt(string)-- convert string to int
+
+Alert.alert gives a nyc alert in app
+
+App.js is the only component that is loaded
+into the UI screen
+
+so if u want to render diffrent components
+u can do with help of conditionals
+
+ex---
+<Header/>
+{content}
+
+if(sm condn)
+{
+content=<Text>Hi anil </Text>
+}
+
+if(smthing else)
+{
+content=<Text>Hi well done </Text>
+}
+done
+
+
+React Native The Practical Guide Udemy
+Publishing React native Apps:-
+
+Deployment Steps:-
+Confugure App/Deployment-- give unique name
+to ur app
+
+Add icons and splash screen
+
+build and deploy
+
+In expo apps:-
+u can configure the app in app.json which woul
+d also create assets for u
+
+To publish use expo publish
+
+To build use expo build:android/build:ios
+
+over the air updates.. push code changes
+without the need for user to update the app
+
+in non expo--
+configure app manually
+build via andoid studio/xcode
+over the air updates need third party librarie
+s bt nt that easy
+
+Expo:
+open app.json
+u can change name of app there
+
+platforms-- the platforms u want to publish
+
+orientation-- default means user can change the
+orientation
+
+splash screen is what the user sees when the
+app is loading
+
+for icon provide a 1024x1024 image
+splash icons u can create using expo docs
+
+put the icon.png and splash.png inside assets
+folder and provide the path in app.json file
+
+
+
+To publish u can type expo publish n u have
+to create a expo account
+
+This will publish ur app to the expo server 
+n give u a url which contains a qr code which
+u can scan in expo go in ur app n run on ur
+phone
+
+U myt use some images in ur app.. now expo
+upon publish will load these images into
+the expo server so that the final app is small
+.. so wn a app starts on a user phn it will
+connect to these expo servers and then get
+those images..
+One issue with this approach is that wn u
+dnt have net dn ur app wont be able to 
+connect to these servers n thus wont work
+properly
+
+U can change this using the asssetBundlepattern
+in app.json
+
+in that array u can mention the files that
+should not be uploaded to expo so that they
+remain with the bundles
+
+in updates key in app.json u manage over the
+air updates
+
+wn u publish the changes using expo publish
+dn users who hv installed the app even from
+app stores will get the update
+
+fallbacktocachetimeout decides how much tym
+after app launch should the app check for
+over the air updates before starting
+
+before building u have to mention in ur app
+what app permissions u need in the users 
+phone
+
+that is also set in app.json file
+
+if u skip permissions then expo will by default
+ask for all the permissions to the user
+
+In android node,
+add permissions:[list of permissions find in
+expo list]
+
+if u use googlemaps node inside ur android
+node
+
+also need to provide package node in 
+android node.. U need to provide a url that
+is unique across store.. any fictional url
+would also work
+
+similarly u have bundleidentifier in ios
+ios also needs buildNumber
+
+in android need to add versionCode similar to
+above
+
+now run expo publish
+now do expo build:android
+expo build:android -t app-bundle
+
+let expo handle that
+
+expo build:ios will need a apple account
+it will take 99$ to create
+
+React navigations:-
+navigation in react native is done by using
+react-navigation package
+
+reactnavigation.org is the doc to learn
+
+react-navigation needs to get some extra
+packages which u can get from above url
+
+create a navigation folder n create a file
+MealsNavigator.js
+
+Multiple navigation patterns are there:-
+1.Stacknavigator pattern
+
+import {createStacknavigator} from react-navi
+gation'
+
+for react navigator 3, for 4 need to change
+a bit
+
+createStacknavigator is a method that takes
+in a object as argument where u mention
+thhe different screen between which u want
+to navigate
+
+const mealsnavigator =createStacknavigator({
+category: categoryScreen,
+meals: mealDetailScreen
+});
+
+To add a screen add a key as per your choice,
+and value would be the react component 
+
+export default createAppContainer(mealsnavigat
+or);
+
+In App.js
+
+import mealsNavigator
+
+return <mealsnavigator/>
+
+In the landing page now the component present
+in the first place inside stacknavigator
+object will be rendered
+
+Navigate from one screen to another:-
+in Categories page create a button
+
+<View>
+<Button title="Go To meals" onPress={()=>
+props.navigation.navigate({routeName:'one of
+the keys present in stacknavigator'})
+}>
+</Button>
+</View>
+
+All the components that are mentioned in
+navigatoratck will receive a special prop
+navigation... we can call a navigate method
+on it and pass it an object which contains
+routeName key where u need to mention
+the key of screen u want to navigate to
+
+It will also make sure that the platform's
+back button also works accordingly
+
+Native Device Features:-
+expo provides a lot of wrapper for native
+device features ex- camera,sqlite,imageselect
+or
+
+
+
+

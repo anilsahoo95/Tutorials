@@ -1,0 +1,25 @@
+First is creating a memories app which 
+will let us add a new post containing some
+text and a video and upon submit it will
+show up as a card in UI..
+
+create a foldder memories_project.. create
+two folder client and server
+
+inide client npx create-react-app ./
+
+in node install body-parser,cors,express,
+amd mongoose and nodemon
+
+create index.js in node:-
+import cors,bodyParser, express and mongoose
+
+to enable es6 like syntax in node go to 
+package.json and after main wrire "type":
+"module"
+
+in client side install axios,moment,redux,
+redux-thunk n react-file-base64
+
+9.20
+

@@ -1,0 +1,469 @@
+skipped 1 to 5:-
+
+kafka is a distributed commit log
+as microservices work they generate a lot
+of events which are logged into kafka.. these
+logs are known as topics
+
+the messages are stored in an orderly manner
+
+our services will need to group,aggregate,
+filter n join the data from kafka n work
+with it.. for these kafka provides us with
+a lot of streaming api's which we can use
+
+kafka supports myltiple producers n consumers
+multiple producers can push to a topic at
+the same tym and multiple consumers can also
+subscribe a topic at the same tym..
+
+In other systems message once consumed gets
+deleted but that is not in case of kafka
+
+It maintains data on a disk so that if a
+subscriber serrvice is down in that case 
+wn the service is restarted it can still acce
+ss that message
+
+use cases--
+can be used to exchange messages between serv
+ices
+track user activity and push it to a topic
+
+stream processing-- 
+
+4 main components of kafka architecture
+broker
+zookeeper
+producer
+consumer
+
+a kafka cluster is a combination of kafka
+brokers which are nodes or servers that
+actually deal with producers n consumers
+
+skipped 12 to 15
+
+search kafka donwload and download the binary
+file
+
+add bin/windows to path variable
+
+in cmd run zookeeper-server-start n provide
+the path till zookeeper.properties present
+inside config folder
+
+one more cmd to run kafka broker
+kafka-server-start path to server.properties
+
+now kafka is up
+
+To list all the topics use:-
+kafka-topics --list --bootstrap-server local
+host:9092
+
+to create a yopic:-
+kafka-topics --create --replication-factor 1
+--partitions 1 --topic mytopic --bootstrap-
+server localhost:9092
+
+It will give reply created topic name
+
+to get details about the topic u need to use
+describe command and provide topic name n
+bootstrap-server
+
+to consume meesages from d topic u could
+do kafka-console-consumer --topic name
+--boot-ser url
+
+to publish messages type:-
+kafka-console-producer --broker-list localhost
+:9092 --topic name
+
+u cn type in strings n c that consumer will
+be getting msgs
+
+control c to stop producing n receiving
+
+delete topic
+kafka-topics --delete --boo-server local:9092
+--topic myfirst
+
+along with the above command line tools 
+kafka gives us hold of 5 core api's
+
+1.admin api:- allows us to inspect topics,
+brokers n other objects..
+Kafka drop is a library which uses these
+admin api's and provides us a UI layout
+of these systems
+
+2.Producer/Consumer api-- producers api is to
+publish msgs to topics
+
+3.Streams API allows us to process event str
+eams and apply transformations
+
+4. connect api-- import n export data from
+other systems
+ex- mysql,postgres n elastic search
+
+23 next
+
+Kafka producer workflow:-
+earlier in messaging services publish used
+to send a message dn get a reply frm broker
+n it was done
+
+Bt in kafka first u need to create a producer
+record which would contain a topic n value
+for sure and may contain extra parameters lyk
+key,partition etc
+
+then  it will invoke a send method and send
+the record to a serializer which will convert
+the incoming java type data to a bytes array
+
+Then it is send to partitioner which first
+checks if there is any partition in the
+message, if no it checks key to calculate
+the partition num, if still no dn creates a
+num based on round robin
+
+Producer api:-
+To create a producer u have to create an
+instance of KafkaProducer which would take
+in two types key n value n would take props
+as an argument
+
+This props would be of type properties
+we need to set bootstrap.servers, key.seriali
+zer and value to deserializer
+
+		Properties props=new Properties();
+		props.setProperty("bootstrap.servers","localhost:9092");
+		props.setProperty("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		props.setProperty("value.serializer", "org.apache.kafka.common.serialization.IntegerSerializer");
+
+		KafkaProducer<String, Integer> prod=new KafkaProducer<>(props);
+		ProducerRecord<String, Integer> record=new ProducerRecord<String, Integer>("FirstName", "Anil",10);
+
+       try {
+    	   prod.send(record);
+       }
+       catch (Exception e) {
+    	   System.out.println("hello");
+	}
+       finally {
+		prod.close();
+	}
+
+start a kafka client
+
+add kafka-clients dependency
+create a maven quickstart project nt spring
+boot n add kafka-clients dependency
+n create a new class with main method n add
+the above code
+
+in prod.send(record); we are just sending the
+record n leaving.. we are not checking for 
+the reponse that we would get
+It basically would return a Future of type
+Recordmetadata
+
+now if we want to get hold of the response
+we could do
+Recordmetadata data=prod.send(record).get();
+data.partition would give us the partition
+where the record got saved
+
+kafka Consumer:-
+this also needs kafka-clients dependency
+
+properties would be same as in producer nly
+the keys would be key.deserializer and
+value.deserializer and the value for these
+would be IntegerDesializer and Stringdeseriali
+zer
+
+one more extra property for consumer will be
+property.put("group.id","oderGroupanyname");
+
+kafkaConsumer<string,Integer> consumer=
+new kafkaConsumer<>(props);
+
+consumer.subscribe(Collections.sindgleTonList
+("topicname"));
+
+to subscribe u can pass in a string that is a
+topic or a collection of strings
+
+consumer.poll(Duration.OfSeconds(20));
+
+wait for messages for 20seconds..
+ConsumerRecords<string,integer> rec=
+consumer.poll(Duration.OfSeconds(20));
+
+for(ConsumerRecord<str,int> reco:rec)
+{
+reco.key();
+reco.value();
+}
+
+consumer.close();
+
+Serializer basically converts ur data to bytes
+array to store in kafka where deserialize will
+convert bytes array to ur java type so that
+u can use them in ur app
+
+so suppose u want to send strings in messages
+to kafka then u make use of Stringserializer.
+
+but if u want  to send a java object then u
+need to define a serializer for that object
+in java which would convert the object into
+string using writeValueasString o4of object
+mapper and then apply getBytes method on that
+and return the bytes array
+
+again for deserializer need to define it 
+using readvalue method which would takes in
+tkafka data and map it to the java object
+
+create  a package .customSerializer
+
+public class Order{
+name
+quality
+quantity
+}
+
+create a class orderserializer and implement
+Serailizer interface from kafka  which type
+of object that has to be deserialized
+
+for objectmapper add jackson data bind
+dependency
+
+public byte[] serialize(string topic,order or)
+{
+byte[] response=null;
+Objmapper obj=new objma();
+response=obj.writevalueasstring(or).getBytes();
+try--catch
+return response;
+
+}
+
+in value of valueserializer place the class
+of serializer along with the complete package
+where it is present
+
+in producer and record also replace int with
+Order
+
+now wn u create the record the three arguemnts
+are topicname,keyname for the record, value
+u want to store in record
+
+class OrderDesiariler implements Deserializer<
+>
+{
+public Order deseriaze(string topic,bytes[] d)
+{
+Objmapp obj=new ObjectMa();
+Order order=null;
+Order ord=obj.readvalue(d.Order.class)
+
+return ord
+}
+
+in setProperty instead of writing the complte
+class with package u could do Classname.class.
+getName();
+
+34 done
+
+Till now we wrote our custom serializers and
+diserializer.. now avaro is a package which
+can provide these out of the box without
+having us to write them ourself
+
+This is done using a schema file where we
+mention details regarding the recors and the
+ various fileds that are part of it..
+
+Now these fields may change over time as per
+requirements so we have a schema registry
+server where these schemas are registered
+
+once u set up schema registry u would create
+producers by making use of schema and avroseria
+lizers
+
+avroserializer converts data into bytes and
+also provides info to schema registry
+
+schema registry will store this schema file
+
+to start using avro serializer and deserializer
+we need to first set up the schema registry
+
+in browser serach confluent platform download
+
+choose software and download zip file
+
+basically confluent provides a cloud implementa
+tion of complete kafka ecosystem
+
+add bin/windows to path variable
+
+only works with java 11
+
+confluent local services start-- will start the
+comple kafka cluster along with zookeeper,
+schema registry etc
+
+localhost:8081/schema
+
+skipped 39 to 51
+
+as of now topics are created automatically by
+kafka.. wnever it sees a topic from producer
+it sees if it exists, if it doesn't exist it
+creates a topic with one partition
+
+now we are going to create a topic with multiple
+partitions
+
+kafka-topics --create --zookeeper localhost:2181
+--replication-factor 1 --partitions 10
+--topic OrderPartitionedTopic
+
+to see that 10 partitions gt created u could
+do:-
+kafka-topics --describe --zookeeper localhost:2181
+topic OrderPartitionedTopic
+
+create a new class VIPpartitioners
+
+implements paritioner interface
+
+need to implement partition method
+
+List<PartitionInfo> partitions=
+cluster.availablePartitionsForTopic(topic);
+return Util.murmur2(keyBytes)%partitions.size()
+-1;
+
+murmur2 is a hashing algorithm
+
+murmur2 is the defalt alogrithm used by
+kafka
+
+if((String)key.equlas("Bharath")
+{
+return 5;
+}
+else return Utils.murmur2
+
+to use this we need to add in producer
+prop.setProperty(partitioner.class,Vippartition
+er.class.getName());
+
+while setting proerties instead of hardcoding
+keys u can instead use the constants from
+ProducerConfig class
+ex- ProducerConfig.BOOTSTRAP_SERVERS_CONFIG
+
+many more properties that u can set
+props.setProperty(ProducerConfig.ACKS_CONFIG,"0"
+
+This is basically used to check if kafka 
+successfully received our msg.. if we set it 
+to 0 dn producer wont care if the msg ws receivd
+or not.. if we set it to 1 dn producer waits
+for acknowledgement frm lead replica.. all
+would make producer wait for acknowledgement
+frm all replicas
+
+ProducerConfig.compresrrion_type_config
+by default record we send is nt compressed n
+size descresed so more data is spent.. by
+using the above property we can decrease the
+size n dn send.. value:-gzip
+
+U can also set propeties to retry sending
+records wn sending fails
+
+57 done
+
+kafka producer n broker support 3 types of
+message delivery semantics:-
+1.at least once-- here a broker receives a 
+message then writes it into a partition and
+then writes into the partition present in
+other brokers for higher availability..
+bt here one issue is suppose producer receives
+message then it send acknowledgement n 
+suppose acknowledgement does nt receive the
+producer dn the prod will again try to send
+the same message and it will lead to duplicacy
+
+2.at most once-- here message is sent once by
+the producer and even if brokers dont receive
+message by nt sending acknowledgement, dn
+producer will nt retry to send the message
+again.. so duplication is solved bt messages
+may get lost
+
+3.exactly once-- we enable idempotency..
+here the producer will create a sequncenum
+for every message it sends.. broker will save
+this message along with the seqnum.. so suppose
+acknowledge is nt received bt message is saved
+on partition dn wn prod tries to send msg again
+dn broker would see that the sequence num is
+already present so it wont insert it again
+
+props.setProperty(producerConfig.ENABLE_IDEMPO
+tence_config, "true");
+
+A kafka transaction is similar to a db transac
+tion where in all the records get inserted 
+and in case of failure in even one record all
+the records are rolled back
+
+every producer should have an unique transact
+ion id
+
+ProducerConfig.TRANSACTIONAL_ID_CONFIG,
+"order-producer-1";
+
+producer.initTransactions();
+
+//to allow a producer to start a transaction.
+init is before start...
+
+to start a transaction
+try
+{
+producer.beginTransaction();
+producer.send(record1);
+producer.send(record2);
+prod.commitTransaction();
+}
+catch()
+{
+prod.abortTransaction();
+//if any error in sending any of the above
+messages dn abort the complete thing
+}
+}
+
+62 done
+
+ 

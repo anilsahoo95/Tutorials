@@ -1,0 +1,162 @@
+Create two folders client and server
+
+Server:-
+Install express,socket.io,cors
+nodemon(for automatic reload)
+
+nt using express bt if u want to use express
+with socket the below is syntax
+
+create index.js file:-
+const express=require("express");
+const app=express();
+const http=require('http');
+const cors=require('cors');
+
+app.use(cors());
+
+const server=http.createServer(app);
+
+server.listen(3001);
+
+in package.json inside scripts add
+start: "nodemon index.js"
+
+nw if u do npm start above commands would get
+executed
+
+const {Server}=require(socket.io);
+const io=new Server(server,
+{
+cors:{origin:"http://localhost:3000},
+method: GET,POST
+}
+
+SocketIO helps u receive and emit events
+io.on("connection",socket=>
+{
+
+
+socket.on("disconnect",()=>
+{
+console.log(socket.id);
+}
+
+})
+
+Now Frontend:-
+npm i socket.io-client
+will allow frontend to use sockets
+
+in App.js
+import io from "socket.io-client"
+
+const socket=io.connect("http://localhost:3001")
+connection gets established
+
+refresh page leads to new connection n
+closing disconnects the conn
+
+in socket rooms are basically diff collection
+of users where they can chat
+
+21.30
+
+create two textbox for user to enter name
+and room..
+
+const joinroom=()=>
+{
+if(username!="" && room!="")
+
+socket.emit("join_room",room);
+}
+
+node:
+socket.on("join_room",(data)=>
+{
+socket.join(data);
+}
+
+craete in UI chats.js:-
+
+export class Chats({socket,username,room)
+{
+return
+<div>
+<div class="header">Chat us </div>
+<div class="body">Chat us </div>
+<div class="footer"><input> <button> </div>
+
+
+</div>
+}
+
+const sendMessage=async ()=>
+{
+if(currentMsg!="")
+{
+let msgData={room,username,message,
+time:new Data(Date.now.getHours()+:+
+Date.now.getMinutes()
+)
+}
+}
+await socket.emit("send",msgData);
+
+}
+
+socket.on("send",()=>
+{
+socket.to(room).emit("send",dara);
+send messages to a specific room 
+
+}
+
+frontend:-
+useEffect=()=>
+{
+socket.on("receive",(data)=>
+{
+setMsgList((list)=>[..list,data])
+}
+
+},[socket]
+
+const [msgList,setMsgList]=useState([]);
+
+npm i react-scroll-to-bottom
+
+import ScrollTOBottom from react-scroll-to-bottom
+
+wrap messagelist.map with the above
+scrolltobottom component
+
+Error u myt notice is message is being 
+displayed multiple tyms.. This is coz u had
+socket outsyd of useEffect
+
+const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    if (socket == null) {
+      setSocket(io.connect("http://localhost:8000"));
+    }
+    if (socket) {
+      socket.on("receive", (data) => {
+        console.log("message received");
+        let message = `${data.user} : ${data.message}`;
+        setMessageList((list) => [
+          ...list,
+          { message: message, position: "right" },
+        ]);
+      });
+
+      socket.on("user joined", (data) => {
+        setMessageList((list) => [
+          ...list,
+          { message: data, position: "right" },
+        ]);
+      });
+    }
+  }, [socket]);

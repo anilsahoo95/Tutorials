@@ -1,0 +1,61 @@
+webpack basically takes ur multiple html,css
+,jss and asset files and bundles them or
+groups them into smaller folders ex all css
+files in one folder,all js in 1, all html
+in 1 n all assets in one..
+
+It also manages dependencies for u so suppose
+a current file to be used depends on other
+files webpack makes sure to include the
+other files above this current file..
+
+if u open react app in chrome n dn go to
+sources then u can see all js in one folder
+that too in mimimum no.of files..
+
+Bundling code into minimize the number of
+files
+
+Colt/webpack-demo-app... git repo for this
+project
+
+now coding is nt the main thing till now
+just want to see how webpack minimizes the
+code that we write..
+
+create a html,js n css file n a assets folder
+to contain an image and create a UI that
+takes in two numbers n add them and shows
+in a textbox.. also show a image in UI from
+the assets folder.. js file may have upto
+40-50 lines of code..
+
+just divide the js file u created into multip
+le files so that we can see bundling in
+action..normal syntax as we used in node.js
+
+npm init -y to get package.json
+
+npm i --save-dev webpack webpack-cli
+
+remove everything inside scripts in package
+.json
+
+and add "start":"webpack"
+
+nw wn u do npm start webpack would run n will
+give a error as by default if we dont give
+anything it will look for index.js inside src
+for it's entrypoint
+
+create a index.js file inside src folder
+and write console.log there n run npm start
+it would work
+
+a new folder dist would be created and a main.
+js file would be created
+
+22.19
+
+now webpack is just bundling index.js
+

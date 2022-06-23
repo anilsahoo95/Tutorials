@@ -9,3 +9,172 @@ if u want to access this variables in a file
 first u will have to import dotenv then call
 .config method of dotenv then u can access
 the variables using process.env.variable_name
+
+Node js authentication:-
+Technologies:-
+Node 
+
+packages required---
+express
+dotenv
+jsonwebtoken
+
+npm i express dotenv jsonwebtoken
+
+in index.js set up a express server to run at
+a port
+
+create a .env file n put the following environ
+ment variables into it
+
+PORT = 5000
+  
+JWT_SECRET_KEY = gfg_jwt_secret_key
+  
+TOKEN_HEADER_KEY = gfg_token_header_key
+
+app.post('/authenticate',(req,res)=>
+{
+let jwt secretkey=process.env.JWT_SECRET_KEY;
+let data={
+time: Date(),
+userId:12
+}
+
+const token=jwt.sign(data,secretkey);
+res.send(token);
+
+})
+
+
+Node js File Upload/Download-
+nw u dont  need body parser package to parse the
+request body. U can  now use express's internal
+implementation of body parser..
+app.use(express.json());
+
+Node js GraphQl:-
+Graphql is a type of query language that u
+can use..
+It is an alternative to rest api.
+In rest api wn u hit an endpoint u get all
+the columns that u hv mentioned to be returned
+bt in case of graphql u can mention what
+columns u want n nly those columns would be
+returned
+
+In rest api's u need to create an endpoint
+for every separate work bt in ghraphql u
+gt nly one endpoint which u need to use i.e
+/graphql
+
+npm i graphql express-graphql
+
+const graphql=require('graphql');
+const {graphqlHTTP}= require('express-graphql');
+
+app.use('/graphql',graphqlHTTP(
+{
+schema:
+graphiql: true 
+//this gives us an UI where we can
+//visualize graphql stuffs
+}))
+
+A schema is a combination of queries and
+mutations where mutations are the update n
+delete statements n queries are the select
+queries
+
+const schema=new GraphQlSchema({query:
+RootQuery 
+mutation: Mutation })
+
+const RootQuery ="query";
+const Mutation ="mutation";
+
+nw u have mention the schema of the data ur
+dealing with
+
+const {GraphQLObjectType,GraphQlInt,
+GraphQLSchema,GraphQLString}=require('graphql
+')
+
+//here u need to define all the queries
+const RootQuery=new GraphQLObjectType({
+"name":"RootQueryType",
+"fields": {
+getAllUsers:{type: new GraphQlList(userType),
+//in args u would pass the list of arguments
+that u myt be needing for the query, for ex
+in selectbyid u need id..
+args:{"id":{type:GraphQLInt}},
+resolve(parent,args){
+//access args by using args.id ex.
+return userData;
+//here userData is mock data bt in actuall app
+u would get data from db n return here
+}
+
+}
+
+}
+})
+
+//here pass all the fields related to our 
+//entity
+
+const userType=new GraphQLObjectType({
+"name":"user",
+"fields": ()=>(
+{
+id:{type: GraphQlInt},
+firstName:{type: GraphQLString},
+lastName:{type: GraphQLString},
+email:{type: GraphQLString},
+password:{type: GraphQLString}
+})
+
+const Mutation=new GraphQLObject({
+"name":"mutation",
+//in fields u can pass several mutations lyk
+create,update,delete each will have a type,
+args and a resolve method which would contain
+the logic to perform db operations
+fields:{
+createType:{type:userType,
+args:{firstName:{type:GraphQLString}}}
+"}
+resolve(parent,args){
+here do db update operation
+}
+})
+
+const graphql=require("graphql");
+const {GraphQLSchema,GraphQLObjectType}
+=graphql;
+
+nw u can run ur node app dn hit endpoint
+/graphql n u would get a GUI
+
+here u can test ur graphql queries 
+ex:-
+query {
+getAllUsers
+{
+id
+firstName
+lastName
+}
+
+}
+
+here u will gt nly the varibles that u hv
+mentioned
+
+for mutation:
+mutation{
+createUser(firstName:"anil",lastName:"sahoo")
+
+
+}

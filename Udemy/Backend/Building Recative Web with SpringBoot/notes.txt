@@ -1,0 +1,248 @@
+In springboot wn a user hits an api then 
+tomcat has a thread pool from which it takes
+a thread n that thread is assigned for that
+particular api call.
+That thread is responsible for hitting the
+controller dn service dn db n then return
+the result n go back to thread pool
+
+By default spring MVC has only 200 threads 
+in the pool which means at a tym 200 concurre
+nt users can hit the api
+
+however u can incraese the size of thread 
+pool
+
+Bt u cannot increase it to the level of 
+10000 as threads take a lot of memory which
+can be upto 1 MB nw if u give that much
+memory to threads dn der would be very few
+memory left for the request itself n dat
+would cause issues
+
+nw suppose we have an api that in one call
+makes a request to another api n a db to get
+result
+
+now response time of the result would be
+response from db + response from api
+
+so a better way would be to call db n api
+parallely
+
+This can be achieved using callbacks n 
+future bt they have their own set of disadvan
+tage
+
+Reactive programming is basically async 
+n non blocking
+
+wn u make a db call dn thread is released
+as soon as db connection is made
+
+In the background one more request is sent
+to db 
+
+skipped 8 Reactive Streams and 9 n 10
+
+non blocking or reactive basically means nt
+blocking the thread
+
+spring-webflux is a module that helps us
+in achieving this
+
+Flux n Mono are reactive types.. they are
+basically classes
+
+Flux is basically used wn ur expecting
+multiple elemnts as response while Mono is
+used wn ur expecting a single element
+
+in flux n mono u hv a onComplete method
+that mentions that  the request for getting
+multiple resources has been completed
+and an onError which is emmitted if any
+exception occurs
+
+U can apply multiple transformation operators
+like map n filter to transorm the data that
+ur receiving
+
+Lombok gives us a lot of boilerplate code 
+which we can use
+
+need springboot-starter-webflux for this
+project
+
+public class Solution
+{
+public Flux<String> getFluxes()
+{
+
+ return Flux.fromIterable(List.of("anil","sahoo"))
+in realtime this list would come from db
+}
+}
+
+List.of is in java 9
+Prior to that u have to do Arrays.asList
+fromIterable is a method that takes in a
+collection and converts it into a flux
+
+psvm
+
+Solution s=new Solution();
+s.getFluxes.subscribe(name-> sysout(name))
+
+subscribe method in a flux is used to get hold
+of data in a flux which sends in a stream
+
+public Mono<String> getMono()
+{
+return Mono.just("alex");
+}
+
+just can convert somrthing into a Mono
+
+access to Mono is also done using subscribe
+only
+
+Reactive stream events that exist between
+the subscriber and the publisher
+
+return Flux.fromIterable().log() would 
+display all the logs related to the subscriber
+publisher 
+
+skip 16 testing
+
+map operator
+return Flux.fromIterable("anil","sahoo",
+"kumar").map(String::toUpperCase);
+ or
+.map(s->s.toUppercae());
+
+Reactive streams are immutable
+
+flatMap operator converts one single source
+element to a flux of multiple elements
+
+public Flux<String> splitStrings(String s)
+{
+var arr=s.split(regex:"");
+return Flux.fromArray(arr);
+
+}
+fromArray takes in an array and returns a 
+flux
+
+return Flux.fromIterable("anil","sahoo")
+.flapMap(s->splitStrings(s));
+
+flatmap flattens the flux it receives from
+inside of it and treats it as individuals
+
+public Flux<String> splitStringWithDelay(Strin
+g s)
+{
+var arr=s.split(regex:"");
+return Flux.fromArray(arr).
+delayElements (Duration.ofMilliSeconds(3000));
+
+delayElements delays the creations of
+flux elements
+
+flatmap performs async operations so it cant
+be used wn ordering matters
+
+concatMap is similat to flatMap with the
+nly difference being that concatMap preserves
+the ordering of the elemnts
+
+concatmap is slower compared to flatmap
+
+23
+
+
+}
+
+skipped 23 to 32
+
+skipped 34 to 36
+
+@GetMapping
+public Flux<Integer> get()
+{
+return Flux.just(1,2,3);
+
+}
+
+
+Streaming endpoints are the endpoints which contin
+ously keep on providing updates to the client
+
+It can be used in use cases lyk live score updates
+
+@Getmapping(value="/stream",produces=
+MediaType.TEXT_EVENT_STREAM_VALUE)
+public Flux<Long> get()
+{
+return Fluc.interval(Duration.ofSeconds(1));
+
+}
+will keep on sending response in every 1 sec
+when u return a stream endpoint u need to mention
+the produces attribute as well
+
+do curl endpoint
+
+skipped 39 to 89
+
+@Getmapping
+public Mono<Moview> getMoviw(@pathvariable int id)
+{
+return null;
+}
+
+WebClient is a non blocking rest client
+
+allows application to interact with other services
+in a non blocking way
+
+create a webclientconfid class which will return
+us an webclient instance n annotate it with
+@Configuration
+
+@Bean
+public WebClient get(Webclinet.Builder builder)
+{
+return builder.build;
+}
+
+public Mono<MoviewInfo> retrive()
+{
+webclient.get().url(url).retrieve().bodyToMono(dto
+.class);
+
+with webclient u can use either retrieve or
+exchange bt retireve gives u a lot of error
+handling options
+
+To create urls using requestparams we have a 
+very gud class cal UriComponentBuilder
+
+var url=UriComponentsBuildr.fromHttpUrl(url)
+.queryParams("moviewId",value)
+.buildAndExpand().toUriString();
+
+nw we would using 2 webclient 2 call 2 diff apis
+n dn merge the result into 1 n send back
+
+return moviesInfoserveice.getMovieInfo(id)
+.flatMap(movie->var list=service.getReviews().
+collectList)
+return list.map(new Movie(info,review)
+}
+
+95
+

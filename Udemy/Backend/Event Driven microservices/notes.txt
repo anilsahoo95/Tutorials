@@ -1,0 +1,75 @@
+skipped 1 to 5
+create a springboot project with no dependency
+and in pom.xml change the packaging to pom as
+this would be a parent module n nt a 
+standalone application
+
+put all dependencies under dependencyManagemen
+t tags and all plugins under pluginManagement
+tags
+
+right click on the main project to create a
+child module naming twittertokafkaservice
+
+add twitter-strea, dependency
+
+also add lombok
+
+put scope of lombok as compile as it will
+be used only during compiling
+
+@PostConstruct
+public init method()
+{
+// this is called only once after beans are
+registered
+}
+
+@PostConstruct is called only once after the
+beans are registered by springboot
+
+A use case can be adding mock users to db
+after bean registering
+
+@PreDestroy..called once before spring removes
+bean from application context
+
+use case can be to release db resources
+
+
+
+application initializer can be done in
+different ways.. meaning do something once
+app is on
+
+one more way to initialize is to implement
+CommandLine runner and then override the
+run method
+
+@ConfigurationProperties(prefix="")
+
+Field Injection vs constructor injection
+
+we are building a twitter to kafka service
+which would stream data from twitter and push
+it to a kafka topic
+
+use twitter4j to consume twitter api easily
+
+create twitter developer console n create an
+account to obtain secret keys
+
+add these in properties file in app
+
+create a listener package n create a twitterLis
+tener class
+
+extend statusadapter n override onStatus method
+n print status.getText to console
+
+annotate class with @Component so that spring
+loads it as bean
+
+create interface called streamrunner which has
+a start method with void returntype n throws
+TwiterExcepttion

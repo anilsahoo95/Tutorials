@@ -1,0 +1,237 @@
+Java comparable is a interface which contains
+a single method compareTo which is to be
+overriden
+
+U have to define the method and take in
+one argument n dn compare the calling obj
+with the object being passed in argument on
+some data field.. if data fields are same 
+dn return 0; if 1 is bigger return 1 n if
+one is smaller return -1...
+
+Collections class has a static method sort
+which takes in a list of objects n uses
+the internal compareTo function to return the
+sorted list
+
+When we have a single property according to
+which objects have to be sorted then we use
+comparable interface.. we implement this
+interface n dn override the compareTo method
+which returns an int by comparing a single
+property of the two objects
+
+so to compare u could call obj1.compareTo(obj2);
+wn u have a list of objects dn u can pass
+the list to the sort method of Collections
+class n it will handle calling compareTo
+method internally
+
+wn u are nt sure which property has to be
+used for sorting then u need to use comparat
+or interface which has a compare method
+
+U basically need to create as many classes
+of properties of main class lyk NameComparator
+AgeComparator etc n implement Comparator
+in each dn ovveride compare method in each
+n compare the different properties n return
+result
+
+dn in Collections.sort u need to pass in the
+list of objects and the compartor class u 
+want to compare against ex namecompartor n
+it would handle the rest
+
+SOAP came into existence when developers
+wanted to find a way to transfer data between
+applications
+
+Most popular web services today are rest and
+soap
+
+SOAP is a messaging protocol used to transfer
+data between applications
+
+REST is an architecture style
+
+SOAP is a protocol with pre defined rules to
+follow whereas REST is a architectural
+style with loose guidelines
+
+SOAP is function driven for ex getSomething
+whereas REST is resource or data driven
+
+SOAP api call cannot be cached whereas rest
+api calls can be cached
+
+SOAP api's are stateless by default bt can be
+made stateful whereas REST api's are nly
+stateless
+
+SOAP needs more bandwidth and computing power
+whereas REST needs less resources
+
+SOAP can transfer data only in form of xml
+whereas REST can transfer data in form of
+xml,json,html and others
+
+U can use SOAP when there is a tight contract
+between client and server.. this is also a 
+disadvantage as a small change also can have
+a huge impact
+
+SOAP sends a large message so need more bandwith
+
+REST disadvantage is that u have no security
+here
+
+multithreading java:-
+nowadays computers come up with multicore
+system
+
+if we write a java application it will use up
+only a single cores bt it would be better
+if we could use all the cores.. This can be
+done using multithreading
+
+if we have 500 elements n want to multiply
+2 to each elemnt then suppose we can do it
+in 5 secs bt if we use multithreading dn d
+same can be achieved in fewer tym
+
+Two ways of creating a thread:-
+1. class MyThread extends Thread
+
+now suppose ur class wants to extend another
+class dn u cannot extends thread n d other
+class as multi inheritence is nt allowed in
+java so there u can implement Runnable Interfa
+ce;
+
+now by default java runs a thread for the
+process to execute.. Now suppose we have a
+code
+
+for(int i=0;i<6;i++)
+{
+sysout("hello world");
+}
+
+now this would print hello world really fast
+nnow suppose I want to pause between printing
+of each hello world as it runs on a thread
+I could simply do Thread.sleep(1000) inside
+for loop
+
+wn u want to implement thread by runnable
+interface dn u need to create a Thread object
+n dn pass runnable class instance
+
+now if u want to do something after a thread's
+execution is completed dn u have to write that
+statement after threadinstance.join();
+
+so that statement would run after thread's
+execution is completed
+
+InterThreadCommunication:-
+thread 1 has done some work n dn thread 2 will
+do some work n dn again thread 1 will work
+they need to communicate with each other
+
+class Q{
+int num;
+
+public void put(int num)
+{
+this.num=num;
+
+}
+
+public void get()
+{
+
+sysout num;
+}
+
+
+class Producer implements Runnable{
+Q q;
+Producer(Q q)
+{
+
+this.q=q;
+Thread t=new Thread(this,"prod thread");
+t.start();
+}
+
+public void run()
+{
+int i=0;
+whille(true)
+{
+q.put(i+=);
+Thread.sleep(1000)
+}
+
+}
+
+class Consumer implements Runnable{
+Q q;
+Consumer(Q q)
+{
+
+this.q=q;
+Thread t=new Thread(this,"cons thread");
+t.start();
+
+}
+
+public void run()
+{
+int i=0;
+whille(true)
+{
+q.get();
+Thread.sleep(1000)
+}
+
+}
+
+write test case to check all functionalities
+are working or not
+
+every springboot api will follow 3 layers
+i.e controller , service and repo vch vl
+connect to db.. nw suppose we write a test
+case for controller then in that case
+service would hit repo which would hit db
+and may lead to manipulation of data which is
+not desired
+
+so what mockito would do is it would trasfer
+flow service to mockito so that actual db
+hitting is nt happening`
+
+write basic controller,service n repo with
+a db
+
+inside tests package you would alreday have
+a test main application class annotated with
+@SpringBootTest
+
+now u have to inject bean of service you
+want to test using @Autowired and also inject
+repo bt annotate it with @MockBean
+
+@Test
+public void getusersTest()
+{
+when(repoInstance.findAll()).thenReturn(
+List of mock objects u want to return)
+
+assertEquals(2,service.getUsers.size());
+
+}
+

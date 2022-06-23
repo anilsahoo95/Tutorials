@@ -1,0 +1,115 @@
+create a springboot project with
+spring web
+spring security
+jdbc api
+h2 db
+add 3 api's in a controller return "<h1> </h1>
+3 api's /,/user and /admin
+/ is accessible to all, /user only to someone having user role, /admin to smeone having admin role
+
+Create mysecurityconfig class which extends web 
+securityconfigureradapter..anotate it with 
+@EnableWebSecurity
+
+override configure method which gives u hold of 
+authentication manager builder
+
+auth.jdbcAuthentication();
+
+override authorization configure method:-
+@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/admin").hasRole("admin").antMatchers("/admin").hasRole("admin").and().httpBasic();
+	}
+
+auth.jdbcAuthentication().dataSource(dataSource).
+withDefaultSchema().withUser(User.withUsername("anil").
+password("sachin").roles("user"));
+
+with this line spring security creates a default 
+schema for us without we having to create a table
+
+schema.sql is a file created under resources folder 
+which is looked upon by springboot and it creates a 
+schema in database
+
+data.sql is a file created so as to take up the 
+tasks of inserting data into tables..or 
+mentioning create statements
+
+if u create the template schema that springboot 
+contains for security then u dont need to do 
+anything only 
+auth.jdbcAuthentication().dataSource(dataSource) 
+would be enough for springboot to get the users and 
+roles and enforce security accordingly
+
+if u want to have a different schema then u have to 
+write a sql that select username,password,enable and 
+username and suthority and give it to speingboot 
+so that it can work on it..
+auth.jdbcAuthentication().dataSource(dataSource).
+usersByUsernameQuery("select username,password,enable
+ from table where username=?").
+authoritiesByUsernameQuery("select username,
+authorities from table where username=?");
+ for using jpa code will be a bit diffrent
+
+Mention database properties in app.properties:
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+
+
+hands on
+
+package com.anil.security;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+public class MySecurity extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	DataSource dataSource;
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/user").hasAnyAuthority("user","admin").antMatchers("/admin").hasAuthority("admin").and().httpBasic();
+
+	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery
+("select NAME,PASSWORD,ENABLE FROM USERS WHERE NAME=?").
+authoritiesByUsernameQuery("select NAME,ROLE FROM USERS WHERE NAME=?");
+	}
+	
+	
+	@Bean
+	public PasswordEncoder getEncoder()
+	{
+		return NoOpPasswordEncoder.getInstance();
+	}
+	
+
+
+}
+
+INSERT INTO USERS VALUES ('user','Y','user','user');
+INSERT INTO USERS VALUES ('admin','Y','admin','admin');
+
+CREATE TABLE USERS (NAME TEXT,ENABLE TEXT,PASSWORD TEXT, ROLE TEXT);
+
+

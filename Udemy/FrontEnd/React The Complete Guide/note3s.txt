@@ -1,0 +1,50 @@
+earlier when u clicked a link on a browser
+a request was sent to a server and a html page
+was sent in return. upon clicking any action
+a request used to be sent n a html page was
+returned.. this was changed when js was used
+which runs on browser once page is loaded
+
+React is a javascript library that helps us
+build rich user interfaces
+
+SECTION 9:-
+
+in return of jsx u cannot return two or more 
+html elements..they will have to be wrapped 
+inside a root element.. wrapping inside a div
+creates lots of unncessary divs
+
+React Fragments are build in wrapper elements
+that can be used to wrap several html elemnts
+to be returned.. 
+
+<React.Fragment>
+<h1></h1>
+<h2></h2>
+</React.Fragment>
+
+Anothet shortcut for react fragment is
+<>
+</>
+
+React portals help us in writing cleaner html
+code
+
+import {useRef} from React;
+
+const inputRef=useRef();
+
+<input ref={inputRef}/>
+
+console.log(inputRef.current.value);
+
+inputRef.current.value='';
+
+Section 10:-
+useReducer is a more powerful state managemnt
+than useState used when the state is complex
+or there are multiple states
+
+
+

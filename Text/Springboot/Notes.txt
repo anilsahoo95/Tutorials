@@ -1,6 +1,6 @@
 Springboot filters:
 In order to create a filter we need to impleme
-ntthe filter interface and override doFilter
+nt the filter interface and override doFilter
 method which takes in request,response and 
 chane.. U can specify the order of a filter
 by using @Order(1) annotation
@@ -34,6 +34,13 @@ public class MyFilter implements Filter{
 				+ " " +req.getRequestURI());		
 	}	
 }
+
+From the request object u can get a lot of
+methods lyk getHeader("name") which gives u
+the value of the header with key name which
+u can pass in headers in postman.. in jwt
+implementation Authorization is passed here
+which we get and check if the jwt is correct
 
 SpringBoot Logging:-
 To get started with springboot logging we need to
@@ -129,6 +136,9 @@ To set signature u have to use signWith
 
 U can also use setExpiration,setissuedAt,set
 Claims etc
+
+In setClaims u have to pass a variable that is
+of type Map<String,Object> only
 
 U need to convert the above jwt generated into
 a string before sending back.. to do so use
@@ -247,8 +257,9 @@ result
 Nexus is used to store third party jars where u can depl
 oy ur internal jars n share within ur dev team
 
-deployment to nexus is a secure operation.. u have to
-mentions the user credentials in ur project for it to
+deployment to nexus is a secure operation.. u 
+have to
+mention the user credentials in ur project for it to
 be deployrd on nexus..
 
 these credentials cannot be mentioned in the pom.xml
@@ -310,4 +321,630 @@ entrypoint is the list of commands to be exuted on the
 base image which is got using FROM
 
 mvn clean install is used to create a jar
+
+
+copy basically copies the contents of one file to another 
+so u need
+to mention the file names in both src and dest
+
+to push an image to docker hub:-
+create an account
+create a repository which is username/name which
+u can give
+
+do docker login
+create a docker image on local 
+then tag the local image to the repo name u created
+then push using docker push repo name
+
+SpringBoot Actuator:-
+provides production grade tools lyk health etc
+without having to implement them ourselves
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+add the above dependency in pom.xml
+
+in springboot actuator 2.. the endpoints are 
+disabled by default.. nly two endpoints are
+enabled:-
+/health and /info
+
+To enable endpoints we need to add the following
+property:-
+management.endpoints.web.exposure.include=*
+
+some of the imp endpoints are:-
+configprops-- allows us to fetch all @ConfProp
+beans
+
+/env-- returns the current environment
+properties
+
+/health-- summarizes health status of our app
+
+/info-- general info lyk build
+
+/logfile-- returns ordinary application logs
+
+http://localhost:8080/actuator-- this would
+provide us with all the available endpoints
+in actuator
+
+/refresh nly refreshes those properties which
+are binded using @ConfigurationProperties
+
+To refresh @Value also we have to annotate using
+@RefreshScope
+
+SpringBoot Apache Kafka:-
+
+First add the spring kafka dependency
+dependency>
+<groupId>org.springframework.kafka</groupId>
+<artifactId>spring-kafka</artifactId>
+</dependency>
+
+create a service that would take in a message
+and push it to the kafka topic that we create
+
+package com.javainuse.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+public class KafkaSender {
+	
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
+	
+	String kafkaTopic = "java_in_use_topic";
+	
+	public void send(String message) {
+	    
+	    kafkaTemplate.send(kafkaTopic, message);
+	}
+}
+
+create a controller which would call the above
+kafka service to push a message
+
+package com.javainuse.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.javainuse.service.KafkaSender;
+
+@RestController
+@RequestMapping(value = "/javainuse-kafka/")
+public class ApacheKafkaWebController {
+
+	@Autowired
+	KafkaSender kafkaSender;
+
+	@GetMapping(value = "/producer")
+	public String producer(@RequestParam("message") String message) {
+		kafkaSender.send(message);
+
+		return "Message sent to the Kafka Topic java_in_use_topic Successfully";
+	}
+
+}
+
+Apache kafka is basically used to share messages
+A producer shares a message to a topic n the
+listener who subscribes to the topic gets the
+msg whenever it is produced on the topic
+
+Integrate react inside springboot so that only
+by using springboot we can start reactjs
+
+To build a react app for prod we could run
+npm run build
+
+wn u create a springboot project n define api
+starting with /home dn on / path u will get
+nothing but if u create a static folder inside
+src-main-resources n a html file inside static
+then that gets loaded on /test.html path
+
+go to src main of springboot project and create
+a react app there
+
+if u do npm start then ur react app is going
+to run
+
+Now to integrate react to springboot so that
+when we run the springboot jar even the react
+would run we need to do two things
+1.create thhe production build
+2.copy the build into target/classes folder and
+serve tge index.html file
+
+To do the above we need two maven plugins:-
+frontend-maven-plugin for step 1.
+maven-resources-plugin for step 2.
+
+maven resources plugin helps in copying files
+from on directory to another
+
+ex-
+
+To use this plugin add
+<plugin>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>3.0.2</version>
+    <configuration>
+        ...
+    </configuration>
+</plugin>
+
+<configuration>
+    <outputDirectory>output-resources</outputDirectory>
+    <resources>
+        <resource>
+            <directory>input-resources</directory>
+            <excludes>
+                <exclude>*.png</exclude>
+            </excludes>
+            <filtering>true</filtering>
+        </resource>
+    </resources>
+</configuration>
+specify directory using ${basedir}/src/main/
+resources
+
+frontend-maven-plugin
+this plugin can download node/npm for ur project
+and also run npm install to fetch ur packages
+
+To use the above include the following in ur
+plugins
+<plugins>
+    <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <!-- Use the latest released version:
+        https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
+        <version>LATEST_VERSION</version>
+        ...
+    </plugin>
+...
+<plugin>
+    ...
+    <executions>
+        <execution>
+            <!-- optional: you don't really need execution ids, but it looks nice in your build log. -->
+            <id>install node and npm</id>
+            <goals>
+                <goal>install-node-and-npm</goal>
+            </goals>
+            <!-- optional: default phase is "generate-resources" -->
+            <phase>generate-resources</phase>
+        </execution>
+    </executions>
+    <configuration>
+        <nodeVersion>v4.6.0</nodeVersion>
+
+        <!-- optional: with node version greater than 4.0.0 will use npm provided by node distribution -->
+        <npmVersion>2.15.9</npmVersion>
+        
+        <!-- optional: where to download node and npm from. Defaults to https://nodejs.org/dist/ -->
+        <downloadRoot>http://myproxy.example.org/nodejs/</downloadRoot>
+    </configuration>
+</plugin>
+
+above u mention the node and npm version
+the download root above specifies the repo from
+which we can download npm n node.. by default
+it would download it from node.js official repo
+
+U would also lyk to mention where ur react
+folder it otherwise it will try to look inside
+the folder that is in ur pom.xml.. we can do
+this by
+
+<configuration>
+        <workingDirectory>src/main/frontend
+</workingDirectory>
+    </configuration>
+
+if u want to pass somw environment variables
+to node u can do that using
+<configuration>
+    <environmentVariables>
+        <!-- Simple var -->
+        <Jon>Snow</Jon>
+        <Tyrion>Lannister</Tyrion>
+        
+        <!-- Var value take from maven properties -->
+        <NODE_ENV>${NODE_ENV}</NODE_ENV>
+    </environmentVariables>        
+</configuration>
+
+Add the follwoing in pom.xl
+   <properties>
+        <java.version>1.8</java.version>
+        <frontend-src-dir>${project.basedir}/src/main/frontend</frontend-src-dir>
+        <node.version>v14.15.4</node.version>
+        <yarn.version>v1.16.0</yarn.version>
+        <frontend-maven-plugin.version>1.7.6</frontend-maven-plugin.version>
+    </properties>
+
+in plugins in pom.xml add:-
+
+           <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+
+                <configuration>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <yarnVersion>${yarn.version}</yarnVersion>
+                    <workingDirectory>${frontend-src-dir}</workingDirectory>
+                    <installDirectory>${project.build.directory}</installDirectory>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>install-frontend-tools</id>
+                        <goals>
+                            <goal>install-node-and-yarn</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>yarn-install</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>build-frontend</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <arguments>build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>   
+
+if u do mvn clean install nw it will install
+node,yarn and npm locally and run npm run build
+on front dir
+
+<plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>position-react-build</id>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${frontend-src-dir}/build</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+pendency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+ <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+the above will ensure to copy the build file
+from npm run build into target/classes/static
+folder
+
+now localhost:8080/index.html will run ur react
+project
+
+
+@ConfigurationProperties
+suppose u have multiple properties in proprty
+file dn instead of getting them one by one
+using @Value u can get all of them at once
+by using @ConfigurationProperties
+
+U can do the above by creating a class n dn
+defining variables in the class whose name
+has to be same as properties after the prefix
+springboot will get all the properties after
+the prefix and assign it to their variables
+if it finds a mapping
+dn we can annotate this class using @Configurat
+ion so that springboot creates a bean and 
+we can get an instance using @Autowired n use
+it
+
+Log4j vulnerability javabrains:-
+log4j is a logging library in java which u can
+use to log messages from ur code n put them to
+a file if u want.. n later u can look up at
+those error messages
+
+it was doing it job of logging for so many
+days until recently where it was found that any
+app using log4j can be hacked. now even if u
+dnt use log4j directly.. u may be using a
+library which internally uses log4j as log4j
+is so popular
+
+60 percent of java apps use log4j indirectly
+
+There is something called CVSS or common vulne
+rability scoring system which is scored out
+of 10.. for the log4j the score is 10 as it
+allows RCE
+
+
+This issue is because it allows anyone to execu
+te code on ur machine remotely which is also
+called RCE or remote code execution
+
+the issue is because:-
+1. log4j allows us to log expressions
+
+Logger logger=LogManager.getLogger();
+
+logger.error("error message: {}",e.getMessage);
+
+This will take the expression e.getMessage
+n put it inside {}
+
+2.JNDI-
+Java Naming and Directory Interface allows to
+store objects in a remote location n serialize
+them
+
+This is how diffrent systems interacts with 
+each other
+
+Suppose there is an endpoint that u can hit
+n get a object
+
+3.allow jndi lookups in log messages
+lookups are basically in some cases instead of
+passing the string inside {} of log messages
+u would pass a endpoint or variable which would
+be looked up n its value would be passed
+
+ex- log.info("error in : {}","${env:key}"
+
+this basically says to java that this is a env
+lookup type n it has to look for the value of
+property key n use it in the above
+
+similarly we have jndi lookup where a jndi look
+up would take place
+
+ex- log.info("error in : {}","${jndi:url}"
+
+now suppose we have a search website where an
+user can search anything.. 
+now in log we have
+log.info("error in this : {}",searchText)
+
+now suppose a hacker enters ${jndi:url} in the
+serach term dn in log it will take it as a 
+jndi lookup n will hit the api n return a 
+serialized object which may be malicious
+code
+
+this is equal to sql injection where u can do
+select * from tab where username="",delete
+from tablename
+
+Here u passed username="",delete
+from tablename as a string n ur code appended
+it and ran on the db
+
+log injection this is called but is relatively
+harmless
+
+Solution:-
+1.Upgrade to 2.16 version
+2.but what happens if ur nt using log4j 
+directly n sm other library uses it in that case
+u can't go n wait for that library to fix first
+so u can patch class directly
+
+File Upload/Download SpringBoot DB:-
+in db the field should be of type blob
+
+in model file it should be type bytes[]
+
+In controller when u want to receive files 
+the type has to be MultiPartFile
+
+When saving u have to do getBytes on the above
+file received n then save in db
+
+then while returning the file to UI the return
+type of controller should be bytes[] and u can
+directly return the column value from DB to
+UI
+
+In postman wn u want to put a file as request
+param click on body der u select formdata n
+u can put key n in value select file n dn uplo
+ad
+
+
+
+To use GenerationType== auto/identity that
+column has to be set to auto increment in db
+
+Springboot project coronavirus tracker app
+javabrains:-
+
+sprngboot app to display num of covid cases
+across the globe along with state and country
+wise report
+
+create a sb project n add web,thymeleaf n
+dev-tools
+
+change java version to 12 in pom.xml
+
+we have a cssegisanddata git repo which contai
+ns csv files that have latest info about
+the data that we need
+
+
+if u click on the csv file u can get the
+links which u can use to parse data into
+ur springboot app
+
+7.16-- first try this urself
+
+Java Brains Password Hashing:-
+Most websites do not store your password directly
+.. Instead they hash ur passwords n store..This
+is called password hashing
+
+if u directly store the password in db then any
+one having access to db-- a empoyee or a hacker
+can directly get the password from db
+
+One solution would be to encrypt the password
+using a secret key n dn saving the password n 
+dn decrypting the password using same key while
+authenticating
+
+now the issue here is that the secret key will
+have to be placed somewhere in the app n d
+hacker may get access to this secret key and
+that might be an issue
+
+Hashing is a process in which an input text is
+passed and a output string is generated which is
+completely unrecognizable
+
+The main diffrence between encrytion and hasing
+is with encryption u can again decrypt to get
+back the original value but you cannot dehash
+to get the original value
+
+Popular hashing functions:-
+MD5
+SHA
+BCrypt
+
+wn a user registers n enters password the app
+would hash the password n save it in db.. now
+wn the user logs in again the app again hashes
+the entered password n compares it with the
+hashed password in db.. The app never has the
+password entered by user with it
+
+now this is the reason why apps have a forgot 
+password flow instead of directly sending the
+password to the users mail because they dont
+have the password with them in the first place
+
+SpringBoot redis:-
+Remote dictionary server is a fast in memory
+key value data store..
+
+spring-data-redis is a dependency which lets
+u get started with redis with very little code
+
+https://github.com/microsoftarchive/redis/releases/tag/win-3.2.100
+
+from the above url download the zip file
+extract it and open redis-server
+redis server gets started
+
+add lombok,web n redis dependency
+
+create a model class
+as u added lombok just add @data n dn @Allargs
+constructor and @Noargsconstructor
+
+n @RedisHash("Product") annonations
+
+In order to connect from app to redis we need
+a jedis dependency
+
+create a config package n a redisconfig class
+n annotate using @Configuration @EnableRedis
+Repo
+
+@Bean
+public JedisConnectionFactory connectionFacto
+()
+{
+RedisStandAloneConfiguration conf=new
+RedisStandAloneConfiguration();
+conf.setHostName("localhost");
+conf.setPort(6379);
+
+return new(conf);
+
+}
+
+Springboot validation:-
+need to add validation starter to pom.xml
+
+springboot provides us a lot of out of the
+box validations that we can use to validate
+fields or variables in our entity class.. for
+ex suppose we want a field not be be empty
+then we can annotate it using @NotBlank
+annotation n in argument pass message="error"
+
+in controller while getting the request body
+u have to annotate it with @valid annotatuon
+before @RequestBody
+
+springboot would throw us a MethodArgumentNot
+valid exception which can be handled in our
+@Exceptionhandleder method
+
+Other validations that we can give are
+
+@NotNull
+@Size(min = 4, max = 15)
+
+u need to add @valid to the model ur getting
+in controller for the validation to work
 

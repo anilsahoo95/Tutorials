@@ -1,0 +1,202 @@
+SASS is a css extension language
+
+live sass compiler vs code extension
+
+browser will nt understand sass so we need 
+to compile sass into css.This can be done 
+using node js, or a vs code extension
+
+two types of sass syntax:-
+1.scss
+2.indented syntax
+
+create a folder code n inside that create a 
+folder dist n inside that create index.html
+and n a scss folder.
+
+In settings of live sass make the target path
+as dist/css so that the extension compiles
+the files and creates main.css inside 
+dist/css
+
+any valid css is also valid sass
+
+create a main.scss file inside scss folder
+
+body{
+background-color:blue
+}
+
+when u hit save live sass will compile the
+above file n store the output in css file
+
+sass variables where u can define variables
+in the file n use them wherever u can..
+
+css has also introduced variables recently
+bt sass had it before also
+
+In css the variable use stay as they are and
+might nt be supported in some browsers bt
+in sass the variables are converted to actual
+values.
+
+ex- variable is sass is denoted by $
+
+$primary_color: blue
+
+body{
+background-color: $primary_color
+}
+
+10.00
+
+Maps:-
+$font-weights: (
+"regular": 400,
+"small":200
+)
+
+to use one of the above values from map we
+need to:-
+
+body
+{
+font-weight: map-get($font-weights,$regular)
+}
+
+within parenthesis we will have map name and
+key name as arguments
+
+nesting is one of the features of sass
+
+ex- suppose we have a p inside a main tag then
+to style main n p inside main in css we have
+to:-
+
+.main{
+width: 80%,
+margin: 0 auto
+}
+
+.main p{
+font-weight: map-get($font-weights,$regular)
+}
+
+but in sass we can nest p inside main by:-
+.main{
+width:80%,
+margin:0 auto
+
+p{
+font-weight: map-get($font-weights,$regular)
+}
+}
+
+instead of p u can also have a class that is
+inside main
+
+A partial is a scss file that can be used in
+multiple files.. It starts with an _ to
+indicate the compiler not to compile that
+file into a css file
+
+To use the partial in another scss file:-
+@import './resets'
+
+no need to put _ or scss
+
+U can put common variables to be used in
+multiple files in a single partial file also
+
+create _variables.scss file
+$primary_color: blue
+
+in main.scss import the above partial
+
+import './variables'
+
+body{
+background-color: $primary_color
+}
+
+once u import u can use any variable prsesnt
+in the imported file as if the variable was
+present in the current file
+
+Function in sass:-
+@function wwight($weight_name)
+{
+@return map-get($font-weight,$weight_name)
+}
+
+assign the return to a css property
+
+Mixins in sass:-Suppose we have a set of style
+that has to be apllied at multiple places so
+instead of writing them again n again we 
+can write them inside a mixin n use that
+mixin directly
+
+@mixin flexCenter{
+display:flex,
+align-items:center,
+justify-content-center
+}
+
+To use the above we could do
+body{
+@include flexCenter;
+}
+
+U can also pass arguments to a mixin
+@mixin flexCenter($direction)
+{
+display:flex,
+align-items:center,
+justify-content:center,
+flex-direction: $direction
+}
+
+while using it we will need to pass an argument
+now:-
+
+@include flexCenter(column)
+
+function should be used to compute values
+ if else in mixin
+
+@mixin theme($light-theme:true)
+{
+@if $light-theme{
+color:black
+}
+}
+
+Mixin with media query:-
+@mixin mobile{
+@media(max-width:800px)
+{
+@content;
+}
+}
+
+here u have to pass a style in argument to
+this mixin n nly if the query inside the
+mixin is satified then @content will render
+the style passed in argument
+
+Extend in sass:-
+if we extend an element all the properties
+are inherited
+
+@extend name of the selector whose styles
+u want to inherit
+
+Operations in scss:
+
+in css u had to do width:calc(80%-40%)
+
+in sass u just hv to do width: 80%-40%
+
+34.00-- now project

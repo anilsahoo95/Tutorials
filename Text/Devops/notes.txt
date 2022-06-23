@@ -21,3 +21,656 @@ pkill -f 'java -jar'
 rm -rf /home/anil/Downloads/target-- to remov
 e a directory
 
+Docker with SpringBoot 28 minutes youtube:-
+Normal deploy of java or springboot would
+be to first download java dn run the jar 
+ourself
+
+with docker u just need to run the docker run
+command along with the project name n docker
+would pull that image from the hub and run it
+
+docker hub is a registry which contains
+multiple repositories with each repo containi
+ng multiple versions of the image
+
+conyainer is an running instance of an image
+
+docker logs containerid would show the
+logs related to the container
+
+when we install docker we install two
+components docker client and docker daemon
+
+The place where we type docker commands is the
+docker client.. after enter docker client
+takes the commands and sends them as a request
+to docker daemon which is responsible for 
+pulling images from registry and managing
+images and containers locally and push 
+images to the hub
+
+AWS provides elastic container service to
+work with docker on cloud
+
+docker search mysql which search in all the
+images present in docker hub
+
+docker inspect image imageid
+
+shows details regarding image include exposed
+ports
+
+docker image remove id-- delete image from
+local
+
+docker container prune-- to remove all stopped
+containers
+
+49.31
+donwload projects from https://github.com/in28minutes/docker-crash-course
+to buikd docker images out of them and
+play with them
+
+till now we have been working with preexisting
+images but in real time we would need to
+build out images from our springboot 
+projects
+
+first lets look into hello-world-rest-api
+project
+
+maually build a docker image out of sb project
+1.build the jar
+2.use openjdk image-- openjdk:8-jdk-alpine
+3.copy the build jar into the above openjdk
+image
+4.run the jar
+
+1.. mvn clean package to get jar file.
+u can configure jarname of project build by
+addding under build tags a tag called 
+finalName and putting name between the tags
+
+-it will allow to run commands against the
+running container
+
+-d run in detached mode
+
+docker run -dit openjdk:8-jdk-alpine
+
+to execute a command against the above contain
+er type
+docker container exec contid/name ls /tmp
+
+check what is inside tmp folder of the
+running container
+
+now copy ur jar file into ur running container
+docker container cp target/jarname.jar conta-
+nameorid:/tmp
+/tmp is the path u want to copy to
+
+now do docker container exec ls /tmp
+to check if jar got copied
+
+now u want to save the above created container
+in an image
+
+so docker container commit contnameid newname:
+tag (tag u can give any name)
+
+now do docker images to c if image gt created
+
+docker run newimage:tag
+
+15 done
+now lets try to automate the process of building
+docker images:-
+
+create a file names Dockerfile
+specify instructions to execute to create image
+
+FROM openjdk:8-jdk-alpine
+ADD target/helloapi.jar helloapi.jar
+ENTRYPOINT ["sh","-c","java -jar /helloapi.jar"]
+
+docker build -t in28min/djbd:t .
+
+expose is nt being required above.. lets check
+
+dokcer history imagename shows different steps
+involved in creating the image
+
+expose is just info metadata
+
+github.com/spotify/dockerfile-maven
+
+it integrates maven with docker
+
+adds a plugin so that wn u do mvn package then
+jar and docker image both get created
+
+create a dockerfile that could be used on any
+project
+
+ADD target/*.jar app.jar
+ENTRYPOINT ["sh","-c","java -jar app.jar"]
+
+any jar u have will be copied into app.jar n dn
+u can run app.jar directly
+
+the jar that u build mainly consists of maven
+dependencies and classes n properties.. now
+wn u build an image nly the jdk is being got
+from cache bt in our jar even the mavne dependen
+cies do nt change over tym n should be cacheable
+
+see 21.. cache maven dependencies
+
+more plugins to build docker image:-
+1.jib
+using jib u dnt even need a dokcerfile to create
+images along with caching maven dependencies
+
+jib is nly used for java projects
+
+2.fabric8io/docker-maven-plugin
+using xml configuration to provide dockerfile
+options 
+
+24 donw
+
+
+
+need to continue in udemy
+
+transfer files or folders to aws instance
+scp -i private_key -r(in case of folder)
+instance:destination path
+
+AWS lambda udemy bharath thippireddy:-
+serverless programming does nt mean that we
+dont have a server.. It basically means we
+use all the AWS components available to solve
+a problem and paying for as much we use and
+as long we use
+
+cost based usage is main power of serverless
+programming
+
+functions and nano services are the main
+features of serverless
+
+nano services are next generation of micro
+services
+
+Nano services features:-
+Do one thing
+be more useful than the cost incurred
+async event based triggers
+so asynchronous n event driven i.e fire n
+forget
+
+aws lambda lets us execute code in response
+to some event triggred and also allows us
+to interact with various aws components
+
+Similar to main in java we have a handler
+function in lambda
+
+To allow a aws component to call lambda the
+component shoul be assigned a role which is
+done through IAM resource policy and for
+lambda to connect with other components it
+should also have an iam role attached with
+it
+
+messaging service is an example of event 
+driven
+
+with lambda u can create backend api's which
+will get data from backend
+
+Create First lambda:-
+Go to services dn lambda click on create
+function
+
+choose author from scratch
+
+give function name firstLambda
+
+select node js so that u can edit ur code
+in browser itself..with java u have to 
+create n upload
+
+execute role:-new role with basic lambda
+
+create function
+
+nw a lambda function is created inside the
+lambda repo U cn trigger it using the test
+button on the right hand side
+
+wn u click test it will give u an option
+to configure the event name and the input
+u want to send
+
+now click on test n u will see the result
+below
+
+U can change node js code n dn click deploy
+
+skipped 12,13,14
+
+create n deploy lambda functions to aws 
+cloud
+
+SAM or serverless application model is a 
+framework that lets us easily deploy lambda
+functions
+
+all the permissions and resources required
+for lambda function will be handled by sam
+through a yaml file
+
+set up an iam
+service-- iam--users-- add users
+give user a name.. give programatic n console
+access n create a custom password
+
+uncheck password reset
+
+Go to permission use existing policies and
+give admin access
+next--create user
+
+we will get a csv which we need to download
+which gives us a secret key 
+
+search aws cli install
+click on windows n it is installed
+
+aws --version
+
+search aws sam cli install
+
+sam --version
+
+go to cmd and type aws configure
+it will ask for access key id n secret key 
+which u will gt from csv
+
+skipped 21-25
+
+sam init -- to create a java lambda project
+
+choose quick start templates
+
+dn choose java 8
+
+choose maven.. give project name
+
+choose hello world example
+
+There are two impotant things inside the
+folder:-
+1.helloWorldFunction which contains all the
+source code
+
+2.template.yaml has the resources which should
+be created for lambda function to work
+
+Go to the folder where template.yaml is
+present and do sam build
+
+it creates a .aws-sam where all the build
+artifacts are saved
+
+28 done
+
+
+Amazon Route 53
+
+The best feature of aws is pay as you go..
+if u have a server on premises then u need
+to pay even wn ur nt using
+
+The probem statement for route 53 is suppose
+a user types in an url and the url fails.
+This might be due to server utilization being
+100 percent or memory utilization at 100%..
+
+so is it possible to redirect to user to
+another healthy service in case the initial
+one fails. This is where aws route 53 comes
+in where users can avail internet applications
+without any downtime
+
+aws route 53 is a highly available and scalab
+le DNS service
+
+Route 53 has 3 main functions:-
+1. It allows you to buy a domain name
+2.It also helps in connecting domain name to
+the server
+3.checks health of resource by sending automa
+ted requests to the resource to check if the
+service has failed
+
+Route policy is nothing but decision of how
+to respond to ur queries
+
+Types of roting policy:
+Simple Routing-- map an url to a webserver
+routes traffic to a single server
+
+failover routing-- route to a server until
+it is healthy and when it becomes unhealthy
+then route to a backup resource
+
+geolocation routing-- routes depending on
+the geographical location of the user
+
+geoproximity-- route based on location of 
+our resource.
+
+latency based-- suppose a resource is deployed
+across multiple regions then a region that
+provides minimum latency or late time is 
+routed to
+
+Buy a domain in 53.. It takes 24 to 48 hrs
+to get that domain. Now click on that domain
+dn click on add record set n der u can mention
+ip address and things will start working
+
+aws https:-
+
+first we need a free domain.. U can search
+for freenom n dn go to services,register a 
+domain dn search n add to cart n checkout
+U hv o login for this.. 
+Then go to my domains n check that d domain
+u created is mentioned as active
+
+go to s3..create bucket n dn upload it to
+s3
+
+for godaddy domain to point to aws ec2 
+instance just put nameservers obtained for
+the domain hosted zone in godaddy n create a 
+record set n put ip address there n ur good
+to go
+
+
+
+make bucket publically accessible
+
+In bucket properties u can select static web
+hosting n dn choose the index.html file..
+It will give u an endpoint without having
+index.html in the path which u can use
+to serve the page
+
+in services select route 53
+
+get started dn create hosted zone
+
+It will ask for domain name.. mention the
+domain name nly without / in last n without
+http n www n create
+
+nw u will see two diffrent records for the
+domain u entered.. chhose the one with
+type ns n u will get multiple nameserver
+urls
+
+go to ur domain provider here is freenom..
+manage domain.. nameservers.. copy the
+multiple urls u saw in aws ns records n copy
+dm one by one n paste here without last .
+
+in services search for certificate manager
+AWS allows u to create,manage,deploy,publish'
+n renew ssl certificates
+
+provision certificate get started
+request a public certificate
+
+create dn give ur domain name.. choose next
+n dn dns validation dn continue
+
+scroll down u will gt an option that create
+record in route 53 click on that
+
+if u dnt c the button dn u can go to ur 
+hosted zone dn create record set put in domain
+a url that u get in secutity manager of the
+format somekey.urwebsite
+
+n also paste the value n type give cname
+
+in service choose cloud front which is used
+to speedily distribute ur static n dynamic
+websites
+
+create distribution-- web--get started
+in origin web name give ur s3 endpoint
+without http
+
+in viewer protocol policy choose redirect
+http to https
+
+in distribution settings in alternate domain
+name give ur domain name without http
+
+in ssl certificate choose custom and it
+will provide u the certificate u created
+
+click create distribution.. will tk up to
+50 mins
+
+in cloud front u will gt an url click on that
+n c if ur able to see ur wesite
+
+go to create record set n put all as empty
+nly choose alias as yes n in target provide
+ur cloudfront url
+
+CloudFormation aws udemy:-
+is a technique with which we can automate
+provisioning of aws resources
+
+we can provision or create aws resources
+in may diffrent ways for ex- using aws Ui
+or using aws cli
+
+atom has a lot of cloudformation packages
+which can provide features lyk autocomplete
+code etc
+
+in atom help serach for packages n select
+install packages n search for atom-cform
+n install it.. it will allow auto complete
+n auto generate code for cloudformation
+
+create a file demo.json
+
+type start n atom which autogenerate a basic
+cform template for u with all the basic 
+properties lyk resources,output etc
+
+create a cloud vpc using cf:-
+create a json file n type start n auto 
+generate
+
+wn u want to add a resource u have to add
+it under Resources property.. type vpc n dn
+the cform package will give u auto complete
+code
+
+every resource has a name n a type.. from
+type the aws engine would come to know
+which resource type is to be created
+
+every resource we create will have name,type
+n properties keys
+
+wn u want to create a new template about a
+resource u could search cloudformation vpc
+ n look upon the exmaples provided in aws
+docs
+
+in vpc template that is autogenerate replace
+name with some name u want to give
+in cidrblock give 10.20.0.9/16
+n in tags type tag n code will be autogenerat
+n u can give a key n value
+
+  "Resources": {
+    "MyAppVpc": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.20.0.9/16",
+        "Tags": [-]
+      }
+    }
+
+add instancetenancy property inside properti
+es n give it a value default
+
+go to aws n cloudformation n dn add stack dn
+upload ur file into template filed
+
+with parameters we can allow users in UI
+to fill in values n dn we could use these
+values in our template which would make
+the template act in a dynamic way
+
+U can define a parameter by giving it a name
+n to use the parameter we having to use
+name:{"Ref:"paramtername"}
+
+this would get the value put by user in UI
+n store it in name variable
+
+to add a paramter type param under parameters
+n atom will autocomplete ur code
+
+give a name instead of paramname.. U can give
+a description n a default value in default
+n give a type which refers to datatype of the
+input that user has to type in
+U can also add a Allowedvalues property which
+will force the user to select from 1 of the
+values
+
+to upload template u need a minimum of one
+resource
+
+upload the template n u would get the parameter
+n ask to choose values in the UI
+
+U can also set values lyk maxlength,minlength
+etc after type.. suppose ur asking the
+user to type a password dn u can add Noecho:
+true property so that user typed in password
+will be in asterik
+
+suppose in parameter u want the user to selct
+one of the availability zones in his region
+or something similar dn type u can change
+to something else.. type az n it will give
+u the type required for the functionality
+
+for Ref autocompelte type ref
+
+adding subnets,, inside resources type subnet
+and code gets autogenerated for u
+
+In subnet inside properties add vpcId n this
+should get the value of id of the vpc we
+created above.. This can be done by using Ref
+"Ref":"vpcname"
+
+add a property to subnet MapPublicIpOnlaunch
+n set it to true.. This would basically
+create public ip addresses anytym u add an
+ec2 to this subnet
+
+for getting all azs withing the current region
+type param n auto complete
+
+add a parameter for type az n assign it's
+value to availablityzones inside subnet
+
+  "Resources": { "MyEc2": {
+        "Type": "AWS::EC2::Instance",
+        "Properties": {
+            "KeyName": "awsanil",
+
+            "ImageId": "ami-0aeb7c931a5a61206",
+            "InstanceType": "t2.micro",
+            "Monitoring": "true",
+            "SecurityGroupIds" : ["launch-wizard-12"],
+
+The above will create an ec2 instance for
+n u need to provide the above values lyk
+imageid and key name which u can harcode
+in the code itself
+
+"Outputs": {
+      "WebsiteUrl":
+      {
+        "Value":"sahoo"
+      }
+
+In cloudformation in template stack u have
+a output tab.. wtever u put above gets 
+displayed there
+
+"Resources": { "MyEc2": {
+        "Type": "AWS::EC2::Instance",
+        "Properties": {
+            "KeyName": "awsanil",
+
+            "ImageId": "ami-0aeb7c931a5a61206",
+            "InstanceType": "t2.micro",
+            "Monitoring": "true",
+            "SecurityGroupIds" : ["launch-wizard-12"],
+
+            "UserData": {
+                "Fn::Base64": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "#!/bin/bash -ex",
+                            "-"
+                        ]
+                    ]
+                }
+            }
+    }
+            }
+
+    },
+    "Outputs": {
+      "WebsiteUrl":
+      {
+        "Value": {"Fn::GetAtt" : [ "MyEc2", "PublicDnsName" ]}
+      }
+
+    }
+
+Above is to create a ec2 instance and then
+show the public ip address of the created
+ec2 in outputs tab
+
+
+
+
+
+
+
+

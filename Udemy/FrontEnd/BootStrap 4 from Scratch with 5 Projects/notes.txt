@@ -1,0 +1,612 @@
+BootStap is a Ui css framework
+It gives us a lot of HTML/CSS templates to get
+started with web development
+
+Browser Compatible
+Faster development
+responsive
+
+ways to use bootstrap:-
+using cdn
+download and use-if doing offline
+package managers- npm
+
+Live Server- a vs code extension that refresh
+es the UI as soon as we change something in a
+simple html file
+
+Prettier is an extension that lets us format
+code in vscode
+
+Install prettier extension in vs code, then after u write
+ur code press on control+shift+p and then choose format
+document n dn configure n then prettier..
+
+Create a folder and open it in vs code. create
+a file hello.html and right click on it inside
+vs code n choose start live server
+
+Use bootstarp by using cdn in link rel
+also need to add scripts- jquery,popper n
+bootstrap js
+
+only if u add bootstrap cdn to ur html file
+bootstrap by defult assigns some classes to
+html elements and styles them. ex if u have
+a <h1> tag in html n u link bootstrap cdn
+then bootstrap would by default add a class
+to h1 tag n do some styling
+
+diffrent heading levels(h1...h5) in html will 
+have diffrent markups.
+
+if u want a h5 to have font size of h1 u can
+simply add class="h1"
+ex <h5 class="h1"> hello </h1>
+
+if u want a heading to have a bigger fontsize
+than h1 then u can use class="display-1"(1-6
+available in bootstrap)
+
+ex <h1 class="display-1"> Hello </h1>
+
+if u want to make a p tag more prominent u
+can add the lead class. It would increase 
+font size n weight of p
+<p class="lead"> something </p>
+
+<p class="text-monospace"> something </p>
+gives p a monospace styling
+
+<p class="font-weight-bold" > make text bold
+without using strong tag
+
+<p class="font-weight-normal"> change text to
+normal if its styling is bold somewhere
+
+<p class="font-italic" >
+for text in italic style
+
+Text transformation use classes text-lowercase
+,text-uppercase and text-capitalize
+<p class="text-lowercase"> make all the letters
+in lowercase
+
+<p class="text-uppercase> make all letters
+in uppercase>
+
+<p class="text-capitalize"> make first letter
+of every word capital
+
+suppose u want to align something to the ryt
+u can use class="text-right"
+
+class="footer" adds some styling to make someth
+look like a footer
+
+if there are multiple lines in a p n u want
+it to display in a single line i.e display as
+much letters as possible n dn ... u can use
+the class "text-trucate"
+
+the li tags inside a ul will by default contain
+a bullet along with some padding, u can rmove
+them by adding class list-unstyled to ul
+<ul class="list-unstyled"
+
+by defaultl tags are in a horizontal position
+u can use class list-inline in ul and use 
+list-inline-item in all the li tags
+
+if u want a p content to be uniform on both
+sides(left n ryt) of a page or justify it.
+u can add a class text-justify to p tag
+
+text align classes are text-right,text-left n
+text-center
+
+in bootstrap we have 4 screen sizes-
+sm,lg,md and xl
+
+for alignment on basis of screen sizes u can
+add class like text-sm-left
+
+sm- means on screens sm n above
+md- on screens medium n above
+lg- on larger screens
+
+vertical alignment
+u can have multiple text in a single line
+by including the texts within a span tag
+
+now to have different alignments for the span
+tags we can use classes align-baseline,align-
+top,align-bottom,align-middle
+
+h1,div are block level elements that take up
+the entire screen width whereas span is inline
+element that takes up the width it requires 
+only
+
+if u want to make a block level element an
+inline element we can use d-inline class
+<h1 class="d-inline">
+
+Normally two block level elements will be one
+line after each other but by using d-inline
+they would come in one line next to each other
+
+d-block would make an inline elemet into a 
+block level element
+
+d-inline-block class is used to make an elemen
+inline-block
+
+d above stands for display
+
+float-left,float-right are used to float 
+elemts to left n ryt respectively
+
+Responsive float by using float-sm-left
+
+text align applies to the text in the contain
+er whereas float applies to the container
+itself
+
+when u use float an elemt left n other elemet
+ryt dn the middle space will be taken up by
+other elemet which could affect styling and 
+alignment a lot so u need to clear it
+
+clearfix class is used for that
+
+<div class="clearfic">
+<button class="float-left">
+<button class="float-right">
+
+class="fixed-top" is going to fix an element
+to the top of the page
+
+class="sticky-top" is going to place the elmt
+as normal bt wn the user scrolls till the elmt
+then it is going to be fixed at the top
+
+fixed-bootom class is also der
+
+text-primary class to make text color blue
+text-success -green
+text-warning-yellow
+text-danger- red
+text-light-light gray
+text-secondary
+text-info
+text-white
+text-dark
+text-black-50- half as dark as black color
+text-white-50-
+
+to change color of a tag <a class="text-primary"
+
+To give background colors the keys would be
+sme as above bt text would be replaced by bg
+ex-bg-primary,bg-success
+
+class="invisible" makes the elemt disappear
+
+bootstrap also provides a lot of margin n
+padding classes that u could use
+
+class="mb-0" would be margin bottom is 0
+mb-1,mb-2... are also present
+
+mt-0,1,2,3,4 is a class which is used for margin top
+ml-0 is for margin left
+mr-0 is for margin ryt
+
+for margin on both left n ryt we can use
+mx-5
+for margin on both top n bottom we can use
+my-5 class
+
+pb-0 for padding bottom
+pr,pl,pt,px n py are also there
+
+m-3 would be margin at all 4 top,bottom,ryt
+,left
+p-3 would be padding at all 4
+
+w-25 class takes 25 % of the width of contain
+er
+
+h-25 class takes 25% of height of container
+
+to put a border to an elemet use class="border"
+class=brder-top,border-bottom,bottom-left,
+botton-ryt r used for border onlt at that
+specific corner
+
+to give a color to a border use border-primary,
+border-secondary,border-success etc classes
+along with border class
+
+to have border rounded at the edges use rounde
+d class.
+rounded-top,rounded-bottom,rounded-ryt,rounde
+-left
+rounded-circle would give the border as a 
+circle
+
+@media(max-width:768px){
+body{
+
+}
+}
+
+<button type="button">Submit </button>
+class="btn" will add a lot of styling and make
+the button look a lot better
+if we want to change the color of button we
+could use classes lyk btn-primary,btn-secondary
+btn-success etc
+
+if u have a button n u want it to look like
+a link u can use btn-link class
+
+u can also use the btn nd btn-color class on
+a tags and on <input type="button,submit,reset"
+. this will make them look like a button
+
+btn-outline-color(pri,sec etc) would give the
+button a good look upon hoverng
+
+if u want icons within a button u could use
+link fontawesome in link rel and
+ use an i tag with a class within a button tag
+
+To make the button look large u can use
+btn-lg class
+btn-sm for small button
+
+btn-block would make the button take up the
+whole width
+
+active class is usd to make a button look a 
+bit dark blue which is used in dynamic web
+dev
+
+disabled class is used on a button to make
+the button non clickable
+
+<div class=dropdown
+<button class="btn dropdown-toggle data-togg
+le="dropdown">
+Dropdowns
+</button>
+<div class="dropdown-menu>
+<a href="" class="dropdown-item ></a>
+<a href="" class="dropdown-item ></a>
+<a href="" class="dropdown-item ></a>
+</div>
+</div>
+
+a container class moves everything within it
+to the center.. adds margin and padding by
+default
+
+<nav class="navbar navbar-expand >
+<div class="container">
+<a class="navbar-brand" href=""> navbar </a>
+<ul class="navbar-nav">
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a class="nav-link">
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+</ul>
+</div></nav>
+
+---to create a basic navbar(above)
+
+<nav class="navbar navbar-expand >
+<div class="container">
+<a class="navbar-brand" href=""> navbar </a>
+<ul class="navbar-nav">
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+<l1 class="nav-item">
+<a class="nav-link">
+</l1>
+<l1 class="nav-item">
+<a>
+</l1>
+</ul>
+</div></nav>
+
+List Groups are fancy unordered lists
+
+add a class list-group to ul
+
+add class list-group-item to each li element
+that adds border n padding to each li
+
+for a list of a href u could add list-group to
+ul n list-group-item to each a tag.. u can 
+add an active class to represent a specific
+row is active which sets up a background
+
+u could style a list item according to its
+role bt adding class list-group-item-primary,
+list-group-item-secondary
+
+breadcrumb is a group of items which is like
+a menu showing the links that can be used
+to navigate through all the pages
+
+technically breadcrumb is a ordered list of
+items or li.. To add styling for breadcrumb
+add class="breadcrumb" to ol n add class=
+"breadcrumb-item" to each li in the ol
+
+in case of form each input is basically repre
+sented by a div containing a label n a input
+tag
+
+<div>
+<label for="name" > Name </label>
+<input type="text" id="name" />
+</div>
+
+to make it look good add a class form-group to
+thr div and add a class form-control to each
+input
+
+to make a input field readonly just add a 
+readonly attribute to the input control
+
+for select also we can use the same classes
+to make it look good.. use form-group in div
+and use form-control in select tag
+
+suppose u want to have an input option where
+user would need to upload a file you would
+use input type="file"
+
+to make the above look good use a class form-
+group on div n a class form-control-file on
+the input tag
+
+for submit button add a class btn btn-primary
+to make it look good
+
+bootstrap also provides classes for form
+validation to look gud/bad
+
+<div>
+<label>
+<input class="is-invalid">
+<div class="invalid-feedback">
+Password is not correct
+</div>
+</div>
+
+upon clicking on submit u would like to show
+a input as green or show it as red.. in order
+to do the same just add a class= is-valid
+or is-invalid accordingly
+
+37:-
+Do ! tab to generate a html document
+
+create html file n add a styles.css file in 
+link and add the bootstrap cdn above
+and also put fontawesome cdn above
+
+before body ending add a script tag
+and on a year id put text as currentyear to
+show copyright..
+
+<script>
+$("#year").text(new Date().getFullYear());
+
+Social Looplab project:-
+
+downloaded the zip so that u can see the ui
+for refernce nt code nly UI..
+
+now lets start with the navigation bar:-
+<body>
+<nav class="navbar navbar-expand-sm bg-dark
+navbar-dark fixed-top">
+
+add a nav tag n give navbar class to it
+navbar-expand-sm for responsiveness
+bg-dark for background to be dark
+navbar-dark to complement the above
+//without the above the 3 icons in mobile will not
+show
+fixed-top to stick the header to top while
+scrolling
+
+inside nav create a div with class container
+
+inside div create a a tag with href as index.htm
+l and class as navbar-brand.. n text as LoopLab
+
+after a create a button with class navbar-
+toggler.. give it a data-toggle attribute
+with value as collapse and data-target="#navbar
+Collapse"
+
+inside button create a span with class as
+navbar-toggler-icon.. This would give u the
+3 line icon
+
+after button create a div with class as collapse
+n navbar-collapse.. the collapse is to ensure
+that we do not see the div initially.. This is
+because we are going for a mobile first webpage
+n give it a id of navbarCollapse... this is
+the id that we used for target in button
+
+inside div create a ul with class navbar-nav
+and ml-auto so that it comes towards the 
+right side of page
+
+inside ul create li with class nav-item n 
+inside li create a tag with class nav-link
+
+<li><a href="#home-head-section>Home </a></li>
+create 3 more lyk above with explore,create and
+Share texts
+
+Open in browser n u would see basic navigation
+bar is created.. there is no 3 line icon in
+normal page.. maybe the above alreday handles
+showing full nav in web n 3 icons in mobile..
+need to check-- yup it handles
+
+go to css:
+body
+{
+background-color:#333; almost black
+color: #fff, white
+}
+
+.navbar
+{
+border-bottom: #008ed6 3px solid;
+opacity: 0.8.. need to learn
+}
+
+now we need to add a background image but if we
+keep the image as it is it would be tough to
+see the text on it so we would add a dark
+overlay to the image
+
+now coming to home sections after the nav
+tags
+
+create a header tag n give id as home-section
+
+inside it have a div with class dark-overlay
+
+inside div have another div with class home-inn
+er and container
+
+inside container grid now we would use grid
+which would show left side in 8 n right side 
+in 4. bt in mobile the left side would
+disapper
+
+<div class="row">
+<div class="col-lg-8 d-none d-lg-block">
+
+now col-lg-8 means it will take up 8 colums 
+in the grid.. d-none class will make it nt
+display at all dn d-lg-block will make it
+display nly on large screens
+
+inside div create a h1 with class as display-4
+and text as Build social media profile and
+generate revenue
+
+now we have to create 3 compo with each having
+a tick icon n text in one line
+
+after h1 create  a div with class d-flex
+create a div inside with class p-4 and align-
+self-start to start from starting
+
+inside this div need to add checkmark from
+fontawesome
+
+so create a i tag with class fas, fa-check and
+fa-2x for bigger icon
+
+after p=4 create another div with class p-4
+and align-self-end and give it a random 2-3
+lines of text
+
+create 2 more d-flex lyk the above
+
+now for ryt hand side:-
+create div with class col-lg-4
+
+create a div with class card,bg-primary for
+blue backgroung,text-centre,card-form
+
+create div with class card-body which will add
+padding n stuff
+
+inside add h1 Sign Up Today </h1>
+under that <p>please fill out form to register
+
+add a form inside form add a div with class
+form-group.. inside this add an input with
+class form-control that would give it some
+padding.. and form-control-lg for it to be a
+large input placeholder= Username
+
+create 3 more form group for email,password n
+confirm password... change type to email
+n password...
+
+after all formgroups add an input of type n
+value as submit n add class btn btn-outline-light
+and btn-block so that it takes up entire width
+of container
+
+nw go to style.css:-
+
+#home-section
+{
+background:url("../img/home.jpeg");
+background-repeat:no-repeat; need to learn this
+background-size:cover; to cover the whole area
+background-attachement: fixed; need to check
+min-height: 700px;
+}
+
+now text wont be clearly visible due to image
+so 
+#home-section .dark-overlay
+{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+min-height:700px;
+background: rgba(0,0,0,0.7).. 0.7 is opacity
+}
+
+now basically they are creating a div which 
+takes full sapce of parent then covering it
+with black background then making the black
+a bit transparent so that image can also be
+seen a bit..
+
+#home-section .home-inner
+{
+padding-top:150px;
+}
+
+#home-section .card-form
+{
+opacity:0.8;// so that form is a bit transparent
+}
+
+need to check the size of image idle image size for
+a website is 1920 width and 1080 hright
+40
+

@@ -1,0 +1,571 @@
+Tech stack involved:-
+ReactJS, Firebase Firestore Realtime db,
+Material UI,React-Router,React Context Api,
+Redux,Google Authentication, Deploy using fireb
+ase
+
+npx create-react-app whatsapp-clone
+
+open firebase in browser
+go to console
+add project
+name as whatsapp-clone
+dn continue
+
+click on setting. project settings.. 
+down u have options for android,ios n web
+webapp:-
+give table name.. check the checkbox for hosting
+it will ask to npm intall firebase-tools
+in src create a file firebase.js n copy the text
+u would get from above firebase in chrome
+
+U copied the above to provide firebase credenti
+als for ur react account to connect
+
+delet app.test.js,logo.svg and setUptests.js
+
+go to App.js file
+delete everything inside App.css
+
+<div class="app>
+
+<div class="app_body">
+//Sidebar
+//Chat
+</div>
+
+go to app.css:
+.app
+{
+display:grid;
+place-items:center;// it will center the child
+background-color:#dadbd3;
+height:100vh;
+}
+
+.app_body
+{
+display:flex;
+background-color: #ededed;
+width:90vh;
+height:90vw;
+box-shadow:-- need to learn;
+margin-top: -50px;
+}
+
+
+App.js Sidebar:-
+
+Create a new File Sidebar.js:
+rfce to create a component boilerplate
+
+import './Sidebar.css';
+ return
+<div class="sidebar"
+
+</div>
+
+if rfce is not working then install es7 extension
+
+<div class="sidebar"
+<div class="sidebar_header">
+</div>
+
+<div class="sidebar_search">
+</div>
+
+<div class="sidebar_chats">
+</div>
+</div>
+
+go to material-ui.com
+npm i @material-ui/core
+
+In material UI search icons
+npm i @material-ui/icons
+
+serach full list of icons
+serach settings and click on icon
+and u will get the import code
+
+<sidebar_header">
+<Avatar/>
+<div class="headerRight>
+<DonutlargeIcon/>
+<Chaticon/>
+</MoreVerticon>
+</div>
+
+Avatar would show a people icon
+
+.sidebar
+{
+flex:0.35 for space between avator n d 3 icons
+}
+sidebar_header
+{
+display:flex;
+justify-content:space-between;
+padding:20px;
+border-right: 1px solid lightgray;
+}
+
+.headerRight
+{
+min-width: 10vw.. to increase width of container
+display:flex;
+align-items:center;
+justify-content: space-between;
+}
+
+To add a bit style when u hover on the above
+3 icons u can wrap each icon with IconButton
+from material-ui
+
+
+<div class="sidebar_search">
+<div class="sidebar_searchContainer">
+<SearchOutlined/>
+<input type="text" placeholder="Search"/> 
+</div>
+
+vscode-- click on view n enable word wrap so u
+never get an issue of scrolling right to view
+code
+
+.sidebar
+{
+display:flex;
+flex-direction: column;
+}
+
+.sidebar__search
+{
+display:flex;
+align-items:center;
+background-color:#f6f6f6;
+height:39px;
+padding;10px;
+}
+
+.sidebar_searchContainer{
+display:flex;
+align-items:center;
+bgclor:white;
+width;100%;
+height:35px;
+border-radius:20px;
+}
+
+}
+.sidebar_searchContainer > input{
+border:none;
+margin-left:10px;
+}
+
+57.12
+
+<div class="sidebar_chats">
+<SideBarChat/>
+</div>
+.sidebar_chats
+{
+flex:1; takes up all the left space
+overflow:scroll;
+bg color: white;
+}
+
+create a file SideBarChat.js
+
+<div className="sidebarChat">
+<Avatar src="https://avatars.dicebear,com/
+apo/human/asdff.svg'/>
+<div class="info>
+<h2> Room Name </h2>
+<p>Last Message </p>
+</div>
+</div>
+.sidebarChat
+{
+display:flex;
+padding:20px;
+cursor:pointer;
+border-bottom: 1px solid  #f6f6f6;
+}
+
+.sidebarChat:hover
+{
+bgcolor; #ebebeb
+}
+
+.info > h2
+{
+font-size: 16px;
+mb-8px
+}
+
+.info
+{
+ml- 15px;
+}
+
+!addNewChat from props?display above :
+display Add New Chat with above divs
+
+just reusing the component to show add new
+chat at the top
+
+If u pass an image as src to Avatar it will
+show it in the icon
+
+<div class="sidebarChat onClick={createChat}/>
+
+const createChat=()=>
+{
+const roomName=prompt("Please enter name for
+chat");
+
+if(roomName)
+{
+
+
+}
+
+Go to App.js n lets create Chat:-
+create Chat.js
+
+<div classname="chat">
+<div class="header">--
+<Avatar/>
+<div class="header-info">
+<h3> Room Name </h3>
+<p>last seen at.. </p></div>
+<div class="header-right">
+put 3 icons search,attachment and moreverticon
+</div>
+<div class="body"/>--list of chats
+<div class="footer"/>--input field to send msg
+</div>
+}
+
+.chat
+{
+flex:0.65; so that chat uses up the whole space
+}
+
+.chat_header
+{
+padding: 20px;
+display:flex;
+align-items:center
+border-bottom: 1px solid lightgray
+}
+
+.info
+{
+flex:1;
+padding-left:20px;
+}
+
+.info > h3
+{
+
+}margin-bottom: 3px
+
+headerRight
+{
+display:flex;
+justify-content:space-between;
+min-width: 100px;
+}
+
+<div class="chat_body>
+<p class="chat_message"><span class
+=chat_name">sonam <span>
+Hey guys </p>
+</div>
+.chat_body
+{
+flex:1;
+background-image: url("whatsapp url");
+bg-repeat:repeat;
+overflow:scroll;
+bg-position:center
+}
+
+.chat_message
+{
+position:relative;
+font-size:16px;
+width:
+}
+
+To put an elemnt to left or ryt give a width
+n put margin-left and margin-right as auto
+accordingly
+
+chat_footer
+<InertEmoticonIcon/.
+<form>
+<input type="text"/>
+<button> Send a message </button>
+</form>
+<MicIcon/>
+
+One trock if u have a form with submit buton
+dn make submit button display none so that
+nly enter is enough n dnt need to show the
+button
+
+1.52.09
+
+set useState and onChange for the message
+typed in
+
+now come to firebase:-
+npm i firebase;
+
+go to firebase config file firebase.js
+
+dn import firebase from 'firebase';
+
+const firebaseApp=firebase.initializeApp(
+firebaseConfig);
+
+const db=firebaseApp.firestore();
+const auth=firebase.auth();
+const provider= new firebase.auth.
+GoogleAuthProvider();
+
+export {auth,provider};
+export default db;
+
+Open firebase in chrome n go to database
+
+create database:-
+start in test mode.. next.. dn done
+
+click on start collection n name it Rooms
+
+give fileds name: Room, String, u can give
+a value to it..
+
+here Rooms is basically a list of all rooms
+
+now we can put this info in sidebar where
+rooms would be displayed
+
+go to Sidebar.js n dipslay the list of rooms
+names instead of the hardcoded ones present
+earlier
+
+useEffect(()=>
+{
+db.collection("rooms").onSnapshot(snapshot=>
+{
+setRooms(snapshot.docs.map(doc=>
+{
+id:doc.id,
+data:doc.data()
+}))
+})
+
+},[])
+
+To get name u can do doc.data().name;
+
+snapshot above is real time.. it is going to
+get the latest changes from db.. whener db
+changes the list gets updated
+
+Now go to onclick of Add new Chat n dn
+
+db.collections("rooms").add({
+name:roomName
+})
+
+now we need to work on react router.. anytym
+u click on a room on left hand side it 
+would route the message component on the
+right side and show details regarding that
+component nly
+
+now here react would be continously looking
+for updates from firebase so it's best
+practice to disconnect a connection wherever
+user logs out or leaves.. U can do that by
+assign the above db.collection to a const
+unsubscribe and then inside useEffect return
+()=>{unsubscribe()} so that connection is
+terminated wnever component is unmounted
+
+as firebase is a servive provided by google
+so it is ectremely scalable
+
+npm i react-router-dom
+
+go to app.js n surround sidebar n Chat
+component with Router
+
+<Router>
+<Switch>
+<Route path="/app">
+<Sidebar>
+<Chat>
+</Route>
+<Route path="/">
+<h1>Home Screen </h1>
+</Route>
+</Switch>
+</Router>
+
+U can take sidebar out of Route so that it
+shows no matter what
+
+<Sidebar/>
+<Route path="/rooms:id">
+<Chats/>
+</Route>
+
+go to chats.js n import useParams:-
+const {id}=useParams();
+
+go to sidebarChat
+
+n in return html:
+<Link to={`/rooms/id}
+
+in Chat js create useEffect on roomId:-
+n inside of it
+
+if(roomId)
+{
+db.collection("rooms").doc(roomId).onSnapshot
+(snapshot=>
+{
+setName(snapshot.doc().name)
+)
+
+}
+
+now go to google authentication in react
+
+In App create a useState on User
+
+n in return write 
+{!user ? (<h1> Please log in First</h1>):
+<Router><Switch>......
+
+create login.js file
+
+<div class="login"/>
+<div class="login_container"/>
+<img>
+<div class="login_text">
+<h1>Sign in to whatsApp </h1>
+</div>
+<Button onClick={signIn} >Sign In </Button>
+
+go to login.css
+login
+{
+bg color:white;
+height n width:100;
+display:grid;
+place_items:center;
+}
+
+give bg color green to button n text as white
+
+const signin=()=>
+{
+auth.signInWithPopup(provider).then(res=>
+console.log(res);
+).catch(err=.alert("hello'))}
+
+go to firebase in chrome dn authnetication
+dn sign in method click on google n dn
+enable
+
+now google sign in would work..
+in res above u would get a lot of details
+lyk email,name
+
+Now need to add redux:-
+in index.js surround <App/> with
+<StateProvider initialState={initialState}
+provider={provider}>
+
+create StateProvider.js file
+
+export const stateContext=createContext();
+
+export const stateProvider=({reducer,initial
+State,children})=>
+{
+<StateContext.Provider value={useReducer(
+reducer,initialState)}>
+{children}
+</StateContext.Provider>
+);
+
+export const useStateValue=()=>useContext
+(stateContext);
+
+}
+
+create reducer.js
+
+export const initialState={user:null};
+
+export const actionTypes={SET_USER="SET USER"}
+
+export const reducer=(initialState,action)=>
+{
+switch(action.type)
+{
+case actionTypes.SET_USER:
+        return {...state,user:action.data}
+}
+
+google res above username can be got by
+res.user..
+
+const[{user},dispatch]=useStatevalue();
+
+user.photoUrl would give u profile pic of
+user
+
+now to save messages u can create collection
+inside rooms which will have a message,name
+n ts
+
+now go to chat.js n we will get messages
+to the db
+
+db.collection("rooms").doc(roomId).
+collection("messages").orderBy("timestamo)
+.onSnapshot(snapshot=>
+{
+setMessages(snapshot.docs.map(d)=>
+{
+
+})
+
+there is an easy way to handle timestamps from
+firebase
+
+new Date(message.timestamp.todate()).
+toUTCString());
+
+
+
+})
+
+
+}
+
+also save the messages to db per roomId
+
+3.17.00

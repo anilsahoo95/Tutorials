@@ -1,0 +1,533 @@
+Q.Introduce urself or tell me something abt
+yourself?
+A:Hi, My name is Anil Kumar Sahoo from bbsr.
+I have 3 years of experience in the i.t
+industry. I have been working as full stack
+developer with front end in ReactJs,
+backend in SpringBoot.I have worked for two
+projects till now with the above technologies
+
+Q.Tell us about your projects?
+A.I have been part of 2 projects till date.
+My current project is for verizon where we
+are developing interfaces for the business
+that would allow them to create new offers
+for the customer and have appropriate 
+approvals for the offers and then publish
+those offers to the end users through an
+automated route.
+We also have a feature to allow the business
+to configure the qualification for the offers
+in other words to configure what type of
+customers should get what offers
+For example suppose ARU of some customers
+are more and for some customers it's less
+then business would be able to give 
+different offers to the diffrent categories
+of people
+
+
+My first project was for santos where the
+purpose was to build an web application that
+gave the the clients a visualization of
+various metrics related to all the oil
+fields belonging to the client
+The visualization was provided in the form
+of various tables.
+Business also had a feature where they could
+enter information regarding registration of
+a new oil field or an employee which would
+be send to various stakeholders for approval
+and once approved, the status would be
+visible to the client
+
+
+SpringBoot Interview Questions:-
+Q.What is SpringBoot?
+A.SpringBoot is a java based spring framework
+that is used for rapid application developmen
+t to create stand alone applications
+
+Q.Features of springboot:-
+A.-It helps in creating stand alone application
+with minimum configurations
+-It has an embedded tomcat server which makes
+it code and run application directly
+-It eliminates the need for any xml configu
+ration
+
+
+Q.Diffrence between spring and springboot?
+A.Spring needs the developer to write a lot
+of code to create the application but with
+springboot we can start an app with minimal
+code
+SpringBoot has an embedded tomcat server which
+helps us in running the app easier but in
+spring we have to attch an server by ourselves
+
+Springboot provides us with in memory db 
+support lyk h2 but is not available in case
+of spring
+
+Q.Diffrence between restcontroller and contro
+ller in springboot?
+A.@Controller is basically used to return a
+view to the client whereas @RestController
+returns the object to the client in the form
+of json or xml.. @RestController is a 
+combination of @Controller and @ResponseBody
+
+Q.Dependency Injection?
+A.Dependency injection is a design pattern
+that removes dependencies 
+
+Q.Why oracle?
+A.we can implement performance tuning in the
+db which would make select and alter query
+faster which leads to better performance
+--It can manage multiple db instances on a
+single server
+--provides various editions so users can
+choose their edition based on their requiremen
+t.. also in future if the req change then mig
+ation to another edition is easier
+--
+
+JAVA Questions:-
+Q.What are SOLID principles in JAVA?
+A.Single Responsibility-- Each class should
+only have a single responsibility
+
+Open Closed Principle-- A class should be 
+open for extension that means dev can write
+extra code but it should be closed for
+modification i.e existing code should not
+be changed. The only exception is when u need
+to fix issues.
+
+Liskov substitution-- A child class should be
+able to replace the parent class without
+changing the functionality of the program
+
+Interface segregation means larger interfaces
+should be segregated into smaller ones so
+that class implementing them hv to override
+fewer methods
+
+Dependency inversion- decoupling between
+various modules
+
+Features of JAVA 8:-
+
+Lambda expressions:- It helps us in writing
+functional code in java
+
+Functional Interface:- It is a interface that
+has only one abstract method.It is used to
+define the type of a lambda expression. U can
+use @FunctionalInterface to apply the one
+abstract method constraint to the inetrface
+
+Optional class:- It is a new feature in java 8
+which helps us in dealing with NullPointerExcep
+tion
+
+forEach method is provided which helps in
+iterating through the elements.. in forEach
+u can also pass in a lambda expression
+
+Collectors is a class that helps us in 
+operations
+like accumulating elemnts into a collection
+
+Why Blinkin? What do you know?
+Blinkin is basically helping clients to serve
+their customers in a better way which results
+in benefits for both the end customer and the
+client. Features such as providing bots that
+can help you resolve your issue and also
+connecting the customer directly to the
+agent on a remote basis rather than directing
+him to come onsite.You dont have to install
+an app everytym u need help goes a long way
+in actually satisfying the customer
+Also clients can train their emplyees better
+by using visual assistance
+Two usecases are insurance n machinery indus
+try. In insurance all services like verifying
+damages, helping in other cases can be done
+remotely. regarding machine we can have it
+self repaired within a click of a button
+
+What is @SpringbootApplication?
+Ans- It is a combination of 3 annotations..
+@Configuration,@EnableAutoConfiguration and
+@ComponentScan
+
+How to change embedded server in springboot?
+Ans-> you need to exclude the default tomcat
+jar from pom.xml and add the new jar dependency
+
+jetty is a server that is lightweight and
+uses less cpu n memory as compared to tomcat
+
+web server basically works on http content
+and serves static pages whereas application
+server serves dynamic content
+
+Springboot provides us another way of exceptio
+n handling which is called global exception
+handling.. here we define one class with
+@ControllerAdvice n it handles exceptions for
+all the classes without having to write 
+try catch block within every method
+
+Border is created inside the element whereas
+outline is drawn outside the element
+
+Generics:-
+In java one imp feature is type safety
+meaning the type of a variable is known at
+compile time itself and nt at runtime
+
+so u have to define the datatype of a 
+variable in order to declare it.. It enforces
+type safety.. But in case of collections
+u could do smthig lyk
+List values=new ArrayList();
+values.add(1);
+values.add("hello");
+
+This will work while compiling but while
+running it would fail
+
+so in List<> u need to pass datatype n u cn
+pass any datatype lyk Integer,Float or any
+object
+
+Now this is being possible due to the implemen
+tation of List generic wherein in List
+definition it is mentioned as List<E> which
+means List can take in any type
+
+Now wn ur creating a class n u want ur class
+to be usable by different types in that case
+u can specify a generic. The varible types
+inside of it instead of being int or float
+would be E or any upper case letter instead
+
+ex:- class Solution<T>
+{
+T value;
+
+public void show()
+{
+sysout(value);
+}
+
+In throws keyword we are basically delegating
+the work of exception handling to the caller
+
+in throw compiler would check for the nearest
+catch of the exception type to handle exce
+ption
+
+Collection class in java has a set of methods
+that we can use ex- addAll,copy,sort
+
+Collection framework provides us a lot of
+classes n frameworks which helps us in
+storing and manipulation of data
+
+Iterator traverses the elemnts in only
+forward direction whereas ListIterator can
+traverse the elements in both forward and
+backward direction
+
+List preserves the insertion order
+
+Why do we ovveride equals method, wn comparing
+2 objects java basically would be check if 
+the refrence is same and the values inside
+is same but suppose we want to equalize
+based on some specific property of object
+for ex id or name.. in that case we are 
+supposed to ovverride equals method
+
+convert arrays to arraylist using asList
+method whereas do the opposite using toArray
+method
+
+wn we override equals it is advisable to
+override hashcode as well..This is because
+collections related to hash use the hashcode
+for their purposes. if u dnt override hascode
+dn issues myt arise
+
+wn u run ur program a lot of objects might
+be created which myt need a lot of memory
+so java deletes the objects no longer in use
+so that memory is nt overloaded
+
+suppose u want java to garbage collect an
+object depending on u in that case u have
+to set object refernce to null dn call
+System.gc n dn call System.runFinalization
+
+finalize is a method that java always calls
+before destrying or deleting an object
+
+}
+
+Java reflection:-
+
+Reflectio is an API which helps us to exmaine
+and modify behaviour of a class during
+runtime
+
+To examine or get details we have the
+getClass,getMethods and getConstructors method
+
+We can also call a method by using invoke
+method of reflection api if we know the 
+parameters.. we can also access a variable 
+whose access is restricted
+
+Drawbacks are slow performance n internal
+details are being exposed
+
+What is AWS?
+aws is a cloud service which provides it
+resources on demand
+
+outbound basically means the traffic going
+out of ur ec2 for ex u may need to connect
+to inetrnet to install packages that u
+may need..
+
+Tell me about Deloitte?
+
+Deloitte has been a leading global provider of
+audit and assurance,consulting, financial and
+risk advisory and tax advisory services and
+has been working for about 150 years.. It
+is also one of the top 4 accounting oragani
+zations.
+
+Why join deloitte?
+
+In addition to challenging and meaningful work
+, you’ll have the chance to give back to your 
+community, make a positive impact on the 
+environment, participate in a range of 
+diversity and inclusion initiatives, and find 
+the support, coaching, and training it takes 
+to advance your career.
+
+The other 3 are earnest and young,kpmg and
+pwc...
+
+GROUP BY SQL--
+suppose u have multiple rows with one column
+as same then to show it as one single row
+by grouping the similar column together we
+use group by
+
+SELECT count(b.CustomerID) totalCount,b.CustomerID,
+b.CustomerName
+FROM Orders a
+INNER JOIN Customers b ON a.CustomerID = b.CustomerID 
+group by a.CustomerID order by count(a.CustomerID) desc
+limit 1
+
+To limit the num of rows returned u can simple
+use limit followed by count
+
+ebs is basically used as a storage for ec2
+instances
+
+U can mount volumes to ec2 instances
+
+availability zone are the places that contain
+servers,applications etc..
+
+region denotes diffrent geographical location
+.. they are a collection of az
+
+edge locations are also data centres bt they
+are more over used to cache data
+
+content delivery network is a network of
+servers that helps in serving web pages
+depending on the geographical location of the
+user
+
+why is string immutable in java???
+because string is stored in string pool and
+a variable using a string is provided referen
+ce if string in string pool.. suppose 
+multiple variables are accessing the same
+refernce dn if we allow to change the value
+by one variable then all other other variables
+having same reference would also get the
+new value
+
+Highradius questions:-
+1.design patterns practice
+custom exception practice
+multithreading practice
+
+java calls properties n methods associated
+with an object by checking it's type n nt it's
+reference.. so if B extends A n m1 is a method
+in A n m2 is a method in B so
+A a=new B();
+here a is the object with type A n java will
+nly associate a with class A n be able to call
+methods n properties within class A
+
+bt if a method is in B nly dn it will give 
+error
+
+Soppose u want a bean to be autowired into spring
+boot dn u have to return a type in a method u
+create n annotate it with @Bean.. U cn do this
+in main class also
+
+@Bean
+public String getS()
+{
+return "anil";
+}
+
+This can be autowired into another class by using
+the type
+
+ex- @Autowired String a;
+
+springboot will look into the datatype to decide
+which bean to use
+
+Now suppose u have two beans returning the same
+type then springboot would not know which bean
+to use.. In that case u can use @Qualifier n
+provide the bean name u want to use so that
+ambiguity is solved
+
+so mention the bean as
+@Bean
+@Qualifier("naam")
+@Bean
+public String getS()
+{
+return "anil";
+}
+
+
+and wn u want to autowire it u could basically
+use
+
+@Autowired
+@Qualifier("naam")
+String s;
+
+u could also solve the ambiguity by providing
+one of the beans as primary in that case the
+given bean will be used.. if u want to use the
+other one u will hv to use qualifier
+
+dependency injection is basically injecting a
+class to another class so that injected class's
+methods and properties can be used
+
+Field injection-- basically wn u inject a class
+by creating a variable of it and annotating it
+with @Autowired...
+
+@Autowired ServiceClass variable;
+
+Constructor injection is basically wn u inject
+a class into another class by passign the injected
+class in the constructor of another class
+and assigning it to the instance variable of the
+type of injected class created inside the class
+where it will be used
+
+@RestController
+Controllerclass{
+private ServiceClass variable;
+
+public ControllerClass(serviceclass variable)
+{
+this.variable=variable;
+}
+
+}
+
+
+Setter Injection is basically creating an instance
+variable and then writing a setter method for
+the injected variable and annotating the setter
+method with @Autowired
+
+Final class basically means that it cannot be
+inherited by any other class and it is immutable
+
+Final variable basically means it value can't be
+changed later.. if a refernce is assigned in that
+case internal value in reference are changeable
+but the refrence cannot be changed.. If it is
+not assigned initially dn only we can assign 
+it in other step
+
+Final method basically means that the method 
+cannot be overridden by other classes.. It will
+give a compile time error.. bt overloading is
+still possible
+
+try with resources is an alternate way of writing
+try catch finally block, wherein you first
+mention the resources u wanna try n dn u use
+dm inside ur try block n dn after ur completion
+java makes sure to close the particular resource
+
+resources u want to use n close should be mentioned
+within the arguments of try
+
+     try(Scanner sc=new Scanner(new File("C:/Users/LEGION/Desktop/anil.txt")))
+     {
+    	 while(sc.hasNext())
+    	 {
+    		 System.out.println(sc.nextLine());
+    	 }
+    		 
+     }
+     
+     catch(Exception e)
+     {
+    	 System.out.println(e.getMessage());
+     }
+
+You can also mention multiple resources.. the 
+only thing is it should be separated by a semicolon
+
+You can wtite try without catch if u have a
+finally block instead so a try finally can 
+replace a try catch block
+
+Adding n deleteion of an element at the start
+is fastest in linkedlist as compared to arraylist
+cos in arraylist if u insert a element at the
+start dn all other elements have to be shifted
+by one place
+
+Addition n deletion of an element towards the last
+or in the middle is fastest in arraylist
+
+Searching is fastest in case of hash
+
+
+
+
+

@@ -1,0 +1,213 @@
+revision on 11.4.22
+
+download full course content in freecodecamp
+site
+
+css is used to style a html document
+
+inline style--put style for a paticular
+elemnt
+<p style="color:blue"></p>
+
+U can put all the styles inside a style tag
+above as well
+
+<style>
+p
+{
+color:red;
+}
+</style>
+
+style using a class prefix with . in style tab
+.blue-text
+{
+color:blue
+}
+
+with class u can style multiple elemnts by g
+iving them all the same class
+
+change the font size using font-size property
+font-size: 14px
+
+change the font type of the element ex-italic
+arial using font-family property
+
+font-family:monospace
+
+There are a lot of font families that u can
+use ex google fonts
+
+put the font api url in <link href=""/>
+
+font-family:lobster,'Sans Serif'
+
+Suppose the font-family u provided could nt
+be loaded in client browser u can provide
+an alternate font-family by adding comma n
+dn font-family in above
+
+width property can assign width to any html
+elemnt lyk div,p,image
+
+width:500 px
+
+css borders have properties lyk style,color
+n width
+
+border-color:red;
+border-width:5px;
+border-style:solid;
+
+border-radius can make the border edges a bit
+more rounder
+border-radius:10 px
+
+border-radius:50 % would make a elemnt inside
+a circular border
+
+background-color is used to provide a backgro
+und color to an element
+
+Id can be used to style a single elemnt only
+style using id put # before id
+
+every html element is rectangle shaped with
+padding being the space outside the elemnt
+n marging being the space between elemnt n
+the border
+
+padding: 50 px
+
+marging:20 px
+
+U can specify margin n padding for each of the
+sides separately using -left,-right,-top n
+-bottom properties
+
+U can specify all the above 4 sides properties
+in a single line as well using clockwise 
+notation which basically mean each enumber
+would correspond to the side starting from
+clockwise direction in the elemt n starts 
+from top
+
+ex- margin: 10 20 50 70
+which would denote top,right,bottom n dn left
+
+Attribute selector-- suppose u want to style
+elemts using attributes of elemnts by putting
+the attribute n its value inside square 
+bracket
+
+[type='radio']
+{
+margin:20px
+}
+
+px is an absolute unit whereas em n rem are
+relative units
+
+pdding: 1.5 em
+
+body is an elemnt that is created eben if u
+dnt specify that elemnt in ur code
+U can check this by giving a style to body
+elemnt without having defined body element
+in ur code
+
+cascading in css basically means that a style
+applied to a parent elemt is inherited or
+cascaded to the child elemnts within it
+
+so styles given to body are alreday applied
+to all the elemts 
+
+wn u have an elemt that has multiple styles
+applied to it through different selectors,
+then there might be conflits.. css resolves
+these conflicts by following a specific 
+order
+
+suppose u dnt want css to follow a order n u
+want a style to apply for sure dn u can mark
+it as important by giving !important after
+the style
+
+ex- color:red !important;
+
+Hex codes are basically 6 digits which can
+be used to reprsent 16 million colors
+
+U can shothand the hex codes if they are
+present in repeated set.. ex red color hex 
+code is FF0000
+here FF cn be replace by F,00 by 0
+so just F00 would also work
+
+css variables are used to give a value to a
+variable n dn that variable can be used 
+anywhre in the code
+
+It starts with -- n can be defined under any
+selector block bt can be used anywhere in the
+file
+
+ex --penguin-skin:grey
+
+backgroung color:var(--penguin-skin)
+
+some browsers may nt support css variables so
+u should hv a fallback value
+
+U should define css variables inside 
+:root{} so that they can be accessed anywhere
+in the document
+
+@media (max-width:350 px ){
+:root{
+
+}
+}
+
+U can add a display:grid style to an elemnent
+containing other elemnts and then we can
+use css grid properties
+
+<div class="container">
+<div class="d1">1</div>
+<div class="d2">2</div>
+<div class="d3">3</div>
+<div class="d4">4</div>
+<div class="d5">5</div>
+</div>
+
+.container{
+display:grid;
+grid-template-columns:100 px 100px 100px'
+// no of columns the grid is to be divided n
+what size each column shoukd hv
+grid-template-rows:50px 50px
+grid-column-gap:20px
+grid-row-gap:5px
+
+revision on 11 april done till here
+
+repeat in css-- suppose u have values that ur
+repeating multiple tyms in that case u can
+'use repeat keyword which will take in 2
+arguments first is no. of tyms to repeat n
+second is what to repeat
+
+ex-- margin : 10px 10px 10px 20px can be
+written as 
+margin :repeat(3, 10px) 20px;
+
+1.05
+
+
+
+
+
+}

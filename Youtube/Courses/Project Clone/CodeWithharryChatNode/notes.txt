@@ -1,0 +1,226 @@
+Two components: one is UI and other is
+functionality.. functionality can be
+implemented storing in db so wn new msg
+arrives need to send to UI..
+
+normally in http client sends request to ser
+ver n gets response from server and then
+connection is over.. Server cannot from 
+it's side send anything to client
+
+web socket allows to have a link between
+client and server so server can also send
+data to client when it has to
+
+This is achived by using socket io in nodejs
+
+socket io is javascript library for real
+time application.. U can also create video
+calls with it
+
+It allows server to emit events which can
+be listened to by client and client can
+emit events which is listened to by server
+
+in db way u will have to have a scheduler
+running every 5 mins to check if some thing
+new is there..
+but in sockets request does nt have to be
+send regulaly
+
+index.html:-
+title:- Real Time Chat
+
+<script src="js/client.js"/>
+
+<body>
+<nav>
+<image class="logo" src="dd.png"/>
+</nav>
+<div class=container>
+<div class="message left">
+<div class="message right"/>
+</div>
+<div class="send/>
+<form action="" id="send-container/>
+<input type="text" id="magInp">
+<input type="submit" />
+
+css
+to make the image come in middle use display
+:block and margin:auto
+give 50 px height n width for making image
+small
+
+body
+{
+background-color: linear gradient
+
+.container
+{
+max-width:955px;
+margin:auto; // to make the container centre
+height:60 vh;
+oberflow-y:auto, so that u see scrollbar 
+when it is required
+}
+
+.message{
+back-color:grey;
+wifth:54%;
+padding:10px:
+margin:17 px 12px;
+border: 2px solid black
+border-radius: 10px
+}
+.left
+{
+float: left; to put message in left
+clear:both; dont allow any other float element
+
+}
+.right
+{
+float: right; to put message in right
+clear:both; dont allow any other float element
+without clear:both, both messages would 
+come side by side
+}
+
+#send-container
+{
+display:block;
+margin:auto;
+textalign:center
+width;100%
+}
+
+#msg-imp
+{
+border
+borderradius
+width:92%
+}
+
+btn
+{
+cursor:pointer;
+border;
+border-radius;
+}
+
+}
+use prettier extension for formatting
+
+create another project nodeserver:-
+npm i socket.io
+
+create index.js
+const io=require(socket.io)(8000)
+require("socket.io")(8000, 
+{ cors: { origin: "*" } });
+latest socket.io need cors policies 
+const users={};
+
+io.on("connection", socket=>
+{
+socket.on('new user joined',name=>
+{
+users[socket.id]=name;
+socket.broadcast.emit('user joined',name);
+}
+
+socket.on('send',message=>
+{
+socket.broadcast.emit('receive',message:
+message,name:user[socket.id]
+}
+}
+
+socket.io would listen to incoming events
+
+socket.on listens to various socket connectio
+ns and gets all the events.. socket.broadcast
+.emit will send what you want to all the
+receivers
+
+in index.html of client include 
+<script src="http://localhost:8000/sokcet.io
+/socket.io.js" />
+
+to link between server and client
+
+now come to UI client.js
+const socket=io('http:localhost:8000')
+
+const form=documentt.getElementByID(send-
+container);
+
+const msgInput=documentt.getElementByID(input);
+
+const msgCongai=documentt.getElementByID(send-
+container);
+
+const name=prompt("Enter your name to join");
+
+socket.emit("new user joined",name)
+
+const appned=(message,position)=>
+{
+const messageElement=document.createElement(
+"div");
+messageElement.innetText=message;
+msgElement.classList.add("message");
+msgElement.classList.add(position);
+messageContainer.appned(msgElement);
+
+
+}
+
+form.addEventListener("submit",(e)=>
+{
+e.preventDefault();
+const message=msgInput.value;
+append("you",msg);
+socket.emit('send',message);
+
+}
+
+socket.on("user joined",data=>
+append("harry joined",'right');
+)
+
+socket.on("receive",data=>
+append()
+
+in script src add defer
+<script defer src="">
+
+1.00
+
+wn users logout need to disconnect then cancel
+conncetion:-
+on node js:
+
+socket.on('disconnect',message=>
+{
+socket.broadcast.emit('left',name:user[socket.id]
+}
+}
+
+on js side:
+socket.on(left,data=>append("user left the chat,
+left);
+
+To add mp3 to ur app:-
+in client.js
+var audio=new Audio("ting.mp3");
+ inside append method u need to write:
+if(position==left)
+{
+audio.play();
+}
+
+play nly if someone else sends
+
+

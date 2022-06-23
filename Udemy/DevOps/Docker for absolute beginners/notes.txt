@@ -1,0 +1,306 @@
+Docker packages and containerises application so thatthey 
+can be easily shipped and run
+
+docker run ansible
+docker run nodejs
+
+docker containers are running instances of images
+
+docker run imagename- used to start a container of the image
+docker ps- lists all running containers
+docker ps -a- all containers including ruynning n previous
+docker stop containerid/name- to stop a container
+docker rm - to delete all stopeed container
+docker images- list all images
+docker rmi image- to delete a image
+docker pull nginx- to pull an image to local
+docker exec container command- to execute an command inside docker 
+container.. container should be running
+docker run -d-- so that container runs in the background
+
+docker hub contains all the images
+
+docker run -it ubuntu bash
+run a command inside ubuntu container
+
+nginx default html is inside /usr/share/nginx/html.. if u want to change
+this then change in this file
+
+Build docker image out of nginx:-
+FROM nginx
+COPY index.html /usr/share/nginx/html
+EXPOSE 3000
+
+RUN is a command used in Dockerfile that runs a command n is used
+to build a image.
+
+Once an image is built n u want run a container then we use
+CMD command from Dockerfile which is executed everytym we run the
+image
+
+Build a node js app
+
+FROM node:14
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "server.js" ]
+
+create .dockerignore file n add ofo
+node_modules
+npm-debug.log
+
+docker would nt copy the above files as these would be genrated
+while doing npm install inside docker
+
+
+docker run redis:4.0--- if u want to pull a specific version
+of an image
+
+wn u run a docker container it by default runs
+on a port and the service can be accessed by
+using the container ip within the docker host
+
+But if we want to get access to the service
+outside the docker host we will have to map
+container port to docker host port
+
+docker run -p 8080:80 nginx
+
+8080 is docker host port n 80 is container port
+
+mysql docker image:-
+docker run -d -e ALLOW_EMPTY_PASSWORD=TRUE mysql
+
+run mysql client on it to execute queries:-
+docker exec -it containerid/name mysql -u root -p
+
+show databases
+
+
+
+in case of a db container like mysql all the data
+is stored inside /var/lib/mysql folder inside
+the container.. suppose u delete the container
+all the data inside also gets deleted
+
+but in real life scenario we would like to persist
+data so in that case we need to ask the container
+to store data in an external directory so even 
+if container is removed, data still stays
+
+docker run -v /opt/userdir1:/var/lib/mysql mysql
+/opt/userdir1- directory inside host
+/var/lib/mysql- directory of container
+
+docker inspect container_name- provides data regarding a 
+container
+
+docker logs container_name- to c the list of logs related to
+ a container
+
+cannot add port mapping while container is running 
+
+build a docker umage
+
+FROM Ubuntu
+RUN apt-get update
+RUN apt-get install httpd
+COPY src dest
+
+docker build . -f Dockerfile -t something/something
+
+copy basically copies the contents of one file to another so u need
+to mention the file names in both src and dest
+
+wn u need to containerize first deploy the app
+manually n den list down the steps
+
+environment variable can be set using -e
+
+FROM UBUNTU
+CMD SLEEP 5
+
+ENTRYPOINT["SLEEP"]
+CMD["5"]
+
+Sample Voting Application is used by docker to explain its various features:-
+
+Consists of following components-
+1.Web Interface written in python where the user has to choose 
+between
+cats n dogs
+2.In memory db written in redis where the vote is stored temporarily
+3.Woker service written in .net which takes in the data n stores in 
+permanent db
+4.permanent db uses postgres to store data
+5.Another web app written in node which displays the number of votes in UI
+
+docker run -d --name=redis redis
+docker run -d --name=db postgres
+docker run -d --name=voting-app -p 5000:80 voting-app
+docker run -d --name=result-app -p 5001:80 result-app
+docker run -d --name=worker worker
+
+now we need to link all thses services.. ex voting-app needs to be linked 
+to redis n redis needs to be linked to worker
+
+docker run -d --name=voting-app -p 5000:80 --link redis:redis voting-app
+docker run -d --name=worker --link redis:redis --link db:db worker
+
+create a docker compose yml file which will take up all the above 
+n build
+the stack
+
+Syntax of docker compose yml
+name of container:
+   image: 
+   
+then provide all the arguments after image(in same line as it) as u would 
+do when doing docker run ex ports,links etc
+
+in the above two are apps/services which are present in docker hub ex redis
+,postgres
+
+Others are projects that we will be creating so need to make use of
+DockerFile 
+in that case we will rerpresent the above in docker compose yml by using
+build: ./vote
+
+Inside the vote folder DockerFile would be present which will build the image
+
+only image will be key value pair, other are lists and values will be repre
+sented by -
+
+The above syntax is the older verison for docker-compose.yml
+
+The 2nd version will have a key value at the top version:2
+followed by services:
+n dn all the above in docker version 1 can be copied below services
+
+Docker registry is the central repository where the docker images
+are stored
+image nginx/nging
+first is username
+second is image name
+
+Docker hub is an exmaple of a public registry
+now if u want to restrict access to images u create u can come up
+with a private registry
+gcp,aws provide solutions for creating a private registry
+U can also create a private registry on ur system by using registry
+image n exposing it to a port
+to pull an image from a private registry u need to first login to
+registry using docker login command
+
+When u install docker 3 types of nbetworks are created :-
+
+1.Bridged Network- here docker create a intenal network n runs 
+containers on those internal networks with each image having its
+own ip address. to access the containers u will have to acess the
+docker ip addresses or map to ports of containers to an external
+host port
+
+2.Host Network- here docker doesn't creates its own network n uses
+the network of the host. so wn u run an image which would run
+on port 8080, it will run directly on port 8080 n wont require
+any port mapping.. u wont be able to run two containers which
+run on the same port in this case
+
+3.none network- 
+
+u can also create ur own network on docker by using the following 
+command:-
+docker network create --driver bridge --subnet 172.3.44.34/16 network
+name
+
+docker network ls- to view list of docker networks
+
+docker occhestrator is a set of tools and sccripts that enable
+hosting of containers on several hosts and managing them.
+
+ex load balancing within the containers
+start a container when one container fails
+enable networking between containers shared across multiple hosts
+
+some container orchestration solutions are docker swarm and
+and kubernetes..docker swarm is a lot easy to setup but lacks a lot
+of advanced auto scaling features
+
+kubernetes is difficult to setup but contains a lot of advanced
+features
+
+with docker swarm u can connect multiple hosts as a single cluster
+
+docker swarm will take care of deploy services on these multiple
+hosts
+
+to get started with docker swarm u need to install docker on multiple
+hosts and assign one of the hosts as managers and the other hosts
+would become slaves
+
+u need to run docker swarm init on the manager host and it 
+will give
+u a command docker swarm join --token <token> that u need to run on other hosts to make them a part
+of the cluster
+
+the other worker hosts are also referrd to as nodes
+
+one of the main components of docker swarm orchestrator is docker 
+service which is also used to create multiple instances of a 
+container running on multiple hostss
+
+docker service create --replicas imagename
+
+dokcker service create has to be run on manager node and 
+is similar
+to docker run command so u could pass argument lyk --port 
+to docker
+service create as well
+
+with docker run command u r able to run an instance of application
+quiet easily. with kubernetes u can run 1000 instances of an
+application quiet easily.. U can also set up kubernetes to increase
+the instances of the container depending on the load. kubernetes also
+allows u to update an application hosted one by one host.. it also
+is easy to roll back the app if something fails
+
+A cluster is a set of nodes grouped together
+
+When u install kubernetes on a system ur installing the following
+components:-
+1.api server- it allows command line tools to communicate with
+the kubernetes sytem
+2.etcd- it contains data in key value pair regarding the various 
+nodes involved
+3.scheduler is responsible for running containers across various
+nodes.
+4.Controller is the one that determines if a node has failed and 
+which node the container has to be run
+5.container runtime-the tool that actually runs the container
+6.kubelet is installed on the nodes and is responsible for ensuring
+commands are running on the node
+
+kubectl is the kubernetes cli used to create and manage nodes on the
+cluster
+
+kubectl run is used to run application on cluster
+kubectl cluster info to get info about the cluster
+kubectl get nodes list all nodes part of cluster
+
+
+features

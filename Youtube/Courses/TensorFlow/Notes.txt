@@ -1,0 +1,239 @@
+AI came into existence when humans started
+thinking can computer think??
+
+wn u play a game with computer that is AI
+
+computer is stimulating a human effort
+
+In AI we give a predefined rules n data to
+the computer and the computer applies those
+rules to the data n comes out with the
+output
+
+In case of ML which is a part of AI, rules
+are set by the computer. we give it input
+and output data and it tries to set a rule
+which it applies to next input that we
+give and try to figure out the output
+
+Neural networks is a type of ML which has
+to go through multiple layers to reach at
+the output whereas ML has nly one input layer
+to reach at the output
+
+neural networks are not modelled on the brain
+
+an ex-
+below is the list of grades received by
+students in midterm1,midterm2 and final
+
+midterm1   midterm2  final
+70         40         90
+60         50         60
+30         10         50
+
+The problem here is to predict any of the
+above colun when we have the other two
+columns provided to us
+
+In ML we have terms lyk features and label
+features represent the inputs that we provide
+and label refers to the output that we wish
+to receive..
+
+17.11
+
+wn we feed features in to a model we get 
+label
+
+Diffrent types of machine learning:-
+1.Supervised Learning-- wn u have both feautes
+and labels in data u need to provide it to a
+model and it comes us with a set of rules.
+so next tym u would nly provide it with
+features and it would appy those rules and
+predict an output. most common type of
+learning in use today
+
+2.Unsupervised Learning:- here u only have
+features or input and u want the model to
+predict the output for u. ex suppose we have
+a lot of data then we want the model to group
+the diffrent data into various groups n next
+tym wn we give a input it should be able 
+to predict to which group the data would 
+belong to
+
+3.Reinforcement Learning:-we have an agent,
+a environment n a reward.. a reward is given
+to the agent upon moving correctly and
+negative reward wn doing wrongly so it rememb
+ers on doing what it gets what reward n dn
+moves to get positive rewards
+
+Tensorflow is an open soource platform which
+provides us a lot of machine learning librari
+es which u can use to create models without
+going much deep into maths which is normally
+required in machine learning
+
+Tensorflow has two main components:-
+1.Graphs-- wn we write any code in tensorflow
+dn it creates a graph for us.. wn we mention
+a variable in code dn that variable is added
+to the graph. suppose we mention that one 
+variable is the sum of two other variables
+dn dat expression is maintained in the graph
+
+2.Sessions--it allows us to execute the graph
+in parts
+
+For hands on u can use google collaboratory
+which is a open source jupyter on cloud
+U have to create a notebook n use it
+
+it is called notebook cos nt nly u can put
+codes bt also notes in there
+
+in a notebook click on code+ and then u also
+hv a run button to run ur code
+
+print("hello")
+
+def func(h):
+    print(h)
+
+func("hello")
+
+in collboratory if u need to use any module
+u can simply import it.. U wont have to insta
+ll it first
+
+To install tensorflow on ur local u can use
+pip:-
+pip install tensorflow
+
+google collba has multiple version of tensorfl
+ow available so nly in the case wn ur using
+tensorflow in collba u hv to mention which
+version u want to use
+
+%tensorflow_version 2.x
+import tensorflow as tf
+print(tf.version)
+
+if u gt verison as 1.sm then u have to runtime
+dn restart
+
+Tensorflow consists of tensors.. each tensor
+has a datatype n a shape
+
+datatypes include float32,int32,string etc
+
+U create a tensor using the following syntax:
+tensorname=tf.Variable(value,datatype)
+
+ex-
+string=tf.Variable("hello",tf.string)
+number=tf.Variable(32,tf.int32)
+
+a scalar means one value n a vector means
+more than one value or d
+
+ranks or degree is the num of dimensions in
+the tensor..
+above ones are 0 degree tensors
+
+an array which a single array is 1d tensor
+
+an array of arrays is a multi dimension tensor
+
+rank1_tensor=tf.Variable(['anil','sunil'],
+tyf.string)
+
+rank2_tensor=tf.Variable([['anil,sunil],[
+tapan,nirmal]],tf.string)
+
+find rank of a tensor using:-
+tf.rank(tensorname);
+numpy attribute would give the rank
+
+shape is the number of elemnts in each dimens
+ion
+
+to get shape use tensorname.shape
+
+types of tensors:-
+variable
+constant
+
+only variable is mutable
+
+with tf.Session() as sess:
+   tensor.eval()
+
+Core machine learning algorithms:-
+there are a lot of algorithms.. below 4 are
+the basic ones
+
+1.Linear Regression:-
+given a set of points if we could draw a 
+straight line correlating the diffrent points
+what is linear regression
+
+In 2D a line is represented as y=mx+c,
+where c is the y intercept i.e where the line
+touches the y axis
+
+m is the slope
+
+In linear regression we fed up inputs into
+the model where we think the datapoints are
+correlated to each other linearly i.e for
+a set a increase in one would mean increase
+or descrease in another and that would be the
+same for most of the datapoints
+
+wn we feed this data the model tries to create
+a best fit line and next tym we give a input
+it uses that line to predict the output
+
+numpy allows us to to operations on large
+sets of arrays
+
+pandas is used to analyse large sets of data
+load them, cut off some columns etc
+
+matplotlib is used to visualize data in forms
+of charts and graphs
+
+A very important part of machine learning is
+data.. we sould have a good understanding
+of exploring,cleaning and selection of
+appropriate data
+
+we will use a titanic dataset which contains
+info of all the passengers on the ship
+
+In titanic dataset we have info abt the 
+passengers and if they survived and we will 
+try to predict if a new passenger would 
+have survived or not
+
+U can check code from tensorflow website also
+
+load data and store in a variable
+dftrain=pd.read_csv("csv file");
+
+dftrain.head() would give a minimal subset
+of the data loaded from csv
+
+to remove a specific column from our dataset
+we could do dftrain.pop('columnanme')
+
+1.27
+
+
+
+
+
